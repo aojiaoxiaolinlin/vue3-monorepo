@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": {
+    "name": "傲娇小霖霖",
+    "email": "1589861947@qq.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "one:dev": "pnpm --filter project_one dev",
+    "one:build": "pnpm --filter project_one build",
+    "app-one:dev": "pnpm --filter app-one dev",
+    "app-one:build": "pnpm --filter app-one build",
+    "stylelint:fix": "npx stylelint --fix **/*.{css,scss,vue,html} --ignore-path .stylelintignore",
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.10.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "postcss-html": "^1.7.0",
+    "stylelint": "^16.11.0",
+    "stylelint-config-recess-order": "^5.1.1",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard": "^36.0.1",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1",
+    "vue-tsc": "^2.1.10"
+  },
+  "packageManager": "pnpm@9.12.2"
+}

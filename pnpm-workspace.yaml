@@ -1,0 +1,7 @@
+packages:
+  # 所有应用包
+  - "apps/*"
+  # 所有基础工具包
+  - "packages/*"
+  # 所有组件包
+  - "components/*"

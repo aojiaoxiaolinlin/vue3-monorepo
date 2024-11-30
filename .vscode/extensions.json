@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "Vue.volar",
+    "hollowtree.vue-snippets",
+    "mikestead.dotenv",
+    "EditorConfig.EditorConfig",
+    "usernamehw.errorlens",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}
