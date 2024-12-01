@@ -1,18 +1,26 @@
 import request from "@lin/request";
+import { generateRSAKeyPair } from "#/utils/RsaUtil";
 
 enum ApiURL {
   PUBLIC_KEY = "/publicKey",
 }
 
-// 浏览器原生的加密 crypto 需要安全上下文（localhost / HTTPS)，是否使用有待评估，保险起见，还是第三方库吧
-// 参考：https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
+let backendKey: string;
+
+// 用于从后端获取RSA公钥
 export function getPublicKey() {
   request
     .get(ApiURL.PUBLIC_KEY)
     .then((res) => {
+      backendKey = res.data;
       console.log(res);
+      // 生成RSA密钥对
+      const { publicKey, privateKey } = generateRSAKeyPair();
+      console.log(publicKey);
+      console.log(privateKey);
     })
     .catch((err) => {
       console.error(err);
     });
 }
+
