@@ -5,3 +5,4 @@ packages:
   - "packages/*"
   # 所有组件包
   - "components/*"
+  - "common/*"

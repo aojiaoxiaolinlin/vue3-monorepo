@@ -10,8 +10,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "one:dev": "pnpm --filter project_one dev",
-    "one:build": "pnpm --filter project_one build",
     "app-one:dev": "pnpm --filter app-one dev",
     "app-one:build": "pnpm --filter app-one build",
     "stylelint:fix": "npx stylelint --fix **/*.{css,scss,vue,html} --ignore-path .stylelintignore",
@@ -20,6 +18,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.8",
+    "crypto-js": "^4.2.0",
+    "node-forge": "^1.3.1",
     "vue": "^3.5.13"
   },
   "devDependencies": {

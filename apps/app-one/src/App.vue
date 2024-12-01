@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
+import { getPublicKey } from "#/api";
 import HelloWorld from "#/components/HelloWorld.vue";
+
+onMounted(() => {
+  getPublicKey()
+});
 </script>
 
 <template>
