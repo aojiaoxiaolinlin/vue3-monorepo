@@ -1,6 +1,8 @@
 // 浏览器原生的加密 crypto 需要安全上下文（localhost / HTTPS)，是否使用有待评估，保险起见，还是第三方库吧
 // 参考：https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
 import CryptoJS from 'crypto-js';
+import JSEncrypt from 'jsencrypt';
+import JsRsaSign from 'jsrsasign';
 import Forge from 'node-forge';
 import type { EncryptInfo, EncryptResponse, RequestBody } from './RequestBody';
 
@@ -111,7 +113,7 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
 export function aesDecrypt(data: EncryptResponse): string {
   const aesKey = rsaDecrypt(data.e);
   const iv = rsaDecrypt(data.k);
-  const decrypted = CryptoJS.AES.decrypt(data.data, aesKey, {
+  const decrypted = CryptoJS.AES.decrypt(data.data, CryptoJS.enc.Utf8.parse(aesKey), {
     iv: CryptoJS.enc.Utf8.parse(iv),
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,
@@ -129,11 +131,10 @@ export function sign(data: string): string {
 
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
-  md.update(data);
-  console.log(Forge.util.encode64(md.digest().getBytes()));
+  md.update(data, 'utf8');
   // 使用 RSA 私钥进行签名
   const signature = privateKey.sign(md);
-
+  console.log("signature", Forge.util.bytesToHex(signature));
   // 返回 base64 编码的签名
   return Forge.util.encode64(signature);
 }
@@ -144,13 +145,23 @@ export function sign(data: string): string {
  */
 export function verify(sign: string, data: string): boolean {
   const publicKey = Forge.pki.publicKeyFromPem(backendPublicKey);
-
+  console.log(sign)
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
-  md.update(data);
+  md.update(data, 'utf8');
+  console.log(md.digest().toHex());
 
   // 使用 RSA 公钥进行验证
-  return publicKey.verify(md.digest().getBytes(), Forge.util.decode64(sign));
+  return publicKey.verify(md.digest().toHex(), Forge.util.hexToBytes(sign));
+
+  // const key = JsRsaSign.KEYUTIL.getKey(backendPublicKey);
+  // const signature = new JsRsaSign.KJUR.crypto.Signature({
+  //   alg: "SHA256withRSA",
+  // });
+  // signature.init(key);
+  // signature.updateString(data);
+  // // 需要将Base64进制签名字符串转换成16进制字符串
+  // return signature.verify(JsRsaSign.b64tohex(sign));
 }
 
 

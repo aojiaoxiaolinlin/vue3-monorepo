@@ -1,5 +1,5 @@
 import request from "@lin/request";
-import { aesDecrypt, aesEncrypt } from "#/utils/RsaUtil";
+import { aesDecrypt, aesEncrypt, verify } from "#/utils/RsaUtil";
 
 enum ApiURL {
   PUBLIC_KEY = "/publicKey",
@@ -41,5 +41,6 @@ export function getTestData<T extends Record<string, unknown>>(params: T) {
     console.log(res.data.data);
     const decryptData = aesDecrypt(res.data.data);
     console.log(decryptData);
+    console.log(verify(res.data.data.s, res.data.data.timestamp.toString()));
   });
 }
