@@ -1,3 +1,6 @@
+export * from './utils/RequestBody';
+export * from './utils/RsaUtil';
+
 import axios from 'axios';
 
 // TODO: 需要更加完美的配置

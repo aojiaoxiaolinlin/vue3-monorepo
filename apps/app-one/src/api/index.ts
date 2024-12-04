@@ -1,8 +1,8 @@
-import request from "@lin/request";
-import { aesDecrypt, aesEncrypt } from "#/utils/RsaUtil";
+import request, { aesDecrypt, aesEncrypt } from "@lin/request";
 
 enum ApiURL {
   PUBLIC_KEY = "/publicKey",
+  ENCRYPT_TEST = "/publicKey/encrypt",
   ENCRYPT_DATA_TEST = "/yipay_activity/api/encryptDataTest",
 }
 
@@ -41,5 +41,12 @@ export function getTestData<T extends Record<string, unknown>>(params: T) {
     console.log(res.data.data);
     const decryptData = aesDecrypt(res.data.data);
     console.log(decryptData);
+  });
+}
+
+export function getEncryptData() {
+  request.post(ApiURL.ENCRYPT_TEST).then(async (res) => {
+    const decryptData = aesDecrypt(res.data.data);
+    console.log(JSON.parse(decryptData));
   });
 }

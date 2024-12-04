@@ -21,24 +21,12 @@ export function generateRSAKeyPair(): {
 // 固定后端公钥和前端私钥
 const backendPublicKey =
   `-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqCYVskeuHnsaheZiCUPAwk+iTI6Luu9AdP+5tR5sfYlJgPgTozObi1eEw7Bbg6sdAh4FsEplNzj60iCrrMfcGbjNIsYgislXRF5wL0CgQGx8kNKQCXvFaExc3ObDDdSzgrGgamHFNeRwPUV6qMqBgdudyfmVWjaLmI6La0nQhMwIDAQAB
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC2dk3a6mhwUozg6erryMzGm95sqiNASllCHsBEKv6bGCXAn2Rr0OtbYd72gty6rGMwJp3K3Jh0BffUd3Tr31EGfm4LoUMxYkPI3JN8r+sl+PZ9svb3liY0TJ2TWy2sUtI4UXGC/x79HgOfYJozrVkhXP7+2iLNwPzqltq2MW016QIDAQAB
 -----END PUBLIC KEY-----`;
 
 const frontendPrivateKey =
   `-----BEGIN RSA PRIVATE KEY-----
-MIICXQIBAAKBgQCBWwNewEy37qkmyTi/uMIsdin6lQRX7xj3s/dF+doO6Kzc0vXg
-3CSDcE9b21JV2ZBFSj9bFjafqgH6zBuiwUNrnqAKNijU6SrWSnH+8Of3VEMuWyfv
-Dgxx4G9K0fSPNyTnGGlr2KiyvFBWaUIB8j8J7inavfUzoHm3WG+L86INJQIDAQAB
-AoGAevNbHLCDO0CpnqgcPH8McN5PwFHrsvkcLjTsj6KQVSNrSulps7ULL7OMeq7Y
-b6k/q9yKo7VVbiVVhGCE1AoGXeZHtFLMBEDcXL0Km1LhOpqhLGn4i7LbDzN92oTv
-B+4WSdlY2R3mZHpIZpeIIecCo9dC8jFVthUBi63Y1qpgQHECQQC9uGvzRO8wSIat
-g5xxgepUOLh7b/6IXzgmZakQV6gSZX41YwkpJI1y817JpFkcSFVYHXKOW41tiQF0
-cUxATjTHAkEArovhKBPJhrXnSYYczs/Ps2eOiRUj4RCF9X36Dbe+Z2GPt29R8JDx
-DtqrpOGpGjLTlOtPVFdSSN78nMdO/eGqswJANewr6nnGTf/fH4QPvAdD1epFLPhY
-7OO7btZoJff0Ej58j6n1WZdFCM35O/CVTz+T2jaMb7+/w8kz+6eUF5bi0wJBAJ3l
-MbAEflhbMzfCl0rKmJQtSLZfJk7RmKzj4hEIt7hjfBOvIwugwj/ytjT4YfWuJtJf
-LysXtvrupMvaTG3D95sCQQCRf48ZZpUikBRrfp4QRsU3DS8lucIXI3jwrg9w8t+5
-BoHMGAtWrGLPeUroH+lyaJi+eSgEcm1fjtkA7tTaiimb
+MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALZ2TdrqaHBSjODp6uvIzMab3myqI0BKWUIewEQq/psYJcCfZGvQ61th3vaC3LqsYzAmncrcmHQF99R3dOvfUQZ+bguhQzFiQ8jck3yv6yX49n2y9veWJjRMnZNbLaxS0jhRcYL/Hv0eA59gmjOtWSFc/v7aIs3A/OqW2rYxbTXpAgMBAAECgYATFsGqql0qiiJhues5R3jP+vjcSLj3JggcTCQMhax9HJu/gRV0F6d12CGHy/VMhNI8NIAL3AQJmGG/DU/SyPpcjEA7APzeHIZru+cYLz3aTFD5N2eU34fhaYox2aiz/n6C8EhRf0RIiDyUFpCW6uF5uJmksHB+k96a5FoEb0EzkQJBAPlgZ0UVyAZuIp/8z6xghPG6I4Hd6pZAazbwjU22MXanlLoCfmQbnCm7O0+cqd7ya0Cpvr4LIqUTNLgca2q689kCQQC7Tu0u89QoSMUZGduhlJshyCu2DN9/6Ly+MKlBc9o7ORYkMiIme09GMBTUsDaFeJZq6jT8F45FWJkGGIWB2tiRAkAJ/BImcfjQSRiZz0WBYVvxUcKaMIhz+6BPUtJVijXwykTqLa9h0rkt8pEtXthuVMZ2kFVSxp9cfKhftsOWQmYBAkEAhROkS/GMUDqzXgwTEQ+l0DCJbcRjnlrajj3AYvJOoDkE1B6SSMjfH7zVb+7qLZXpOHjBwEF0ISy7O6t8Xy//IQJBAOEXyZsCs+rvaMmJmrXxFnrBy6/IYGv/pHvXP2NqxpZbEhF1w2pU7LLYqvdcOiAHQWEWO/zMQ78X7SDT8HxMyDI=
 -----END RSA PRIVATE KEY-----`;
 
 /**
@@ -54,7 +42,7 @@ export function rsaEncrypt(data: string): string {
 
 /**
  * RSA 私钥解密
- * @param {string} data 待解密的数据 AES KEY
+ * @param {string} data 待解密的数据
  * @returns {string} 解密后的数据
  */
 export function rsaDecrypt(data: string): string {
@@ -111,26 +99,29 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
 export function aesDecrypt(data: EncryptResponse): string {
   const aesKey = rsaDecrypt(data.e);
   const iv = rsaDecrypt(data.k);
-  const decrypted = CryptoJS.AES.decrypt(data.data, aesKey, {
+  const decryptedWordArray = CryptoJS.AES.decrypt(data.data, CryptoJS.enc.Utf8.parse(aesKey), {
     iv: CryptoJS.enc.Utf8.parse(iv),
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,
   });
-  return decrypted.toString(CryptoJS.enc.Utf8);
+
+  const decrypted = decryptedWordArray.toString(CryptoJS.enc.Utf8);
+  // 验签,TODO: 验签失败，不明白为什么, 无法使用，当个花瓶吧
+  verify(decrypted, data.s);
+  return decrypted;
 }
 
 /**
- * 使用前端私钥对数据签名
+ * 使用前端私钥对数据签名, 无法使用，前后端验签失败，不明白为什么
  * @param {string} data 待签名的数据
  * @returns {string} 签名后的数据
  */
-export function sign(data: string): string {
+function sign(data: string): string {
   const privateKey = Forge.pki.privateKeyFromPem(frontendPrivateKey);
 
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
   md.update(data);
-  console.log(Forge.util.encode64(md.digest().getBytes()));
   // 使用 RSA 私钥进行签名
   const signature = privateKey.sign(md);
 
@@ -139,18 +130,16 @@ export function sign(data: string): string {
 }
 
 /**
- * 验证签名
+ * 验证签名, 无法使用，前后端验签失败，不明白为什么
  * @param {string} sign 待验证的数据
  */
-export function verify(sign: string, data: string): boolean {
+function verify(data: string, sign: string): boolean {
   const publicKey = Forge.pki.publicKeyFromPem(backendPublicKey);
-
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
-  md.update(data);
-
+  md.update(data.toString(), 'utf8');
   // 使用 RSA 公钥进行验证
-  return publicKey.verify(md.digest().getBytes(), Forge.util.decode64(sign));
+  return publicKey.verify(md.digest().getBytes(), Forge.util.hexToBytes(sign));
 }
 
 
