@@ -1,22 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { getPublicKey, getTestData } from '#/api';
+import { getTestData } from '#/api';
 import HelloWorld from '#/components/HelloWorld.vue';
-import { sign, sortRequestData, verify } from './utils/RsaUtil';
-
 onMounted(() => {
   const data: { [key: string]: unknown } = {
-    z: '回复',
-    2: '2',
-    a: '哈哈',
-    1: '1',
-    c: 123,
-    b: Date.now().toString(),
-    hh: {
-      c: 123,
-      b: Date.now().toString(),
-    },
-    g: 'ggggggggggg',
+    name: 'test',
+    age: 18,
   };
   getTestData(data);
 });

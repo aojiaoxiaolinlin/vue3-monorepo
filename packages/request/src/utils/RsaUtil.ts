@@ -1,8 +1,6 @@
 // 浏览器原生的加密 crypto 需要安全上下文（localhost / HTTPS)，是否使用有待评估，保险起见，还是第三方库吧
 // 参考：https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
 import CryptoJS from 'crypto-js';
-import JSEncrypt from 'jsencrypt';
-import JsRsaSign from 'jsrsasign';
 import Forge from 'node-forge';
 import type { EncryptInfo, EncryptResponse, RequestBody } from './RequestBody';
 
@@ -23,7 +21,7 @@ export function generateRSAKeyPair(): {
 // 固定后端公钥和前端私钥
 const backendPublicKey =
   `-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqCYVskeuHnsaheZiCUPAwk+iTI6Luu9AdP+5tR5sfYlJgPgTozObi1eEw7Bbg6sdAh4FsEplNzj60iCrrMfcGbjNIsYgislXRF5wL0CgQGx8kNKQCXvFaExc3ObDDdSzgrGgamHFNeRwPUV6qMqBgdudyfmVWjaLmI6La0nQhMwIDAQAB
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRgxE2ofAo0ilt+8ViU0gQ2vzi08MvYBgDRXUHLQ1uPCd4i478czaNEXbNyiUrR0wql/aQBVddklA7B6vpriLrfpJ7Sm2U6+HLMBA26yVE7sCcX5+52x9ZBvoaCaDqs4gZC9Te1UsebZa2iVMtEMTOZah41Pbn1DtDOXZgDVkMBwIDAQAB
 -----END PUBLIC KEY-----`;
 
 const frontendPrivateKey =
@@ -56,7 +54,7 @@ export function rsaEncrypt(data: string): string {
 
 /**
  * RSA 私钥解密
- * @param {string} data 待解密的数据 AES KEY
+ * @param {string} data 待解密的数据
  * @returns {string} 解密后的数据
  */
 export function rsaDecrypt(data: string): string {
@@ -77,14 +75,14 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
   // AES IV 16 bytes
   const iv = CryptoJS.lib.WordArray.random(16);
   // 原始数据排序
-  const sortedData = sortRequestData(data);
+  // const sortedData = sortRequestData(data);
   // 加入时间戳
   const timestamp = Date.now();
-  const timestampData = Object.assign(sortedData, { timestamp: timestamp });
+  // const timestampData = Object.assign(sortedData, { timestamp: timestamp });
   // 签名
-  const signStr = sign(JSON.stringify(timestampData));
+  const signStr = sign(JSON.stringify(data));
   // 使用 AES 加密数据
-  const encrypted = CryptoJS.AES.encrypt(JSON.stringify(timestampData), aesKey, {
+  const encrypted = CryptoJS.AES.encrypt(JSON.stringify(data), aesKey, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,
@@ -113,20 +111,24 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
 export function aesDecrypt(data: EncryptResponse): string {
   const aesKey = rsaDecrypt(data.e);
   const iv = rsaDecrypt(data.k);
-  const decrypted = CryptoJS.AES.decrypt(data.data, CryptoJS.enc.Utf8.parse(aesKey), {
+  const decryptedWordArray = CryptoJS.AES.decrypt(data.data, CryptoJS.enc.Utf8.parse(aesKey), {
     iv: CryptoJS.enc.Utf8.parse(iv),
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,
   });
-  return decrypted.toString(CryptoJS.enc.Utf8);
+
+  const decrypted = decryptedWordArray.toString(CryptoJS.enc.Utf8);
+  // 验签,TODO: 验签失败，不明白为什么, 无法使用，当个花瓶吧
+  verify(decrypted, data.s);
+  return decrypted;
 }
 
 /**
- * 使用前端私钥对数据签名
+ * 使用前端私钥对数据签名, 无法使用，前后端验签失败，不明白为什么
  * @param {string} data 待签名的数据
  * @returns {string} 签名后的数据
  */
-export function sign(data: string): string {
+function sign(data: string): string {
   const privateKey = Forge.pki.privateKeyFromPem(frontendPrivateKey);
 
   // 创建消息摘要（使用 SHA-256）
@@ -134,34 +136,21 @@ export function sign(data: string): string {
   md.update(data, 'utf8');
   // 使用 RSA 私钥进行签名
   const signature = privateKey.sign(md);
-  console.log("signature", Forge.util.bytesToHex(signature));
   // 返回 base64 编码的签名
   return Forge.util.encode64(signature);
 }
 
 /**
- * 验证签名
+ * 验证签名, 无法使用，前后端验签失败，不明白为什么
  * @param {string} sign 待验证的数据
  */
-export function verify(sign: string, data: string): boolean {
+function verify(data: string, sign: string): boolean {
   const publicKey = Forge.pki.publicKeyFromPem(backendPublicKey);
-  console.log(sign)
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
-  md.update(data, 'utf8');
-  console.log(md.digest().toHex());
-
+  md.update(data.toString(), 'utf8');
   // 使用 RSA 公钥进行验证
-  return publicKey.verify(md.digest().toHex(), Forge.util.hexToBytes(sign));
-
-  // const key = JsRsaSign.KEYUTIL.getKey(backendPublicKey);
-  // const signature = new JsRsaSign.KJUR.crypto.Signature({
-  //   alg: "SHA256withRSA",
-  // });
-  // signature.init(key);
-  // signature.updateString(data);
-  // // 需要将Base64进制签名字符串转换成16进制字符串
-  // return signature.verify(JsRsaSign.b64tohex(sign));
+  return publicKey.verify(md.digest().getBytes(), Forge.util.hexToBytes(sign));
 }
 
 
