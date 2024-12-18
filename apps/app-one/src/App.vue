@@ -1,25 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { getPublicKey, getTestData } from '#/api';
+import { onMounted, ref } from 'vue';
 import HelloWorld from '#/components/HelloWorld.vue';
-import { sign, sortRequestData, verify } from './utils/RsaUtil';
+
+const list = ref([1, 2, 3, 4, 5]);
 
 onMounted(() => {
-  const data: { [key: string]: unknown } = {
-    z: '回复',
-    2: '2',
-    a: '哈哈',
-    1: '1',
-    c: 123,
-    b: Date.now().toString(),
-    hh: {
-      c: 123,
-      b: Date.now().toString(),
-    },
-    g: 'ggggggggggg',
-  };
-  getTestData(data);
+  console.log(import.meta.env);
 });
+
 </script>
 
 <template>
@@ -31,6 +19,7 @@ onMounted(() => {
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
+  {{ list }}
   <HelloWorld msg="Vite + Vue" />
 </template>
 

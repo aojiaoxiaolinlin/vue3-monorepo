@@ -78,6 +78,7 @@
     "**/yarn.lock": true
   },
   "cSpell.ignorePaths": [
+    "**/settings.json",
     "package-lock.json",
     "node_modules",
     "vscode-extension",
@@ -87,7 +88,10 @@
     ".vscode-insiders"
   ],
   "cSpell.words": [
+    "defu",
+    "jsrsasign",
     "stylelintignore",
-    "vite"
+    "vite",
+    "yipay"
   ],
 }

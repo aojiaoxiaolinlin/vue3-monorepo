@@ -1,22 +1,26 @@
-import request, { aesDecrypt, aesEncrypt } from "@lin/request";
+import { type EncryptResponse, type RequestBody, RequestClient, aesDecrypt, aesEncrypt } from "@lin/request";
 
 enum ApiURL {
   PUBLIC_KEY = "/publicKey",
   ENCRYPT_TEST = "/publicKey/encrypt",
-  ENCRYPT_DATA_TEST = "/yipay_activity/api/encryptDataTest",
+  ENCRYPT_DATA_TEST = "/encryptDataTest",
 }
 
 let backendKey: string;
+
+const request = new RequestClient({
+  baseURL: "http://localhost:8080",
+});
 
 /**
  * 获取后端公钥，用于动态RSA秘钥加密
  */
 export function getPublicKey() {
   request
-    .get(ApiURL.PUBLIC_KEY)
+    .get<string>(ApiURL.PUBLIC_KEY)
     .then((res) => {
       backendKey = res.data;
-      console.log(res);
+      console.log(backendKey);
       // 生成RSA密钥对
       // const { publicKey, privateKey } = generateRSAKeyPair();
     })
@@ -29,9 +33,9 @@ export function getPublicKey() {
  * 加密请求数据
  * @param {RequestBody} params 待加密的数据
  */
-export function getTestData<T extends Record<string, unknown>>(params: T) {
+export function getTestData<T extends RequestBody>(params: T) {
   const encryptInfo = aesEncrypt(params);
-  request.post(ApiURL.ENCRYPT_DATA_TEST, { data: encryptInfo.data, timestamp: encryptInfo.timestamp }, {
+  request.post<{ data: EncryptResponse, code: number }>(ApiURL.ENCRYPT_DATA_TEST, { data: encryptInfo.data, timestamp: encryptInfo.timestamp }, {
     headers: {
       'i': encryptInfo.k,
       'e': encryptInfo.e,
@@ -45,8 +49,21 @@ export function getTestData<T extends Record<string, unknown>>(params: T) {
 }
 
 export function getEncryptData() {
-  request.post(ApiURL.ENCRYPT_TEST).then(async (res) => {
+  request.post<{ data: EncryptResponse }>(ApiURL.ENCRYPT_TEST).then(async (res) => {
     const decryptData = aesDecrypt(res.data.data);
     console.log(JSON.parse(decryptData));
+  });
+}
+
+
+export function getData(params: Record<string, string | number>) {
+  request.getAndParams<string>('/api/test', params).then((res) => {
+    console.log(res.data);
+  });
+}
+
+export function getDataWithPaths(paths: Record<string, string | number>) {
+  request.getAndPaths<string>('/api/test/{id}', paths).then((res) => {
+    console.log(res.data);
   });
 }
