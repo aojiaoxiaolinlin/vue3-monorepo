@@ -1,33 +1,23 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { getTestData } from '#/api';
 import HelloWorld from '#/components/HelloWorld.vue';
-onMounted(() => {
-  const data: { [key: string]: unknown } = {
-    name: 'test',
-    age: 18,
-  };
-  getTestData(data);
-});
+
+const list = ref([1, 2, 3, 4, 5]);
+const key = import.meta.env.VITE_PUBLIC_KEY;
+console.log('env', import.meta.env);
+const value = ref('');
+onMounted(() => {});
 </script>
 
 <template>
+  <van-search v-model="value" placeholder="请输入搜索关键词" />
+  <div class="text-box">{{ list }}--{{ key }}</div>
   <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  transition: filter 300ms;
-  will-change: filter;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.text-box {
+  color: red;
+  word-wrap: break-word;
+  background-color: aliceblue;
 }
 </style>

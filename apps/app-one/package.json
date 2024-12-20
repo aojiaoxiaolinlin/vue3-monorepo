@@ -1,14 +1,23 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "app-one",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@lin/request": "workspace:^"
+    "@lin/request": "workspace:^",
+    "disable-devtool": "^0.3.8",
+    "vant": "^4.9.15"
+  },
+  "devDependencies": {
+    "@types/postcss-pxtorem": "^6.1.0",
+    "amfe-flexible": "^2.2.1",
+    "postcss-pxtorem": "^6.1.0",
+    "vite-plugin-bundle-obfuscator": "^1.4.0"
   }
 }

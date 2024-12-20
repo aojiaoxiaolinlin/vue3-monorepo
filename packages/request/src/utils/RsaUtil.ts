@@ -21,7 +21,10 @@ export function generateRSAKeyPair(): {
 // 固定后端公钥和前端私钥
 const backendPublicKey =
   `-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRgxE2ofAo0ilt+8ViU0gQ2vzi08MvYBgDRXUHLQ1uPCd4i478czaNEXbNyiUrR0wql/aQBVddklA7B6vpriLrfpJ7Sm2U6+HLMBA26yVE7sCcX5+52x9ZBvoaCaDqs4gZC9Te1UsebZa2iVMtEMTOZah41Pbn1DtDOXZgDVkMBwIDAQAB
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRgxE2ofAo0ilt+8ViU0gQ2vz
+i08MvYBgDRXUHLQ1uPCd4i478czaNEXbNyiUrR0wql/aQBVddklA7B6vpriLrfp
+J7Sm2U6+HLMBA26yVE7sCcX5+52x9ZBvoaCaDqs4gZC9Te1UsebZa2iVMtEMTOZ
+ah41Pbn1DtDOXZgDVkMBwIDAQAB
 -----END PUBLIC KEY-----`;
 
 const frontendPrivateKey =
@@ -80,9 +83,10 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
   const timestamp = Date.now();
   // const timestampData = Object.assign(sortedData, { timestamp: timestamp });
   // 签名
-  const signStr = sign(JSON.stringify(data));
+  const stringData = JSON.stringify(data);
+  const signStr = sign(stringData);
   // 使用 AES 加密数据
-  const encrypted = CryptoJS.AES.encrypt(JSON.stringify(data), aesKey, {
+  const encrypted = CryptoJS.AES.encrypt(stringData, aesKey, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import imageUrl from '#/assets/images/btn2.png';
+import { getAssetsFile } from '#/utils/load-images';
 
 defineProps<{ msg: string }>();
 const count = ref(0);
@@ -7,6 +8,14 @@ const count = ref(0);
 
 <template>
   <h1>{{ msg }}</h1>
+  <div>
+    <img
+      :src="count % 2 === 0 ? getAssetsFile('btn2.png') : getAssetsFile('z-pan-ding.png')"
+      alt=""
+      srcset=""
+    />
+  </div>
+  <img :src="imageUrl" alt="" srcset="" />
   <span>我是文字</span>
   <div class="box">我是Box</div>
   <div class="card">
@@ -37,7 +46,7 @@ const count = ref(0);
 }
 
 .box {
-  width: 10rem;
+  width: 100px;
   height: 100px;
   background-color: red;
 }
