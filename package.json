@@ -12,10 +12,9 @@
   "scripts": {
     "app-one:dev": "pnpm --filter app-one dev",
     "app-one:build": "pnpm --filter app-one build",
-    "stylelint:fix": "npx stylelint --fix **/*.{css,scss,vue,html} --ignore-path .stylelintignore",
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "you-gao-tou:dev": "pnpm --filter you-gao-tou dev",
+    "you-gao-tou:build": "pnpm --filter you-gao-tou build",
+    "stylelint:fix": "npx stylelint --fix **/*.{css,scss,vue,html} --ignore-path .stylelintignore"
   },
   "dependencies": {
     "axios": "^1.7.8",

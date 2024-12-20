@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { getTestData } from '#/api';
-import HelloWorld from '#/components/HelloWorld.vue';
-onMounted(() => {
-  const data: { [key: string]: unknown } = {
-    name: 'test',
-    age: 18,
-  };
-  getTestData(data);
-});
+import Home from '#/views/Home.vue';
+onMounted(() => {});
 </script>
 
 <template>
-  <HelloWorld msg="Vite + Vue" />
+  <Home />
 </template>
 
 <style scoped>

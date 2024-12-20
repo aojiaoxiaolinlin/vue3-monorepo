@@ -3,7 +3,7 @@ import request, { aesDecrypt, aesEncrypt } from "@lin/request";
 enum ApiURL {
   PUBLIC_KEY = "/publicKey",
   ENCRYPT_TEST = "/publicKey/encrypt",
-  ENCRYPT_DATA_TEST = "/yipay_activity/api/encryptDataTest",
+  ENCRYPT_DATA_TEST = "/yipay_activity/api/encrypt/encryptDataTest",
 }
 
 // let backendKey: string;
