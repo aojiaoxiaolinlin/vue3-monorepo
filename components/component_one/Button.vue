@@ -1,17 +1,11 @@
 <template>
-  <div>
-    <button @click="increment">Click me{{ count }}</button>
-  </div>
+  <button>
+    <slot />
+  </button>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 
-const count = ref(0)
-// 增加一个自增函数
-function increment() {
-  count.value++
-}
 </script>
 
 <style scoped>
