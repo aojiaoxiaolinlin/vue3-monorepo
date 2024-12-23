@@ -1,0 +1,13 @@
+{
+  "name": "@lin/utils",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "exports":{
+    ".": {
+      "default": "./src/index.ts"
+    }
+  }
+}

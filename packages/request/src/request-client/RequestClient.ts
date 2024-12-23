@@ -1,9 +1,17 @@
+import { bindMethods } from '@lin/utils';
 import axios from 'axios';
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios';
-import defu from 'defu';
+import defu from 'defu'; './modules/interceptor';
+import { aesEncrypt } from './RsaUtil';
+import { InterceptorManager } from './modules/interceptor';
+
 
 export class RequestClient {
   private readonly instance: AxiosInstance;
+
+  public addRequestInterceptor: InterceptorManager['addRequestInterceptor'];
+  public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
+
   constructor(options: CreateAxiosDefaults) {
 
     const defaultConfig: CreateAxiosDefaults = {
@@ -16,6 +24,15 @@ export class RequestClient {
     const { ...axiosConfig } = options;
     const requestConfig = defu(defaultConfig, axiosConfig);
     this.instance = axios.create(requestConfig);
+
+    bindMethods(this);
+
+    // 实例化拦截器管理器
+    const interceptorManager = new InterceptorManager(this.instance);
+    this.addRequestInterceptor =
+      interceptorManager.addRequestInterceptor.bind(interceptorManager);
+    this.addResponseInterceptor =
+      interceptorManager.addResponseInterceptor.bind(interceptorManager);
   }
 
   public async request<T>(url: string, config: AxiosRequestConfig): Promise<T> {
@@ -55,4 +72,30 @@ export class RequestClient {
     }
     return this.request<T>(urlWithPaths, { method: 'GET', ...config });
   }
+}
+
+/**
+ * 创建加密请求, 默认配置加密请求拦截器,
+ * 规定所有API请求数据加密一律使用{ data: json string, timestamp: number }的格式
+ */
+export const createEncryptRequest = (options: CreateAxiosDefaults) => {
+  const request = new RequestClient(options);
+
+  request.addRequestInterceptor({
+    fulfilled: (config) => {
+      if (config.data) {
+        const encryptData = aesEncrypt(config.data);
+        const { data, timestamp, k, e, s } = encryptData;
+        config.data = {
+          data,
+          timestamp,
+        };
+        Object.assign(config.headers, { i: k, e, s });
+      }
+      return config;
+    }
+  })
+
+  return request;
+
 }

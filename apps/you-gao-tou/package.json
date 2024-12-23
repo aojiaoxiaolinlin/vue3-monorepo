@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lin/component_one": "workspace:^",
     "@lin/request": "workspace:^"
   }
 }

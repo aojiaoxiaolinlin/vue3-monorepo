@@ -1,4 +1,4 @@
-import { type EncryptResponse, type RequestBody, RequestClient, aesDecrypt, aesEncrypt } from "@lin/request";
+import { type EncryptResponseBody, type RequestBody, RequestClient, aesDecrypt, aesEncrypt } from "@lin/request";
 import { API_BASE_URL } from "configs";
 
 enum ApiURL {
@@ -36,7 +36,7 @@ export function getPublicKey() {
  */
 export function getTestData<T extends RequestBody>(params: T) {
   const encryptInfo = aesEncrypt(params);
-  request.post<{ data: EncryptResponse, code: number }>(ApiURL.ENCRYPT_DATA_TEST, { data: encryptInfo.data, timestamp: encryptInfo.timestamp }, {
+  request.post<{ data: EncryptResponseBody, code: number }>(ApiURL.ENCRYPT_DATA_TEST, { data: encryptInfo.data, timestamp: encryptInfo.timestamp }, {
     headers: {
       'i': encryptInfo.k,
       'e': encryptInfo.e,
@@ -50,7 +50,7 @@ export function getTestData<T extends RequestBody>(params: T) {
 }
 
 export function getEncryptData() {
-  request.post<{ data: EncryptResponse }>(ApiURL.ENCRYPT_TEST).then(async (res) => {
+  request.post<{ data: EncryptResponseBody }>(ApiURL.ENCRYPT_TEST).then(async (res) => {
     const decryptData = aesDecrypt(res.data.data);
     console.log(JSON.parse(decryptData));
   });

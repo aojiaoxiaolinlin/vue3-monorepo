@@ -2,7 +2,7 @@
 // 参考：https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
 import CryptoJS from 'crypto-js';
 import Forge from 'node-forge';
-import type { EncryptInfo, EncryptResponse, RequestBody } from './RequestBody';
+import type { EncryptInfo, EncryptResponseBody, RequestBody } from './RequestBody';
 
 /**
  *
@@ -112,7 +112,7 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
  * AES 解密
  * @param {string} data 待解密的数据
  */
-export function aesDecrypt(data: EncryptResponse): string {
+export function aesDecrypt(data: EncryptResponseBody): string {
   const aesKey = rsaDecrypt(data.e);
   const iv = rsaDecrypt(data.k);
   const decryptedWordArray = CryptoJS.AES.decrypt(data.data, CryptoJS.enc.Utf8.parse(aesKey), {

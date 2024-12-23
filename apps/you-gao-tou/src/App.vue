@@ -1,26 +1,34 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import Home from '#/views/Home.vue';
-onMounted(() => {});
+import { Button, MyModal, ShowMessage } from '@lin/component_one';
+import { getGameCountApi } from '#/api/test';
+import HelloWorld from '#/components/HelloWorld.vue';
+
+const list = ref([1, 2, 3, 4, 5]);
+const key = import.meta.env.VITE_PUBLIC_KEY;
+console.log('env', import.meta.env);
+const value = ref('');
+const isShow = ref(false);
+getGameCountApi()
+function showMessage() {
+  ShowMessage('命令式组件', () => {
+    console.log('关闭');
+  });
+}
 </script>
 
 <template>
-  <Home />
+  <van-search v-model="value" placeholder="请输入搜索关键词" />
+  <Button @click="isShow = true">打开Modal组件</Button>
+  <Button @click="showMessage">打开Message组件</Button>
+  <div class="text-box">{{ list }}--{{ key }}</div>
+  <MyModal v-model:isShow="isShow" message="Hello, World!" @onClose="console.log('close')" />
+  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  transition: filter 300ms;
-  will-change: filter;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.text-box {
+  color: red;
+  word-wrap: break-word;
+  background-color: aliceblue;
 }
 </style>

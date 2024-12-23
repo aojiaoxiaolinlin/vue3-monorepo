@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Button, MyModal, ShowMessage } from '@lin/component_one';
+import { getGameCountApi } from '#/api/test';
 import HelloWorld from '#/components/HelloWorld.vue';
 
 const list = ref([1, 2, 3, 4, 5]);
@@ -7,7 +8,7 @@ const key = import.meta.env.VITE_PUBLIC_KEY;
 console.log('env', import.meta.env);
 const value = ref('');
 const isShow = ref(false);
-
+getGameCountApi()
 function showMessage() {
   ShowMessage('命令式组件', () => {
     console.log('关闭');

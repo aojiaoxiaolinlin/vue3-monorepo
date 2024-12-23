@@ -97,6 +97,7 @@
     "unplugin",
     "vite",
     "vueuse",
-    "yipay"
+    "yipay",
+    "yipaysc"
   ],
 }

@@ -11,14 +11,6 @@
   },
   "dependencies": {
     "@lin/component_one": "workspace:^",
-    "@lin/request": "workspace:^",
-    "disable-devtool": "^0.3.8",
-    "vant": "^4.9.15"
-  },
-  "devDependencies": {
-    "@types/postcss-pxtorem": "^6.1.0",
-    "amfe-flexible": "^2.2.1",
-    "postcss-pxtorem": "^6.1.0",
-    "vite-plugin-bundle-obfuscator": "^1.4.0"
+    "@lin/request": "workspace:^"
   }
 }
