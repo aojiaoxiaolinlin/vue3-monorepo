@@ -1,8 +1,10 @@
 packages:
   # 所有应用包
-  - "apps/*"
+  - 'apps/*'
   # 所有基础工具包
-  - "packages/*"
+  - 'packages/*'
   # 所有组件包
-  - "components/*"
-  - "common/*"
+  - 'components/*'
+  # 所有内部工具包
+  - 'internal/*'
+  - 'common/*'

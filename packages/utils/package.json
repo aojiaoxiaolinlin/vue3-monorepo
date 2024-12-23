@@ -5,9 +5,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "exports":{
+  "exports": {
     ".": {
       "default": "./src/index.ts"
     }
+  },
+  "devDependencies": {
+    "@lin/tsconfig": "workspace:^"
   }
 }

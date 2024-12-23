@@ -1,34 +1,14 @@
 <script setup lang="ts">
-import { Button, MyModal, ShowMessage } from '@lin/component_one';
-import { getGameCountApi } from '#/api/test';
-import HelloWorld from '#/components/HelloWorld.vue';
+import { wxLoginGetUserInfo } from '@lin/utils';
+import { getGameCountApi } from '#/api';
 
-const list = ref([1, 2, 3, 4, 5]);
-const key = import.meta.env.VITE_PUBLIC_KEY;
-console.log('env', import.meta.env);
-const value = ref('');
-const isShow = ref(false);
 getGameCountApi()
-function showMessage() {
-  ShowMessage('命令式组件', () => {
-    console.log('关闭');
-  });
-}
+const userInfo = wxLoginGetUserInfo("KXLZAQPCsU7zhpLXVgUFstfqEXR6BS%2BaYUT7Mks0EJAG71njSF%2BQH7HJFi8P/r4K9%2B1HWfrGICm5ryCEoyv7NLjQiUW%2BkdTXOseXLgq5m7eAdquxBN6tIzF1X4mYBTt6JGlamiESsFG6%2BM/JKLXvRkpcRpByYevZaBBy3ffH0RHIAfOmHNMHA5MXwPHx0ioDa2G7ABtKHmkYZJz4XLrkpeYTazTCZhOS/RmeqO1BkrUEWWW%2BSK5sl2gu3GvP/HPHK8Dhcvf/xrVr0ePn7rHB7YmRnrMuzWzewOB6hs4l09/v77hFInW1sSyrhG3A0RlKq%2BmI1VwGl2rw7nJyynA10rBiyQWP0HM2/uRP5IiyOQY=")
+console.log(userInfo)
 </script>
 
 <template>
-  <van-search v-model="value" placeholder="请输入搜索关键词" />
-  <Button @click="isShow = true">打开Modal组件</Button>
-  <Button @click="showMessage">打开Message组件</Button>
-  <div class="text-box">{{ list }}--{{ key }}</div>
-  <MyModal v-model:isShow="isShow" message="Hello, World!" @onClose="console.log('close')" />
-  <HelloWorld msg="Vite + Vue" />
+  <div>
+    <h1>四川方言</h1>
+  </div>
 </template>
-
-<style scoped>
-.text-box {
-  color: red;
-  word-wrap: break-word;
-  background-color: aliceblue;
-}
-</style>

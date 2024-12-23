@@ -1,0 +1,13 @@
+{
+  "name": "@lin/tsconfig",
+  "version": "1.0.0",
+  "description": "ts 基础配置",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "files": [
+    "base.json",
+    "library.json"
+  ]
+}

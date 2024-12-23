@@ -11,5 +11,8 @@
   "dependencies": {
     "@lin/component_one": "workspace:^",
     "@lin/request": "workspace:^"
+  },
+  "devDependencies": {
+    "@lin/utils": "workspace:^"
   }
 }

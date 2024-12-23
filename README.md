@@ -3,7 +3,6 @@
 ## 目录结构
 
 - "apps/\*" 所有应用包
-
 - "packages/\*" 所有基础工具包
 - "components/\*" 所有组件包
 - "common/\*" 暂未定义
