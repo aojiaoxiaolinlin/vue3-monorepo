@@ -13,6 +13,10 @@
     }
   },
   "dependencies": {
-    "@lin/utils": "workspace:^"
+    "@lin/utils": "workspace:^",
+    "axios": "catalog:",
+    "crypto-js": "catalog:",
+    "defu": "catalog:",
+    "node-forge": "catalog:"
   }
 }

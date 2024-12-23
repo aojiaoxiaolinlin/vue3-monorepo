@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@lin/component_one": "workspace:^",
-    "@lin/request": "workspace:^"
+    "@lin/request": "workspace:^",
+    "disable-devtool": "catalog:",
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@lin/utils": "workspace:^"
