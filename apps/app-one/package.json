@@ -12,11 +12,6 @@
   },
   "dependencies": {
     "@lin/component_one": "workspace:^",
-    "@lin/request": "workspace:^",
-    "@vueuse/rxjs": "catalog:",
-    "disable-devtool": "catalog:",
-    "rxjs": "catalog:",
-    "vue": "catalog:",
-    "vant": "catalog:"
+    "@lin/request": "workspace:^"
   }
 }
