@@ -7,7 +7,7 @@
 - "components/\*" 所有组件包
 - "common/\*" 暂未定义
 
-## 用法
+## 基本用法
 
 ```bash
 # 在 workspace 上添加依赖
@@ -23,6 +23,13 @@ pnpm add <package-name>
 # "<package-name>:dev": "pnpm --filter <package-name> dev",
 # 例：
 "app-one:dev": "pnpm --filter app-one dev",
+```
+
+## Turbo加速工具用法
+
+```bash
+# 该命令会同时运行build和check-types，所有包都会被检查
+pnpm turbo build check-types
 ```
 
 其他功能使用与普通包一致
