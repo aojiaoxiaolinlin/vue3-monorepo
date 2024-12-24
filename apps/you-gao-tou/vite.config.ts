@@ -14,7 +14,7 @@ const minimizeObfuscatorConfig = {
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/extend-application-data/yipaysc/activity_you_gao_tou/h5/',
+  base: '/extend-application-data/yipaysc/activity_you_gao_tou/h5/test',
   resolve: {
     alias: {
       '#': fileURLToPath(new URL('./src', import.meta.url)),

@@ -1,7 +1,7 @@
 FROM nginx:latest
 
-COPY ./apps/app-one/docker/nginx.conf /etc/nginx/nginx.conf
+COPY ./apps/you-gao-tou/docker/nginx.conf /etc/nginx/nginx.conf
 
-COPY ./apps/app-one/dist /usr/share/nginx/html
+COPY ./apps/you-gao-tou/dist /usr/share/nginx/html
 
 WORKDIR /usr/share/nginx/html
