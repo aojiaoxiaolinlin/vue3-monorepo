@@ -7,14 +7,15 @@ import Url from './url';
  * @param {string} key 密钥
  */
 function decodeKey(str = '', key = 'QYYB') {
-  let decodeObj = {};
+  let decodeObj = {
+    productNo: '',
+  };
   try {
     decodeObj = JSON.parse(SecurityUtil.aesDecrypt256(str, SecurityUtil.bpGenerateKey(key)));
   } catch (err) {
-    decodeObj = '';
     console.log('catch', err);
   }
-  console.log(`[url.js/123]: 加密{${key}}的解密: `, decodeObj);
+  console.log(`加密{${key}}的解密: `, decodeObj);
   return decodeObj;
 }
 

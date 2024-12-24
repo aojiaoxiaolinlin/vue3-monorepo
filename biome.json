@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["node_modules","GibberishAES.min.js"]
+		"ignore": ["node_modules","GibberishAES.min.js","dist"]
 	},
 	"formatter": {
 		"enabled": true,
