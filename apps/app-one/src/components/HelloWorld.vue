@@ -2,7 +2,7 @@
 import { fromEvent, useObservable } from '@vueuse/rxjs';
 import { type ObservableInput, concatAll, forkJoin, map, mergeMap, of, scan, take } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import imageUrl from '#/assets/images/btn2.png';
+import imageUrl from '#/assets/images/btn/btn2.png';
 import { getAssetsFile } from '#/utils/load-images';
 
 defineProps<{ msg: string }>();
@@ -30,12 +30,14 @@ const posts = useObservable(
     )),
   ),
 )
+
+console.log(getAssetsFile('/btn/btn2.png'));
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
   <div>
-    <img :src="count % 2 === 0 ? getAssetsFile('btn2.png') : getAssetsFile('z-pan-ding.png')" alt="" srcset="" />
+    <img :src="count % 2 === 0 ? getAssetsFile('/btn/btn2.png') : getAssetsFile('z-pan-ding.png')" alt="" srcset="" />
   </div>
   <img :src="imageUrl" alt="" srcset="" />
   <span>我是文字</span>

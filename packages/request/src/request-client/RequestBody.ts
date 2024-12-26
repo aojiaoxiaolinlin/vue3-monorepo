@@ -16,15 +16,15 @@ export type EncryptInfo = {
 // 原始请求数据类型
 export type RequestBody = Record<string, unknown> | string | number;
 
-export type EncryptResponseBody = {
-  data: string;
+export type EncryptResponseBody<T> = {
+  data: T;
   e: string;
   k: string;
   s: string;
   timestamp: number;
 }
 
-export type EncryptResponse = {
-  data: EncryptResponseBody;
+export type EncryptResponse<T = string> = {
+  data: EncryptResponseBody<T>;
   code: number;
 }

@@ -20,7 +20,7 @@ export function bindMethods<T extends object>(instance: T): void {
 }
 
 /**
- * 判断对象是否为{}、null、undefined、和所有属性对应的值都为空，该方法只判断一层，不递归判断，字符串会判断是否为空串
+ * 判断对象是否为null、undefined、{}以及对象属性值都为空，该方法只判断一层，不递归判断，字符串会判断是否为空串
  * 对象的属性只要有一个不为空，就返回false，说明对象不为空
  */
 export function objectIsEmpty(params: object): boolean {

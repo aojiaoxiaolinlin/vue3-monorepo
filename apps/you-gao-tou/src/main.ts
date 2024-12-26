@@ -10,4 +10,8 @@ import { disableDevtool } from '../configs';
 disableDevtool();
 // 导入状态管理
 const pinia = createPinia()
-createApp(App).use(router).use(pinia).mount('#app')
+// 导入Vant组件库
+import { Icon, Loading, Search } from 'vant';
+import 'vant/lib/index.css';
+
+createApp(App).use(pinia).use(router).use(Search).use(Icon).use(Loading).mount('#app')
