@@ -16,5 +16,13 @@ export const getAssetsCardListImage = (url: string) => {
 }
 
 export const getAssetCouponImage = (url: string) => {
-  return getAssetsGoodsImage(url).includes('undefined') ? new URL(`../assets/images/CouponList/${url}`, import.meta.url).href : getAssetsGoodsImage(url)
+  return getAssetsGoodsImage(url).includes('undefined') ? new URL(`../assets/images/coupon-list/${url}`, import.meta.url).href : getAssetsGoodsImage(url)
+}
+
+export const getAssetChuanPuImage = (url: string) => {
+  return new URL(`../assets/images/chuan-pu/${url}`, import.meta.url).href
+}
+
+export const getPublicAssetImage = (url: string) => {
+  return new URL(`/assets/${url}`, import.meta.url).href
 }

@@ -3,7 +3,7 @@
     <div class="top-box">
       <img :src="getAssetsCardListImage(`${category.baseName}top.png`)" alt="顶部框" />
     </div>
-    <div class="content" :style="`background-image: url(${getAssetsCardListImage(`${category.baseName}center.png`)});`
+    <div class="item-box" :style="`background-image: url(${getAssetsCardListImage(`${category.baseName}center.png`)});`
       ">
       <div class="item" v-for="item in category.list" :key="item.aid"
         @click="emit('userGetGoodsCouponOrToUse', item.aid);">
@@ -18,13 +18,15 @@
 
 <script setup lang="ts">
 import { getAssetsCardListImage, getAssetsGoodsImage } from '#/utils';
-import type { GoodsCategory } from '#/views/data';
+import type { GoodsCategory } from '#/views/common-data';
 
 withDefaults(defineProps<{
   category: GoodsCategory;
   isMb?: boolean;
+  useBaseNameCenterAndBottom?: boolean;
 }>(), {
   isMb: false,
+  useBaseNameCenterAndBottom: true,
 })
 const emit = defineEmits(['userGetGoodsCouponOrToUse']);
 
@@ -51,7 +53,7 @@ const emit = defineEmits(['userGetGoodsCouponOrToUse']);
   height: 100%;
 }
 
-.content {
+.item-box {
   width: 100%;
   height: auto;
   overflow: hidden;
@@ -60,7 +62,7 @@ const emit = defineEmits(['userGetGoodsCouponOrToUse']);
   background-size: 100% 100%;
 }
 
-.content .item {
+.item-box .item {
   width: 81%;
   height: auto;
   margin: 0 auto 10px;

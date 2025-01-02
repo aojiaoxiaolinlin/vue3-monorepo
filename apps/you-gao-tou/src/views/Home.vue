@@ -5,7 +5,7 @@
     <article>monorepo工程测试页面</article>
     <MessageTip v-model="isShowRuleInfo" title="游戏规则" :content="ruleContent" textAlign="left" />
     <!-- <DateTip v-model="isShow" :num="3" /> -->
-    <ShowPrizeTip v-model="isShow" :prizeInfo="{ prizeName: '一等奖', isPrize: true }" />
+    <!-- <ShowPrizeTip v-model="isShow" :prizeInfo="{ prizeName: '一等奖', isPrize: true }" /> -->
     <button @click="onShowMessage">弹窗Message</button>
     <button @click="isShowRuleInfo = !isShowRuleInfo">显示/隐藏规则</button>
     <button @click="onGoSeeMyCoupons">查看我的奖品</button>
@@ -24,7 +24,9 @@ import { getGoodsCouponStatus } from '#/composables/coupon-status';
 import { ShowMessageTip } from '#/composables/message-tip';
 import { useGameStore } from '#/stores';
 import { getUserPhoneApiInfo } from '#/utils';
-import { goodsCategories, ruleContent } from './data';
+import { goodsCategories, ruleContent } from './common-data';
+
+console.log(import.meta.env);
 
 const router = useRouter();
 const gameStore = useGameStore();
@@ -51,7 +53,7 @@ if (!objectIsEmpty(userPhoneInfo)) {
   console.log('用户信息为空');
 }
 const isShow = ref(true);
-const isShowRuleInfo = ref(false);
+const isShowRuleInfo = ref(true);
 
 const onShowMessage = () => {
   ShowMessageTip({

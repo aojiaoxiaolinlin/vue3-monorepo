@@ -16,7 +16,7 @@ export type EncryptInfo = {
 // 原始请求数据类型
 export type RequestBody = Record<string, unknown> | string | number;
 
-export type EncryptResponseBody<T> = {
+export type EncryptResponseBody<T = string | unknown> = {
   data: T;
   e: string;
   k: string;
@@ -27,4 +27,5 @@ export type EncryptResponseBody<T> = {
 export type EncryptResponse<T = string> = {
   data: EncryptResponseBody<T>;
   code: number;
+  msg: string;
 }

@@ -4,7 +4,11 @@ import MessageTip from "#/components/MessageTip.vue";
 type MessageTipProps = {
   title: string;
   content: string;
-  f?: () => void;
+  confirm?: {
+    btnImg: string;
+    callback: () => void;
+  };
+  close?: () => void;
 }
 
 /**
@@ -12,14 +16,20 @@ type MessageTipProps = {
  * @param messageTipProps 提示框的属性
  */
 export const ShowMessageTip = (messageTipProps: MessageTipProps) => {
-  const { title, content, f } = messageTipProps;
+  const { title, content, confirm, close } = messageTipProps;
   const div = document.createElement('div');
   document.body.appendChild(div);
   const vNode = createVNode(MessageTip, {
     title,
     content,
+    confirmBtn: confirm?.btnImg,
     onClose: () => {
-      f?.();
+      close?.();
+      render(null, div);
+      div.remove();
+    },
+    onConfirm: () => {
+      confirm?.callback();
       render(null, div);
       div.remove();
     }

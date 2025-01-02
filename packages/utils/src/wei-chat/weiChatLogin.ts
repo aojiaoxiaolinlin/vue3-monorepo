@@ -15,7 +15,7 @@ function decodeKey(str = '', key = 'QYYB') {
   } catch (err) {
     console.log('catch', err);
   }
-  console.log(`加密{${key}}的解密: `, decodeObj);
+  // console.log(`加密{${key}}的解密: `, decodeObj);
   return decodeObj;
 }
 

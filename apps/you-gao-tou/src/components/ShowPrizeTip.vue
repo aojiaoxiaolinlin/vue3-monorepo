@@ -8,7 +8,7 @@
         </div>
         <div class="goto-box">
           <div class="use-btn" @click="goto()">
-            <img src="../assets/images/goto_look.png" alt="" srcset="" />
+            <img src="../assets/images/sure.png" alt="" srcset="" />
           </div>
         </div>
       </template>

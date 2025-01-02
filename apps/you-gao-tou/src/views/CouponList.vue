@@ -11,7 +11,8 @@
   <div class="coupon-list">
     <van-loading class="loading" v-if="isLoading" />
     <div class="box">
-      <div v-for="(item, index) of couponData.list" :key="index" @click="userGetGoodsCouponOrToUse(item.aid)">
+      <div v-for="(item, index) of couponData.list" :key="index"
+        @click="userGetGoodsCouponOrToUse(item.aid, item.arriveStatus, item.resultOld)">
         <img :src="getAssetCouponImage(item.src)" :alt="item.name" />
       </div>
     </div>
@@ -19,20 +20,14 @@
 </template>
 
 <script setup lang="ts">
-import { getCouponsStatus } from '#/composables/coupon-status';
-import { useGameStore } from '#/stores';
+import { userGetCouponAgainApi } from '#/api';
+import { CouponArriveStatus, type ShowCouponInfo, getCouponsStatus } from '#/composables/coupon-status';
 import { getAssetCouponImage } from '#/utils';
-import { goodsCategories } from './data';
+import { goodsCategories } from './common-data';
 
-type ShowCouponInfo = {
-  aid: string;
-  src: string;
-  name: string;
-  url: string;
-};
+
 
 const router = useRouter();
-const gameStore = useGameStore();
 
 const value = ref('');
 const isLoading = ref(false);
@@ -45,7 +40,6 @@ const couponData = ref<{
 let coupons: ShowCouponInfo[] = [];
 
 const onSearch = () => {
-  console.log('搜索', value.value);
   if (value.value) {
     // 搜索
     couponData.value.list = coupons.filter((item) => item.name.includes(value.value));
@@ -55,8 +49,21 @@ const onSearch = () => {
   }
 };
 
-const userGetGoodsCouponOrToUse = (aid: string) => {
-  window.location.href = coupons.find((item) => item.aid === aid)?.url ?? '';
+const userGetGoodsCouponOrToUse = (aid: string, arriveStatus: CouponArriveStatus, resultOld: string) => {
+  switch (arriveStatus) {
+    case CouponArriveStatus.NOT_ARRIVE:
+      // 未到达
+      userGetCouponAgainApi(resultOld).then(res => {
+        console.log('res', res);
+      }).catch(err => {
+        console.log('err', err);
+      });
+      break;
+    case CouponArriveStatus.ARRIVE:
+      // 已到达
+      window.location.href = coupons.find((item) => item.aid === aid)?.url ?? '';
+      break;
+  }
 };
 
 onMounted(async () => {
@@ -64,7 +71,7 @@ onMounted(async () => {
   // 获取当前时间
   const start = Date.now();
   isLoading.value = true;
-  coupons = await getCouponsStatus(gameStore.getUserPhoneApiInfo, goodsCategories);
+  coupons = await getCouponsStatus(goodsCategories);
   isLoading.value = false;
   const end = Date.now();
   console.log('获取奖品列表耗时', end - start, 'ms');
@@ -99,7 +106,7 @@ onMounted(async () => {
   height: calc(100vh - 100px);
   padding-top: 10px;
   overflow: hidden scroll;
-  background-image: url('../assets/images/CouponList/bg.png');
+  background-image: url('../assets/images/coupon-list/bg.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 100%;

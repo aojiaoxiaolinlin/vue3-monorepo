@@ -1,6 +1,5 @@
-import type { UserPhoneApiInfo } from "#/api";
 import { CouponUseStatus, getCouponUseStatusApi, getGoodsCouponsApi, getUserCouponsApi } from "#/api";
-import { CouponGetStatus, type GoodsCategories, awardCoupons } from "#/views/data";
+import { CouponGetStatus, type GoodsCategories, awardCoupons } from "#/views/common-data";
 
 
 /**
@@ -9,8 +8,11 @@ import { CouponGetStatus, type GoodsCategories, awardCoupons } from "#/views/dat
  * @param userPhoneApiInfo 用户登录信息
  * @param goodsCategories 分类电商券
  */
-export const getGoodsCouponStatus = async (userPhoneApiInfo: UserPhoneApiInfo, goodsCategories: Ref<GoodsCategories>) => {
-  const goodsCouponsRes = (await getGoodsCouponsApi()).data.data.data;
+export const getGoodsCouponStatus = async (goodsCategories: Ref<GoodsCategories>) => {
+  const start = Date.now();
+  const [{ data: { data: { data: goodsCouponsRes } } }, { data: { data: { data: userCoupons } } }] = await Promise.all([getGoodsCouponsApi(), getUserCouponsApi()])
+  const end = Date.now();
+  console.log('获取商品优惠券耗时', end - start, 'ms');
   const goodsCoupons = goodsCouponsRes.map((item) => {
     const data = {
       aid: item.aid,
@@ -27,10 +29,7 @@ export const getGoodsCouponStatus = async (userPhoneApiInfo: UserPhoneApiInfo, g
       }
     }
   }
-
-  const userCoupons = (await getUserCouponsApi(userPhoneApiInfo)).data.data;
-
-  const userGoodsCoupons = userCoupons.data.map((item) => item.aid);
+  const userGoodsCoupons = userCoupons.map((item) => item.aid);
   for (const item of goodsCategories.value) {
     for (const coupon of item.list) {
       if (userGoodsCoupons.some((userCoupon) => userCoupon === coupon.aid)) {
@@ -62,25 +61,40 @@ export const getGoodsCouponSrc = (src: string, newStr: string) => {
   return srcArr.join('_');
 }
 
+export type ShowCouponInfo = {
+  aid: string;
+  src: string;
+  name: string;
+  url: string;
+  createTime: string;
+  arriveStatus: CouponArriveStatus;
+  resultOld: string;
+};
+
+export enum CouponArriveStatus {
+  ARRIVE = 'ARRIVE',
+  NOT_ARRIVE = 'NOT_ARRIVE',
+}
+
 /**
  * 用于奖品列表的优惠券状态
  *
  * @param userPhoneApiInfo 用户登录信息
  * @param goodsCategories 分类电商券
  */
-export const getCouponsStatus = async (userPhoneApiInfo: UserPhoneApiInfo, goodsCategories: Ref<GoodsCategories>) => {
+export const getCouponsStatus = async (goodsCategories: Ref<GoodsCategories>) => {
   // 提取goodsCategories中的aid和use属性
   // 本活动的优惠券
-  const coupons = goodsCategories.value
+  const coupons: Array<ShowCouponInfo> = goodsCategories.value
     .flatMap((item) => {
       return item.list.map((coupon) => {
         const { aid, src } = coupon;
-        return { aid, src: getGoodsCouponSrc(src, 'use.png'), createTime: '', url: coupon.url, name: coupon.name };
+        return { aid, src: getGoodsCouponSrc(src, 'use.png'), createTime: '', url: coupon.url, name: coupon.name, arriveStatus: CouponArriveStatus.ARRIVE, resultOld: '' };
       });
     })
     .flat();
   // 提取awardCoupons中的aid属性
-  const awardCouponAids = awardCoupons
+  const awardCouponAids: Array<ShowCouponInfo> = awardCoupons
     .filter((item) => item.aid !== '0')
     .map((item) => {
       return {
@@ -89,26 +103,35 @@ export const getCouponsStatus = async (userPhoneApiInfo: UserPhoneApiInfo, goods
         createTime: '',
         url: 'https://h5.bestpay.cn/subapps/mall-shopping-h5/index.html#/?channel=fs_sc',
         name: `${item.name}有搞头活动券`,
+        arriveStatus: CouponArriveStatus.ARRIVE,
+        resultOld: '',
       };
     });
   coupons.push(...awardCouponAids);
-  const userCoupons = (await getUserCouponsApi(userPhoneApiInfo)).data.data;
+  // const goodsStart = Date.now();
+  // const userCoupons = (await getUserCouponsApi(userPhoneApiInfo)).data.data;
+  // const goodsEnd = Date.now();
+  // console.log('获取用户优惠券耗时', goodsEnd - goodsStart, 'ms');
+  // const start = Date.now();
+  // // 这个请求很慢，大约需要1s
+  // const couponUseStatus = (await getCouponUseStatusApi(userPhoneApiInfo)).data.data;
+  // const end = Date.now();
+  // console.log('获取用户优惠券状态耗时', end - start, 'ms');
+  // 优化：使用Promise.all处理多个异步请求
   const start = Date.now();
-  // 这个请求很慢，大约需要1s
-  const couponUseStatus = (await getCouponUseStatusApi(userPhoneApiInfo)).data.data;
+  const [{ data: { data: userCoupons } }, { data: { data: couponUseStatus } }] = await Promise.all([getUserCouponsApi(), getCouponUseStatusApi()]);
   const end = Date.now();
-  console.log('获取用户优惠券状态耗时', end - start, 'ms');
-
-
+  console.log('获取用户优惠券和状态耗时', end - start, 'ms');
+  console.log('userCoupons', userCoupons.data);
   const res = userCoupons.data
     // 过滤出本活动的优惠券, 分开写是为了方便后续维护
     .filter((item) => coupons.some((coupon) => coupon.aid === item.aid))
-    // 过滤出未使用的优惠券
+    // 过滤出未使用和未到账的优惠券
     .filter((item) => {
       const target = couponUseStatus.data.find(
         (couponStatus) => couponStatus.resultOld === item.resultOld
       );
-      // 如果没有找到对应的优惠券使用状态, 则默认为未使用，这种是电商券
+      // 如果没有找到对应的优惠券使用状态, 两种可能：1. 未到账 2. 未使用
       if (!target) {
         return true;
       }
@@ -121,6 +144,13 @@ export const getCouponsStatus = async (userPhoneApiInfo: UserPhoneApiInfo, goods
       const target = coupons.find((coupon) => coupon.aid === item.aid);
       if (target) {
         target.createTime = item.createTime;
+        target.resultOld = item.resultOld;
+        // 如果未到账，则显示未到账的图片
+        if (item.resultCode !== "000000") {
+          console.log('未到账的优惠券', target);
+          target.src = getGoodsCouponSrc(target.src, 'not_arrive.png');
+          target.arriveStatus = CouponArriveStatus.NOT_ARRIVE;
+        }
         return target;
       }
       // 按照endTime从小到大排序

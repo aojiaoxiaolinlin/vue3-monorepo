@@ -4,8 +4,10 @@ import { useGameStore } from '#/stores';
 
 
 const routes: RouteRecordRaw[] = [
-  { path: '/', name: 'home', component: () => import('../views/Home.vue') },
+  // { path: '/', name: 'home', component: () => import('../views/Home.vue') },
+  { path: '/', name: 'home', component: () => import('../views/January/Home.vue') },
   { path: '/coupons', name: 'coupons', component: () => import('../views/CouponList.vue') },
+  { path: '/question', name: 'question', component: () => import('../views/January/Question.vue') },
 ]
 
 const router = createRouter({

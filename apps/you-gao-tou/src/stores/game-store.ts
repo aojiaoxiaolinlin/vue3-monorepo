@@ -1,6 +1,6 @@
 import { objectIsEmpty } from "@lin/utils";
 import { defineStore } from "pinia";
-import { type UserPhoneApiInfo, getGameCountApi } from "#/api";
+import { type UserPhoneApiInfo, decrementGameCountApi, getGameCountApi } from "#/api";
 import { ShowMessageTip } from "#/composables/message-tip";
 
 
@@ -10,13 +10,23 @@ export const useGameStore = defineStore('game', {
     userPhoneApiInfo: {} as UserPhoneApiInfo
   }),
   actions: {
-    initOrUpdateGameCount(userPhoneApiInfo: UserPhoneApiInfo) {
-      getGameCountApi(userPhoneApiInfo).then((res) => {
+    async initGameCount(userPhoneApiInfo: UserPhoneApiInfo) {
+      await getGameCountApi(userPhoneApiInfo).then((res) => {
         this.gameCount = res.data.data.data;
         console.log(this.gameCount);
       }).catch((err) => {
         console.log('处理错误', err);
       });
+    },
+    updateGameCount() {
+      getGameCountApi(this.userPhoneApiInfo).then((res) => {
+        this.gameCount = res.data.data.data;
+      }).catch((err) => {
+        console.log('处理错误', err);
+      })
+    },
+    async decrementGameCount() {
+      this.gameCount = (await decrementGameCountApi()).data.data.data
     },
     initUserPhoneApiInfo(userPhoneApiInfo: UserPhoneApiInfo) {
       this.userPhoneApiInfo = userPhoneApiInfo;

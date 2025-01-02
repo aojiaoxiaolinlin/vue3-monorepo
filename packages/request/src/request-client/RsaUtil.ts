@@ -78,13 +78,12 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
   // AES IV 16 bytes
   const iv = CryptoJS.lib.WordArray.random(16);
   // 原始数据排序
-  // const sortedData = sortRequestData(data);
+  const sortedData = sortRequestData(data);
   // 加入时间戳
   const timestamp = Date.now();
-  // const timestampData = Object.assign(sortedData, { timestamp: timestamp });
   // 签名
   const stringData = JSON.stringify(data);
-  const signStr = sign(stringData);
+  const signStr = sign(stringData, timestamp);
   // 使用 AES 加密数据
   const encrypted = CryptoJS.AES.encrypt(stringData, aesKey, {
     iv: iv,
@@ -115,7 +114,7 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
 export function aesDecrypt(data: EncryptResponseBody): string {
   const aesKey = rsaDecrypt(data.e);
   const iv = rsaDecrypt(data.k);
-  const decryptedWordArray = CryptoJS.AES.decrypt(data.data, CryptoJS.enc.Utf8.parse(aesKey), {
+  const decryptedWordArray = CryptoJS.AES.decrypt(data.data as string, CryptoJS.enc.Utf8.parse(aesKey), {
     iv: CryptoJS.enc.Utf8.parse(iv),
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,
@@ -123,38 +122,44 @@ export function aesDecrypt(data: EncryptResponseBody): string {
 
   const decrypted = decryptedWordArray.toString(CryptoJS.enc.Utf8);
   // 验签,TODO: 验签失败，不明白为什么, 无法使用，当个花瓶吧
-  verify(decrypted, data.s);
+  if (!verify(decrypted, data.s, data.timestamp)) {
+    throw new Error('验签失败');
+  };
   return decrypted;
 }
 
 /**
- * 使用前端私钥对数据签名, 无法使用，前后端验签失败，不明白为什么
+ * 使用前端私钥对数据签名, 无法使用，前后端验签失败，不明白为什么,
+ * RSA 私钥签名无法被后端验证，不明白为什么，改为使用摘要校验
  * @param {string} data 待签名的数据
  * @returns {string} 签名后的数据
  */
-function sign(data: string): string {
-  const privateKey = Forge.pki.privateKeyFromPem(frontendPrivateKey);
-
+function sign(data: string, timestamp: number): string {
+  // const privateKey = Forge.pki.privateKeyFromPem(frontendPrivateKey);
+  const timeOut = 30 * 60 * 1000;
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
-  md.update(data, 'utf8');
-  // 使用 RSA 私钥进行签名
-  const signature = privateKey.sign(md);
-  // 返回 base64 编码的签名
-  return Forge.util.encode64(signature);
+  md.update(`${data}{${timestamp + timeOut}}`, 'utf8');
+  // // 使用 RSA 私钥进行签名
+  // const signature = privateKey.sign(md);
+  // // 返回 base64 编码的签名
+  // return Forge.util.encode64(signature);
+  return md.digest().toHex();
 }
 
 /**
  * 验证签名, 无法使用，前后端验签失败，不明白为什么
  * @param {string} sign 待验证的数据
  */
-function verify(data: string, sign: string): boolean {
-  const publicKey = Forge.pki.publicKeyFromPem(backendPublicKey);
+function verify(data: string, sign: string, timestamp: number): boolean {
+  // const publicKey = Forge.pki.publicKeyFromPem(backendPublicKey);
+  const timeOut = 30 * 60 * 1000;
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
-  md.update(data.toString(), 'utf8');
+  md.update(`${data}{${timestamp + timeOut}}`, 'utf8');
   // 使用 RSA 公钥进行验证
-  return publicKey.verify(md.digest().getBytes(), Forge.util.hexToBytes(sign));
+  // return publicKey.verify(md.digest().getBytes(), Forge.util.hexToBytes(sign));
+  return md.digest().toHex() === sign;
 }
 
 
