@@ -67,6 +67,7 @@ const onConfirm = () => {
   left: 50%;
   width: 300px;
   height: auto;
+  padding: 20px 10px;
   background-image: url('../assets/images/chuan-pu/message_bg.png');
   background-size: 100% 100%;
   border-radius: 15px;
@@ -84,7 +85,7 @@ const onConfirm = () => {
 .title-box {
   width: 100%;
   height: 54px;
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 20px;
   font-weight: bold;
   line-height: 54px;
@@ -96,8 +97,9 @@ const onConfirm = () => {
   flex: 1;
   flex-direction: column;
   width: 80%;
-  height: auto;
-  margin: 6px auto 30px;
+
+  /* height: auto; */
+  margin: 6px auto 0;
   overflow: hidden;
   font-size: 12px;
   line-height: 1.5;
@@ -116,7 +118,7 @@ const onConfirm = () => {
 
 .is-sub-box .confirm-box {
   width: 60%;
-  margin: 0 auto;
+  margin: 20px auto 0;
 }
 
 .close-btn {

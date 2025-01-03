@@ -167,7 +167,7 @@ onMounted(() => {
 .question-content span {
   margin-right: 10px;
   margin-left: 10px;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
 }
 

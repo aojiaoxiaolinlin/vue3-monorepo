@@ -117,21 +117,21 @@ const onStartGame = async () => {
     //   return;
     // }
     // 3.库存判断
-    // let isStock = false;
-    // const couponsInfo = (await getCouponsStockApi()).data.data.data
-    // for (const item of couponsInfo) {
-    //   if (item.stockSurplus > 0) {
-    //     isStock = true;
-    //     break;
-    //   }
-    // }
-    // if (!isStock) {
-    //   ShowMessageTip({
-    //     title: '嗨！活动太火爆了！',
-    //     content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐活动时间：2025年1月14日我们不见不散',
-    //   });
-    //   return;
-    // }
+    let isStock = false;
+    const couponsInfo = (await getCouponsStockApi()).data.data.data
+    for (const item of couponsInfo) {
+      if (item.stockSurplus > 0) {
+        isStock = true;
+        break;
+      }
+    }
+    if (!isStock) {
+      ShowMessageTip({
+        title: '嗨！活动太火爆了！',
+        content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐活动时间：2025年1月14日我们不见不散',
+      });
+      return;
+    }
     ShowMessageTip({
       title: '准备好了吗？',
       content: '由系统随机出1题，<br/>答对即有机会获得奖品！',
