@@ -67,7 +67,6 @@ const onConfirm = () => {
   left: 50%;
   width: 300px;
   height: auto;
-  min-height: 300px;
   background-image: url('../assets/images/chuan-pu/message_bg.png');
   background-size: 100% 100%;
   border-radius: 15px;
@@ -79,7 +78,6 @@ const onConfirm = () => {
   flex-direction: column;
   width: 100%;
   height: auto;
-  min-height: 290px;
   overflow: hidden;
 }
 

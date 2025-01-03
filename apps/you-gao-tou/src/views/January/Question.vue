@@ -202,6 +202,7 @@ onMounted(() => {
   top: 50%;
   left: 50%;
   margin-top: 5px;
+  font-size: 16px;
   transform: translate(-50%, -50%);
 }
 

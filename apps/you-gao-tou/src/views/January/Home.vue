@@ -87,7 +87,6 @@ async function init() {
 
 // 5. 定义函数
 // 箭头函数定义的函数不具有提升性，因此必须在函数调用之前定义。否则会报错。必须严格遵守先定义后调用的原则。
-
 const onGoSeeMyCoupons = () => {
   if (gameStore.isLogin) {
     router.push({ path: '/coupons' });
@@ -104,8 +103,8 @@ const onStartGame = async () => {
     // 1.判断游戏次数
     if (gameStore.gameCount <= 0) {
       ShowMessageTip({
-        title: '嗨！小伙伴',
-        content: '你已经答对过题目了噢!<br/> 奖品在【活动首页-奖品列表】中查询下一场幸运翻翻乐活动时间2025年1月14日，别忘了来参与哟！',
+        title: '糟糕，游戏次数已用完',
+        content: '请期待下一场幸运翻翻乐活动吧！活动时间：2025年1月14日。'
       });
       return;
     }
@@ -118,21 +117,21 @@ const onStartGame = async () => {
     //   return;
     // }
     // 3.库存判断
-    let isStock = false;
-    const couponsInfo = (await getCouponsStockApi()).data.data.data
-    for (const item of couponsInfo) {
-      if (item.stockSurplus > 0) {
-        isStock = true;
-        break;
-      }
-    }
-    if (!isStock) {
-      ShowMessageTip({
-        title: '嗨！活动太火爆了！',
-        content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐活动时间：2025年1月14日我们不见不散',
-      });
-      return;
-    }
+    // let isStock = false;
+    // const couponsInfo = (await getCouponsStockApi()).data.data.data
+    // for (const item of couponsInfo) {
+    //   if (item.stockSurplus > 0) {
+    //     isStock = true;
+    //     break;
+    //   }
+    // }
+    // if (!isStock) {
+    //   ShowMessageTip({
+    //     title: '嗨！活动太火爆了！',
+    //     content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐活动时间：2025年1月14日我们不见不散',
+    //   });
+    //   return;
+    // }
     ShowMessageTip({
       title: '准备好了吗？',
       content: '由系统随机出1题，<br/>答对即有机会获得奖品！',
@@ -161,6 +160,8 @@ const userGetGoodsCouponOrToUse = (aid: string, url: string, status: CouponGetSt
           title: '领取成功',
           content: '请在【活动首页-奖品列表】中查询。',
         });
+        // 刷新状态
+        getGoodsCouponStatus(goodsCategories);
       }).catch(err => {
         console.log('err', err);
       });
@@ -269,7 +270,7 @@ const onJump = () => {
   line-height: 32px;
   color: #fff;
   text-align: center;
-  background-color: rgb(0 0 0 / 30%);
+  background-color: rgb(0 0 0 / 60%);
   border-radius: 5px;
 }
 
