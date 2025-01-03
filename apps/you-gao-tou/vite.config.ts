@@ -1,5 +1,6 @@
 import { URL, fileURLToPath } from 'node:url'
 import { unheadVueComposablesImports } from '@unhead/vue'
+import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import postCssPxToRem from 'postcss-pxtorem'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -25,18 +26,22 @@ export default defineConfig(({ mode }) => {
         '#': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
-    plugins: [vue(), vitePluginBundleObfuscator(minimizeObfuscatorConfig), AutoImport({
-
-      imports: [
-        // 插件预设支持导入的api
-        'vue',
-        'vue-router',
-        'pinia',
-        unheadVueComposablesImports
-        // 自定义导入的api
-      ],
-      dts: 'src/auto-imports.d.ts',
-    })],
+    plugins: [
+      vue(),
+      vitePluginBundleObfuscator(minimizeObfuscatorConfig),
+      AutoImport({
+        imports: [
+          // 插件预设支持导入的api
+          'vue',
+          'vue-router',
+          'pinia',
+          unheadVueComposablesImports
+          // 自定义导入的api
+        ],
+        dts: 'src/auto-imports.d.ts',
+      }),
+      legacy(),
+    ],
     // esbuild: {
     //   // 删除console
     //   drop: ['console']
