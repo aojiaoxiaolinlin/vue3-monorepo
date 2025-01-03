@@ -1,6 +1,5 @@
 import { URL, fileURLToPath } from 'node:url'
 import { unheadVueComposablesImports } from '@unhead/vue'
-import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import postCssPxToRem from 'postcss-pxtorem'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -40,7 +39,6 @@ export default defineConfig(({ mode }) => {
         ],
         dts: 'src/auto-imports.d.ts',
       }),
-      legacy(),
     ],
     // esbuild: {
     //   // 删除console

@@ -87,6 +87,7 @@ const onConfirm = () => {
   width: 100%;
   height: 54px;
   margin-top: 30px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 54px;
   text-align: center;
