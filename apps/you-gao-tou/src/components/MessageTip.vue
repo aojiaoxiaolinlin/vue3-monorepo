@@ -79,15 +79,14 @@ const onConfirm = () => {
   flex-direction: column;
   width: 100%;
   height: auto;
-  min-height: 300px;
+  min-height: 290px;
   overflow: hidden;
 }
 
 .title-box {
   width: 100%;
   height: 54px;
-  margin-top: 20px;
-  font-size: 30px;
+  margin-top: 30px;
   font-weight: bold;
   line-height: 54px;
   text-align: center;

@@ -16,7 +16,7 @@ export const ruleContent = `
  */
 export const awardCoupons = [
   {
-    aid: '8EF20C0233B7CF0661B023ABCD5B6DA9',
+    aid: 'BB3A2838F50C8925D13783E15F731B14',
     src: '5yuan.png',
     name: '满10元减5元',
   },
