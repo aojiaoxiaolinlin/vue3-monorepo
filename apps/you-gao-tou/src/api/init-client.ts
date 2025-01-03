@@ -34,7 +34,7 @@ encryptRequest.addResponseInterceptor<EncryptResponse<unknown>>({
     console.log('response intercept error', error);
     console.log(error.response);
     if (error instanceof AxiosError) {
-      // 服务器错误，
+      // 服务器错误，TODO: 下面这坨太长了，需要整理
       switch (error.status) {
         case 500:
         case 600: {
@@ -45,12 +45,26 @@ encryptRequest.addResponseInterceptor<EncryptResponse<unknown>>({
             const errorRes = data as { code: number, msg: string };
             errorMsg = errorRes.msg;
           }
+          // 无法准确定义错误信息，直接提示服务器错误
+          if (errorMsg?.includes("已结束")) {
+            errorMsg = "活动已结束";
+            const router = useRouter();
+            ShowMessageTip({
+              title: '嗨！活动已结束啦！',
+              content: errorMsg,
+              close: () => {
+                // 路由后退
+                router.back();
+              }
+            });
+            return Promise.reject(error);
+          }
           switch (errorMsg) {
             case '该渠道优惠券已抢光!': {
               const router = useRouter();
               ShowMessageTip({
                 title: '嗨！活动太火爆了！',
-                content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐<br />活动时间：2025年1月14日我们不见不散',
+                content: '很抱歉，本场活动奖品已抢光，<br />请期待下一场幸运翻翻乐活动时间：<br />2025年1月14日我们不见不散',
                 close: () => {
                   // 路由后退
                   router.back();

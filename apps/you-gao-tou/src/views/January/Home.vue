@@ -44,6 +44,7 @@ import { getGoodsCouponStatus } from '#/composables/coupon-status';
 import { ShowMessageTip } from '#/composables/message-tip';
 import { useGameStore } from '#/stores';
 import { getAssetChuanPuImage, getAssetsGoodsImage, getUserPhoneApiInfo } from '#/utils';
+import { isActivityDate } from '#/utils/date';
 import { CouponGetStatus, goodsCategories, ruleContent } from '../common-data';
 // 1. 定义页面配置
 useHead({
@@ -104,18 +105,14 @@ const onStartGame = async () => {
     if (gameStore.gameCount <= 0) {
       ShowMessageTip({
         title: '糟糕，游戏次数已用完',
-        content: '请期待下一场幸运翻翻乐活动吧！<br />活动时间：2025年1月14日。'
+        content: '请期待下一场幸运翻翻乐活动吧！<br />活动时间：2025年1月14日'
       });
       return;
     }
     // 2.日期判断，测试时注释掉
-    // if (!isActivityDate()) {
-    //   ShowMessageTip({
-    //     title: '本场活动已结束',
-    //     content: '敬请期待下一场幸运翻翻乐活动吧！<br/> 活动时间:2025年1月14 日',
-    //   });
-    //   return;
-    // }
+    if (!isActivityDate()) {
+      return;
+    }
     // 3.库存判断
     let isStock = false;
     const couponsInfo = (await getCouponsStockApi()).data.data.data
@@ -128,7 +125,7 @@ const onStartGame = async () => {
     if (!isStock) {
       ShowMessageTip({
         title: '嗨！活动太火爆了！',
-        content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐。<br />活动时间：2025年1月14日我们不见不散',
+        content: '很抱歉，本场活动奖品已抢光，<br />请期待下一场幸运翻翻乐活动时间：<br />2025年1月14日我们不见不散',
       });
       return;
     }
@@ -264,10 +261,10 @@ const onJump = () => {
 .my-coupons {
   position: absolute;
   right: 0;
-  width: 74px;
-  height: 30px;
-  font-size: 16px;
-  line-height: 32px;
+  width: 60px;
+  height: 28px;
+  font-size: 12px;
+  line-height: 30px;
   color: #fff;
   text-align: center;
   background-color: rgb(0 0 0 / 60%);
@@ -279,6 +276,6 @@ const onJump = () => {
 }
 
 .my-coupons {
-  top: 200px;
+  top: 190px;
 }
 </style>

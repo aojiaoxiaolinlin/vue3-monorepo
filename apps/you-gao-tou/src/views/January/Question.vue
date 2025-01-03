@@ -59,7 +59,7 @@ const onSelectOption = async (index: number) => {
       if (prizeAid === "0") {
         ShowMessageTip({
           title: '嗨！活动太火爆了！',
-          content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐。<br />活动时间：2025年1月14日我们不见不散',
+          content: '很抱歉，本场活动奖品已抢光，<br />请期待下一场幸运翻翻乐活动时间：<br />2025年1月14日我们不见不散',
           close: () => {
             router.back();
           }
@@ -97,7 +97,7 @@ const onSelectOption = async (index: number) => {
     if (gameStore.gameCount <= 0) {
       ShowMessageTip({
         title: '挑战失败',
-        content: '3次游戏机会已用完，下次再战，雄起！<br/>下一场活动将在2025年1月14日准时开启，记得来参加哟。',
+        content: '3次游戏机会已用完，下次再战，雄起！<br/>下一场活动将在2025年1月14日准时开启<br />记得来参加哟~',
         close: () => {
           router.go(-1);
         }

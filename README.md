@@ -23,9 +23,11 @@ pnpm add <package-name>
 # "<package-name>:dev": "pnpm --filter <package-name> dev",
 # 例：
 "app-one:dev": "pnpm --filter app-one dev",
+
+# 测试部署配置参考you-gao-tou package.json 脚本配置
 ```
 
-## Turbo加速工具用法
+## Turbo 加速工具用法
 
 ```bash
 # 该命令会同时运行build和check-types，所有包都会被检查

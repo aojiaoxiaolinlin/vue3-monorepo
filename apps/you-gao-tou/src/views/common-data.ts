@@ -18,12 +18,12 @@ export const awardCoupons = [
   {
     aid: 'BB3A2838F50C8925D13783E15F731B14',
     src: '5yuan.png',
-    name: '满10元减5元',
+    name: '5元话费充值券',
   },
   {
-    name: '满5元减3元',
+    name: '一张3元通用券',
     src: '3yuan.png',
-    aid: '81CD14050149D923A479E891F815D3CA',
+    aid: '9A538B90C8C9AE624700986D4EBBB065',
   },
   {
     name: '谢谢参与',
