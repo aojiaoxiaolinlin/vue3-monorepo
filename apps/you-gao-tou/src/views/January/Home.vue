@@ -104,7 +104,7 @@ const onStartGame = async () => {
     if (gameStore.gameCount <= 0) {
       ShowMessageTip({
         title: '糟糕，游戏次数已用完',
-        content: '请期待下一场幸运翻翻乐活动吧！活动时间：2025年1月14日。'
+        content: '请期待下一场幸运翻翻乐活动吧！<br />活动时间：2025年1月14日。'
       });
       return;
     }
@@ -128,7 +128,7 @@ const onStartGame = async () => {
     if (!isStock) {
       ShowMessageTip({
         title: '嗨！活动太火爆了！',
-        content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐活动时间：2025年1月14日我们不见不散',
+        content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐。<br />活动时间：2025年1月14日我们不见不散',
       });
       return;
     }

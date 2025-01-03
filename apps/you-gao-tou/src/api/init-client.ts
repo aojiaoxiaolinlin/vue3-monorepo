@@ -47,9 +47,14 @@ encryptRequest.addResponseInterceptor<EncryptResponse<unknown>>({
           }
           switch (errorMsg) {
             case '该渠道优惠券已抢光!': {
+              const router = useRouter();
               ShowMessageTip({
                 title: '嗨！活动太火爆了！',
-                content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐活动时间：2025年1月14日我们不见不散',
+                content: '很抱歉，本场活动奖品已抢光，<br />下一场幸运翻翻乐<br />活动时间：2025年1月14日我们不见不散',
+                close: () => {
+                  // 路由后退
+                  router.back();
+                }
               });
               break;
             }
