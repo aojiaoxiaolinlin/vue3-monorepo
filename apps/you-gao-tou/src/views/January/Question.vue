@@ -34,7 +34,7 @@ import { ShowMessageTip } from '#/composables/message-tip';
 import { useGameStore } from '#/stores';
 import { getAssetChuanPuImage } from '#/utils';
 import { awardCoupons } from '../common-data';
-import { useQuestion } from './data';
+import { tipText, useQuestion } from './data';
 
 const router = useRouter();
 const gameStore = useGameStore();
@@ -58,8 +58,8 @@ const onSelectOption = async (index: number) => {
       const prizeAid = res.data.data.data;
       if (prizeAid === "0") {
         ShowMessageTip({
-          title: '嗨！活动太火爆了！',
-          content: '很抱歉，本场活动奖品已抢光，<br />请期待下一场幸运翻翻乐活动时间：<br />2025年1月14日我们不见不散',
+          title: tipText.notStock.title,
+          content: tipText.notStock.content,
           close: () => {
             router.back();
           }

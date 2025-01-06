@@ -46,6 +46,7 @@ import { useGameStore } from '#/stores';
 import { getAssetChuanPuImage, getAssetsGoodsImage, getUserPhoneApiInfo } from '#/utils';
 import { isActivityDate } from '#/utils/date';
 import { CouponGetStatus, goodsCategories, ruleContent } from '../common-data';
+import { tipText } from './data';
 // 1. 定义页面配置
 useHead({
   title: '四川方言大挑战-检测是不是地道的四川人！'
@@ -54,8 +55,8 @@ useHead({
 // 2. 引入useXXX()
 const router = useRouter();
 const gameStore = useGameStore();
-const weiChatKey = useRouteQuery('key');
-const token = useRouteQuery('data');
+const weiChatKey = useRouteQuery<string>('key');
+const token = useRouteQuery<string>('data');
 
 // 3. 定义响应式变量，遵循就近使用原则
 const isShowRuleInfo = ref(false);
@@ -66,11 +67,11 @@ init();
 async function init() {
   let phone = '';
   if (weiChatKey.value) {
-    phone = wxLoginGetUserInfo(weiChatKey.value as string).productNo;
+    phone = wxLoginGetUserInfo(weiChatKey.value).productNo;
   }
   const userPhoneInfo = {
     phone,
-    token: token.value as string,
+    token: token.value,
   };
 
   if (!objectIsEmpty(userPhoneInfo)) {
@@ -78,7 +79,6 @@ async function init() {
     gameStore.initUserPhoneApiInfo(userPhoneApiInfo);
     await gameStore.initGameCount(userPhoneApiInfo);
     getGoodsCouponStatus(goodsCategories)
-
   } else {
     console.log('用户信息为空');
   }
@@ -124,8 +124,8 @@ const onStartGame = async () => {
     }
     if (!isStock) {
       ShowMessageTip({
-        title: '嗨！活动太火爆了！',
-        content: '很抱歉，本场活动奖品已抢光，<br />请期待下一场幸运翻翻乐活动时间：<br />2025年1月14日我们不见不散',
+        title: tipText.notStock.title,
+        content: tipText.notStock.content,
       });
       return;
     }

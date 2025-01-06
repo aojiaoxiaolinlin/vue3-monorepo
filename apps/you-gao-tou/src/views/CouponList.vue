@@ -20,20 +20,20 @@
 </template>
 
 <script setup lang="ts">
-import { userGetCouponAgainApi } from '#/api';
-import { CouponArriveStatus, type ShowCouponInfo, getCouponsStatus } from '#/composables/coupon-status';
-import { getAssetCouponImage } from '#/utils';
-import { goodsCategories } from './common-data';
-
-
+import { userGetCouponAgainApi } from "#/api";
+import {
+  CouponArriveStatus,
+  type ShowCouponInfo,
+  getCouponsStatus,
+} from "#/composables/coupon-status";
+import { getAssetCouponImage } from "#/utils";
+import { goodsCategories } from "./common-data";
 
 const router = useRouter();
 
-const value = ref('');
+const value = ref("");
 const isLoading = ref(false);
-const couponData = ref<{
-  list: ShowCouponInfo[];
-}>({
+const couponData = ref<{ list: ShowCouponInfo[] }>({
   list: [],
 });
 
@@ -49,34 +49,41 @@ const onSearch = () => {
   }
 };
 
-const userGetGoodsCouponOrToUse = (aid: string, arriveStatus: CouponArriveStatus, resultOld: string) => {
+const initCouponsStatus = async () => {
+  isLoading.value = true;
+  coupons = await getCouponsStatus(goodsCategories);
+  isLoading.value = false;
+  couponData.value.list = coupons;
+};
+
+const userGetGoodsCouponOrToUse = (
+  aid: string,
+  arriveStatus: CouponArriveStatus,
+  resultOld: string,
+) => {
   switch (arriveStatus) {
     case CouponArriveStatus.NOT_ARRIVE:
-      // 未到达
-      userGetCouponAgainApi(resultOld).then(res => {
-        console.log('res', res);
-      }).catch(err => {
-        console.log('err', err);
-      });
+      // 未到账
+      userGetCouponAgainApi(resultOld)
+        .then((res) => {
+          console.log("res", res);
+          // 更新奖品列表
+          initCouponsStatus();
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
       break;
     case CouponArriveStatus.ARRIVE:
-      // 已到达
-      window.location.href = coupons.find((item) => item.aid === aid)?.url ?? '';
+      // 已到账
+      window.location.href = coupons.find((item) => item.aid === aid)?.url ?? "";
       break;
   }
 };
 
 onMounted(async () => {
-  // 获取奖品列表
-  // 获取当前时间
-  const start = Date.now();
-  isLoading.value = true;
-  coupons = await getCouponsStatus(goodsCategories);
-  isLoading.value = false;
-  const end = Date.now();
-  console.log('获取奖品列表耗时', end - start, 'ms');
-  couponData.value.list = coupons;
-})
+  initCouponsStatus();
+});
 </script>
 
 <style scoped>
