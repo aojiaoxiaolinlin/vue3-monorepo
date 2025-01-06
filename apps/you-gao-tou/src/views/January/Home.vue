@@ -39,6 +39,7 @@ import { objectIsEmpty, wxLoginGetUserInfo } from '@lin/utils';
 import { useRouteQuery } from '@vueuse/router';
 import { getCouponsStockApi, userGetCouponApi } from '#/api';
 import ConfirmBtn from '#/assets/images/chuan-pu/confirm_btn.png';
+import GoToUseBtn from '#/assets/images/chuan-pu/goto_use_btn.png';
 import MessageTip from '#/components/MessageTip.vue';
 import { getGoodsCouponStatus } from '#/composables/coupon-status';
 import { ShowMessageTip } from '#/composables/message-tip';
@@ -110,9 +111,9 @@ const onStartGame = async () => {
       return;
     }
     // 2.日期判断，测试时注释掉
-    // if (!isActivityDate()) {
-    //   return;
-    // }
+    if (!isActivityDate()) {
+      return;
+    }
     // 3.库存判断
     let isStock = false;
     const couponsInfo = (await getCouponsStockApi()).data.data.data
@@ -151,14 +152,21 @@ const onStartGame = async () => {
 const userGetGoodsCouponOrToUse = (aid: string, url: string, status: CouponGetStatus) => {
   switch (status) {
     case CouponGetStatus.GET:
-      userGetCouponApi(aid).then(res => {
-        console.log('res', res.data);
+      userGetCouponApi(aid).then(_res => {
         ShowMessageTip({
           title: '领取成功',
           content: '请在【活动首页-奖品列表】中查询。',
+          confirm: {
+            btnImg: GoToUseBtn,
+            callback: () => {
+              router.push({ path: '/coupons' });
+            }
+          },
+          close: () => {
+            // 刷新状态
+            getGoodsCouponStatus(goodsCategories);
+          }
         });
-        // 刷新状态
-        getGoodsCouponStatus(goodsCategories);
       }).catch(err => {
         console.log('err', err);
       });

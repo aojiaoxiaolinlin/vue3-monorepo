@@ -61,7 +61,7 @@ const onSelectOption = async (index: number) => {
           title: tipText.notStock.title,
           content: tipText.notStock.content,
           close: () => {
-            router.back();
+            router.go(-1);
           }
         });
       }

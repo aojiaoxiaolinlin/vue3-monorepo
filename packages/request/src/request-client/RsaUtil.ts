@@ -78,7 +78,7 @@ export function aesEncrypt(data: RequestBody): EncryptInfo {
   // AES IV 16 bytes
   const iv = CryptoJS.lib.WordArray.random(16);
   // 原始数据排序
-  const sortedData = sortRequestData(data);
+  // const sortedData = sortRequestData(data);
   // 加入时间戳
   const timestamp = Date.now();
   // 签名

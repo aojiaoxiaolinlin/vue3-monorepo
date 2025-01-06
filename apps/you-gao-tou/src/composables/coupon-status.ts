@@ -118,11 +118,7 @@ export const getCouponsStatus = async (goodsCategories: Ref<GoodsCategories>) =>
   // const end = Date.now();
   // console.log('获取用户优惠券状态耗时', end - start, 'ms');
   // 优化：使用Promise.all处理多个异步请求
-  const start = Date.now();
   const [{ data: { data: userCoupons } }, { data: { data: couponUseStatus } }] = await Promise.all([getUserCouponsApi(), getCouponUseStatusApi()]);
-  const end = Date.now();
-  console.log('获取用户优惠券和状态耗时', end - start, 'ms');
-  console.log('userCoupons', userCoupons.data);
   const res = userCoupons.data
     // 过滤出本活动的优惠券, 分开写是为了方便后续维护
     .filter((item) => coupons.some((coupon) => coupon.aid === item.aid))

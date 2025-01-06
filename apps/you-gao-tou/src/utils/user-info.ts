@@ -4,7 +4,6 @@ export type UserPhoneInfo = {
 }
 
 export const getUserPhoneApiInfo = (userPhoneInfo: UserPhoneInfo) => {
-  console.log('userPhoneInfo', userPhoneInfo);
   const params = userPhoneInfo.token ? { data: userPhoneInfo.token } : undefined;
   const data = userPhoneInfo.phone ? { phone: userPhoneInfo.phone } : undefined;
   if (!params && !data) {
