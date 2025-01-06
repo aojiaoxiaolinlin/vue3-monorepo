@@ -110,9 +110,9 @@ const onStartGame = async () => {
       return;
     }
     // 2.日期判断，测试时注释掉
-    if (!isActivityDate()) {
-      return;
-    }
+    // if (!isActivityDate()) {
+    //   return;
+    // }
     // 3.库存判断
     let isStock = false;
     const couponsInfo = (await getCouponsStockApi()).data.data.data
