@@ -56,6 +56,11 @@ export const getGoodsCouponStatus = async (goodsCategories: Ref<GoodsCategories>
  * 实现对字符串 goods_1_get.png 的处理，将最后一个_后的字符串替换为 newStr
  */
 export const getGoodsCouponSrc = (src: string, newStr: string) => {
+  // 如果src不包含_，则直接返回src拼接newStr
+  if (!src.includes('_')) {
+    const srcArr = src.split('.');
+    return `${srcArr[0]}_${newStr}`;
+  }
   const srcArr = src.split('_');
   srcArr[srcArr.length - 1] = newStr;
   return srcArr.join('_');
@@ -143,7 +148,6 @@ export const getCouponsStatus = async (goodsCategories: Ref<GoodsCategories>) =>
         target.resultOld = item.resultOld;
         // 如果未到账，则显示未到账的图片
         if (item.resultCode !== "000000") {
-          console.log('未到账的优惠券', target);
           target.src = getGoodsCouponSrc(target.src, 'not_arrive.png');
           target.arriveStatus = CouponArriveStatus.NOT_ARRIVE;
         }
