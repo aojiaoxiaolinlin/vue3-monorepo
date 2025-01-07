@@ -70,7 +70,6 @@ encryptRequest.addResponseInterceptor<EncryptResponse<unknown>>({
 const handleExceptionMessage = (error: AxiosError<ExceptionResponse>) => {
   const data = error.response?.data;
   if (data) {
-    const router = useRouter();
     // 只不是为了获取错误信息，ts 会报错，所以需要断言
     let errorMsg: undefined | string;
     const errorRes = data;
@@ -83,7 +82,7 @@ const handleExceptionMessage = (error: AxiosError<ExceptionResponse>) => {
         content: errorMsg,
         close: () => {
           // 路由后退
-          router.back();
+          window.history.back();
         },
       });
       return Promise.reject(error);
@@ -95,7 +94,7 @@ const handleExceptionMessage = (error: AxiosError<ExceptionResponse>) => {
           content: tipText.notStock.content,
           close: () => {
             // 路由后退
-            router.back();
+            window.history.back();
           },
         });
         break;
