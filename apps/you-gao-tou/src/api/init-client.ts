@@ -99,6 +99,13 @@ const handleExceptionMessage = (error: AxiosError<ExceptionResponse>) => {
         });
         break;
       }
+      case "发放中，请稍后": {
+        ShowMessageTip({
+          title: "发放中",
+          content: errorMsg,
+        });
+        break;
+      }
       default: {
         ShowMessageTip({
           title: "服务器错误",
