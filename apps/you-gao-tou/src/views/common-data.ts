@@ -16,11 +16,13 @@ export const ruleContent = `
 export const awardCoupons = [
   {
     aid: 'BB3A2838F50C8925D13783E15F731B14',
+    url: 'https://h5.bestpay.cn/subapps/txjfwap-h5/index.html#/?channel=fs_sc',
     src: '5yuan.png',
     name: '5元话费充值券',
   },
   {
     name: '一张3元通用券',
+    url: 'https://h5.bestpay.cn/subapps/mall-shopping-h5/index.html#/?channel=fs_sc',
     src: '3yuan.png',
     aid: '9A538B90C8C9AE624700986D4EBBB065',
   },

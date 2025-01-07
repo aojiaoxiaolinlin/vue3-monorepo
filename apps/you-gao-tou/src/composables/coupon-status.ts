@@ -101,7 +101,7 @@ export const getCouponsStatus = async (goodsCategories: Ref<GoodsCategories>) =>
         aid: item.aid,
         src: item.src as string,
         createTime: '',
-        url: 'https://h5.bestpay.cn/subapps/mall-shopping-h5/index.html#/?channel=fs_sc',
+        url: item.url as string,
         name: `${item.name}有搞头活动券`,
         arriveStatus: CouponArriveStatus.ARRIVE,
         resultOld: '',
