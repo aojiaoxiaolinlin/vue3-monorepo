@@ -16,7 +16,6 @@ export const getAssetsCardListImage = (url: string) => {
 }
 
 export const getAssetCouponImage = (url: string) => {
-  console.log('getAssetCouponImage', url)
   return getAssetsGoodsImage(url).includes('undefined') ? new URL(`../assets/images/coupon-list/${url}`, import.meta.url).href : getAssetsGoodsImage(url)
 }
 
