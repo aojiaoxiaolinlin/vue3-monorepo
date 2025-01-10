@@ -2,7 +2,7 @@
 // 参考：https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
 import CryptoJS from 'crypto-js';
 import Forge from 'node-forge';
-import type { EncryptInfo, EncryptResponseBody, RequestBody } from './RequestBody';
+import type { EncryptInfo, EncryptResponseBody, RequestBody } from './types';
 
 /**
  *

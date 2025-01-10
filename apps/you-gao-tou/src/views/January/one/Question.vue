@@ -4,11 +4,11 @@
       <span>返回首页</span>
     </div>
     <div class="question-box">
-      <img src="../../assets/images/chuan-pu/question_bg.png" alt="">
+      <img src="../../../assets/images/chuan-pu/question_bg.png" alt="">
       <div class="question-content">
         四川方言<span>{{ question.question }}</span>是什么意思？
       </div>
-      <img class="mini-title" src="../../assets/images/chuan-pu/mini_title.png" alt="小标题">
+      <img class="mini-title" src="../../../assets/images/chuan-pu/mini_title.png" alt="小标题">
     </div>
     <div class="option-box-list">
       <div class="option-box" v-for="(option, index) in question.options" :key="option" @click="onSelectOption(index)">
@@ -33,7 +33,7 @@ import GoToUseBtn from '#/assets/images/chuan-pu/goto_use_btn.png';
 import { ShowMessageTip } from '#/composables/message-tip';
 import { useGameStore } from '#/stores';
 import { getAssetChuanPuImage } from '#/utils';
-import { awardCoupons } from '../common-data';
+import { awardCoupons } from '../../common-data';
 import { tipText, useQuestion } from './data';
 
 const router = useRouter();

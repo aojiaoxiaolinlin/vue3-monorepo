@@ -1,12 +1,13 @@
 import {
-  type EncryptResponse,
   type ExceptionResponse,
+  type HttpResponse,
   aesDecrypt,
   createEncryptRequest,
 } from "@lin/request";
 import { AxiosError } from "axios";
-import { ShowMessageTip } from "#/composables/message-tip";
-import { tipText } from "#/views/January/data";
+// import { ShowMessageTip } from "#/composables/message-tip";
+import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
+import { tipText } from "#/views/January/one/data";
 import { API_BASE_URL } from "../../configs";
 
 const encryptRequest = createEncryptRequest({
@@ -17,12 +18,12 @@ const encryptRequest = createEncryptRequest({
 
 
 // 可能需要更好的处理方式
-encryptRequest.addResponseInterceptor<EncryptResponse<unknown>>({
+encryptRequest.addResponseInterceptor<HttpResponse<unknown>>({
   fulfilled: (response) => {
     if (response.data.code === 200) {
       if (response.data.msg === "无数据") {
         // 组织一个空数据返回
-        const data: EncryptResponse<unknown> = {
+        const data: HttpResponse<unknown> = {
           data: { data: [], e: "", k: "", s: "", timestamp: 0 },
           code: 200,
           msg: "无数据",

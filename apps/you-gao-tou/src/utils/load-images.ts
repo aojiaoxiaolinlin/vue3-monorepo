@@ -23,6 +23,6 @@ export const getAssetChuanPuImage = (url: string) => {
   return new URL(`../assets/images/chuan-pu/${url}`, import.meta.url).href
 }
 
-export const getPublicAssetImage = (url: string) => {
-  return new URL(`/assets/${url}`, import.meta.url).href
+export const getAssetFanFanImage = (url: string) => {
+  return new URL(`../assets/images/fan-fan/${url}`, import.meta.url).href
 }

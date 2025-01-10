@@ -1,4 +1,4 @@
-import type { EncryptResponse } from "@lin/request";
+import type { HttpResponse } from "@lin/request";
 import { encryptRequest } from "./init-client";
 import type { UserPhoneApiInfo } from "./types";
 
@@ -9,19 +9,27 @@ import type { UserPhoneApiInfo } from "./types";
  */
 export const getGameCountApi = (userPhoneInfo: UserPhoneApiInfo) => {
   const { params, data } = userPhoneInfo;
-  return encryptRequest.postAndParams<EncryptResponse<number>>("/game/gameCount", data, params);
+  return encryptRequest.postAndParams<HttpResponse<number>>("/game/gameCount", data, params);
 }
 /**
  * 领取优惠券
- * @returns Promise<EncryptResponse<string>>
+ * @returns Promise<HttpResponse<string>>
  */
 export const issuingCouponApi = () => {
-  return encryptRequest.post<EncryptResponse<string>>("/game/issuingCoupon");
+  return encryptRequest.post<HttpResponse<string>>("/game/issuingCoupon");
 }
 
 /**
  * 减少游戏次数
  */
 export const decrementGameCountApi = () => {
-  return encryptRequest.post<EncryptResponse<number>>("/game/decrementGameCount");
+  return encryptRequest.post<HttpResponse<number>>("/game/decrementGameCount");
+}
+
+/**
+ * 判断是否有每日库存
+ * @returns Promise<HttpResponse<boolean>>
+ */
+export const hasDailyStock = () => {
+  return encryptRequest.get<HttpResponse<boolean>>("/game/hasDailyStock");
 }

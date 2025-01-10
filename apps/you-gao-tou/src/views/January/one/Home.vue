@@ -2,11 +2,11 @@
   <div class="box">
     <div class="scroll-box">
       <div class="content">
-        <img src="../../assets/images/chuan-pu/bg.png" alt="" srcset="">
+        <img src="../../../assets/images/chuan-pu/bg.png" alt="" srcset="">
         <div class="rule-text" @click="isShowRuleInfo = true">活动规则</div>
         <div class="my-coupons" @click="onGoSeeMyCoupons()">奖品列表</div>
         <div class="start-btn-box" @click="onStartGame">
-          <img src="../../assets/images/chuan-pu/start-btn.png" alt="开始游戏按钮">
+          <img src="../../../assets/images/chuan-pu/start-btn.png" alt="开始游戏按钮">
         </div>
       </div>
       <div class="goods-box">
@@ -21,11 +21,11 @@
             </div>
           </div>
           <div class="bottom-box">
-            <img src="../../assets/images/chuan-pu/haowu-bottom.png" alt="下边框" />
+            <img src="../../../assets/images/chuan-pu/haowu-bottom.png" alt="下边框" />
           </div>
         </div>
         <div class="bottom-bg">
-          <img src="../../assets/images/chuan-pu/bottom_bg.png" alt="" />
+          <img src="../../../assets/images/chuan-pu/bottom_bg.png" alt="" />
           <span @click="onJump()"></span>
         </div>
       </div>
@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { objectIsEmpty, wxLoginGetUserInfo } from '@lin/utils';
 import { useRouteQuery } from '@vueuse/router';
-import { getCouponsStockApi, userGetCouponApi } from '#/api';
+import { hasDailyStock, userGetCouponApi } from '#/api';
 import ConfirmBtn from '#/assets/images/chuan-pu/confirm_btn.png';
 import GoToUseBtn from '#/assets/images/chuan-pu/goto_use_btn.png';
 import MessageTip from '#/components/MessageTip.vue';
@@ -46,7 +46,7 @@ import { ShowMessageTip } from '#/composables/message-tip';
 import { useGameStore } from '#/stores';
 import { getAssetChuanPuImage, getAssetsGoodsImage, getUserPhoneApiInfo } from '#/utils';
 import { isActivityDate } from '#/utils/date';
-import { CouponGetStatus, goodsCategories, ruleContent } from '../common-data';
+import { CouponGetStatus, goodsCategories, ruleContent } from '../../common-data';
 import { tipText } from './data';
 // 1. 定义页面配置
 useHead({
@@ -61,6 +61,7 @@ const token = useRouteQuery<string>('data');
 
 // 3. 定义响应式变量，遵循就近使用原则
 const isShowRuleInfo = ref(false);
+
 
 // 4. 初始化
 init();
@@ -115,15 +116,8 @@ const onStartGame = async () => {
       return;
     }
     // 3.库存判断
-    let isStock = false;
-    const couponsInfo = (await getCouponsStockApi()).data.data.data
-    for (const item of couponsInfo) {
-      if (item.stockSurplus > 0) {
-        isStock = true;
-        break;
-      }
-    }
-    if (!isStock) {
+    const isDailyStock = (await hasDailyStock()).data.data.data
+    if (!isDailyStock) {
       ShowMessageTip({
         title: tipText.notStock.title,
         content: tipText.notStock.content,
@@ -238,7 +232,7 @@ const onJump = () => {
   width: 100%;
   height: auto;
   overflow: hidden;
-  background-image: url('../../assets/images/chuan-pu/haowu_center.png');
+  background-image: url('../../../assets/images/chuan-pu/haowu_center.png');
   background-position: center center;
   background-size: 100% 100%;
 }
