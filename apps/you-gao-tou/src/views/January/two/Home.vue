@@ -60,7 +60,7 @@ import { tipText } from './data';
 
 // 1. 定义页面配置
 useHead({
-  title: '四川方言大挑战-检测是不是地道的四川人！'
+  title: '幸运翻翻乐-翻出你的专属好礼'
 })
 
 // 2. 引入useXXX()
