@@ -8,7 +8,7 @@
           <p v-html="props.firstContent"></p>
         </div>
         <div class="sub-text" :style="`text-align: ${props.textAlign};`">
-          <span v-html="props.content"></span>
+          <div ref="content" v-html="props.content"></div>
           <div v-if="confirmBtn" class="confirm-box" @click="onConfirm">
             <img :src="confirmBtn" alt="确认" />
           </div>
@@ -74,7 +74,6 @@ const onConfirm = () => {
   left: 50%;
   width: 300px;
   height: auto;
-  padding: 0 10px;
   border-radius: 15px;
   transform: translate(-50%, -50%);
 }
@@ -124,10 +123,9 @@ const onConfirm = () => {
   overflow: hidden;
   font-size: 12px;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.5;
   color: #f86268;
   text-align: center;
-  word-break: break-all;
 }
 
 
