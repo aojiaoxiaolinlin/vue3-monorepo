@@ -175,9 +175,9 @@ const onStartGame = async (index: number) => {
       return;
     }
     // 2.日期判断，测试时注释掉
-    // if (!isActivityDate()) {
-    //   return;
-    // }
+    if (!isActivityDate()) {
+      return;
+    }
     subject.next(index);
   } else {
     ShowMessageTip({
