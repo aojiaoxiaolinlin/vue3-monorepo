@@ -10,7 +10,7 @@ import { CouponGetStatus, type GoodsCategories, awardCoupons } from "#/views/com
  */
 export const getGoodsCouponStatus = async (goodsCategories: Ref<GoodsCategories>) => {
   const start = Date.now();
-  const [{ data: { data: { data: goodsCouponsRes } } }, { data: { data: { data: userCoupons } } }] = await Promise.all([getGoodsCouponsApi(), getUserCouponsApi()])
+  const [goodsCouponsRes, userCoupons] = await Promise.all([getGoodsCouponsApi(), getUserCouponsApi()])
   const end = Date.now();
   console.log('获取商品优惠券耗时', end - start, 'ms');
   const goodsCoupons = goodsCouponsRes.map((item) => {
@@ -123,13 +123,13 @@ export const getCouponsStatus = async (goodsCategories: Ref<GoodsCategories>) =>
   // const end = Date.now();
   // console.log('获取用户优惠券状态耗时', end - start, 'ms');
   // 优化：使用Promise.all处理多个异步请求
-  const [{ data: { data: userCoupons } }, { data: { data: couponUseStatus } }] = await Promise.all([getUserCouponsApi(), getCouponUseStatusApi()]);
-  const res = userCoupons.data
+  const [userCoupons, couponUseStatus] = await Promise.all([getUserCouponsApi(), getCouponUseStatusApi()]);
+  const res = userCoupons
     // 过滤出本活动的优惠券, 分开写是为了方便后续维护
     .filter((item) => coupons.some((coupon) => coupon.aid === item.aid))
     // 过滤出未使用和未到账的优惠券
     .filter((item) => {
-      const target = couponUseStatus.data.find(
+      const target = couponUseStatus.find(
         (couponStatus) => couponStatus.resultOld === item.resultOld
       );
       // 如果没有找到对应的优惠券使用状态, 两种可能：1. 未到账 2. 未使用

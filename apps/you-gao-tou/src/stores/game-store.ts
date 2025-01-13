@@ -14,21 +14,20 @@ export const useGameStore = defineStore('game', {
   actions: {
     async initGameCount(userPhoneApiInfo: UserPhoneApiInfo) {
       await getGameCountApi(userPhoneApiInfo).then((res) => {
-        this.gameCount = res.data.data.data;
-        console.log(this.gameCount);
+        this.gameCount = res;
       }).catch((err) => {
         console.log('处理错误', err);
       });
     },
     updateGameCount() {
       getGameCountApi(this.userPhoneApiInfo).then((res) => {
-        this.gameCount = res.data.data.data;
+        this.gameCount = res;
       }).catch((err) => {
         console.log('处理错误', err);
       })
     },
     async decrementGameCount() {
-      this.gameCount = (await decrementGameCountApi()).data.data.data
+      this.gameCount = await decrementGameCountApi()
     },
     initUserPhoneApiInfo(userPhoneApiInfo: UserPhoneApiInfo) {
       this.userPhoneApiInfo = userPhoneApiInfo;

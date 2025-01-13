@@ -23,25 +23,23 @@ encryptRequest.addResponseInterceptor<HttpResponse<unknown>>({
     if (response.data.code === 200) {
       if (response.data.msg === "无数据") {
         // 组织一个空数据返回
-        const data: HttpResponse<unknown> = {
-          data: { data: [], e: "", k: "", s: "", timestamp: 0 },
-          code: 200,
-          msg: "无数据",
-        };
-        response.data = data;
-        return response;
+        // const data: HttpResponse<unknown> = {
+        //   data: { data: [], e: "", k: "", s: "", timestamp: 0 },
+        //   code: 200,
+        //   msg: "无数据",
+        // };
+        return { data: [], e: "", k: "", s: "", timestamp: 0 };
       }
       // 统一解密数据
       if (response.data.data != null) {
         const decryptData = aesDecrypt(response.data.data);
         try {
           // 尝试解析为 JSON，如果解析失败，直接返回字符串，让调用方自行处理
-          response.data.data.data = JSON.parse(decryptData);
+          return JSON.parse(decryptData);
         } catch (error) {
-          response.data.data.data = decryptData;
+          return decryptData;
         }
       }
-      return response;
     }
     return Promise.reject(response.data);
   },
@@ -82,7 +80,7 @@ const handleExceptionMessage = (error: AxiosError<ExceptionResponse>) => {
         title: "嗨！活动已结束啦！",
         content: errorMsg,
         close: () => {
-          // 路由后退
+          // 路由后退，是否需要后退要根据活动页面所在位置判断
           window.history.back();
         },
       });

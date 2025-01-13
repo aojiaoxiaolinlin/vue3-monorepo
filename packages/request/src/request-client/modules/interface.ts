@@ -1,5 +1,5 @@
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import type { ExceptionResponse } from "../types";
+import type { ExceptionResponse, HttpResponse, ResponseData } from "../types";
 
 interface RequestInterceptorConfig {
   fulfilled?: (
@@ -11,10 +11,10 @@ interface RequestInterceptorConfig {
 }
 
 
-interface ResponseInterceptorConfig<T = unknown> {
+interface ResponseInterceptorConfig<T extends HttpResponse> {
   fulfilled?: (
     response: AxiosResponse<T>,
-  ) => AxiosResponse | Promise<AxiosResponse>;
+  ) => T | ResponseData<T>;
   rejected?: (error: AxiosError<ExceptionResponse>) => unknown;
 }
 

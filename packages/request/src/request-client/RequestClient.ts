@@ -48,24 +48,24 @@ export class RequestClient {
     }
   }
 
-  public post<O = unknown, I = unknown, T = AxiosResponse<O>>(url: string, data?: I, config?: AxiosRequestConfig): Promise<T> {
+  public post<O = unknown, I = unknown, T = O>(url: string, data?: I, config?: AxiosRequestConfig): Promise<T> {
     return this.request<T>(url, { method: 'POST', data, ...config });
   }
 
-  public postAndParams<O = unknown, I = unknown, T = AxiosResponse<O>>(url: string, data?: I, params?: Record<string, string | number>, config?: AxiosRequestConfig): Promise<T> {
+  public postAndParams<O = unknown, I = unknown, T = O>(url: string, data?: I, params?: Record<string, string | number>, config?: AxiosRequestConfig): Promise<T> {
     return this.request<T>(url, { method: 'POST', data, params, ...config });
   }
 
-  public get<O, T = AxiosResponse<O>>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  public get<O, T = O>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return this.request<T>(url, { method: 'GET', ...config });
   }
 
-  public getAndParams<O, T = AxiosResponse<O>>(url: string, params: Record<string, string | number>, config?: AxiosRequestConfig): Promise<T> {
+  public getAndParams<O, T = O>(url: string, params: Record<string, string | number>, config?: AxiosRequestConfig): Promise<T> {
     const urlWithParams = `${url}?${Object.keys(params).map(key => `${key}=${params[key]}`).join('&')}`;
     return this.request<T>(urlWithParams, { method: 'GET', ...config });
   }
 
-  public getAndPaths<O, T = AxiosResponse<O>>(url: string, paths: Record<string, string | number>, config?: AxiosRequestConfig): Promise<T> {
+  public getAndPaths<O, T = O>(url: string, paths: Record<string, string | number>, config?: AxiosRequestConfig): Promise<T> {
     let urlWithPaths = url;
     for (const key of Object.keys(paths)) {
       urlWithPaths = urlWithPaths.replace(`{${key}}`, paths[key] as string);

@@ -55,7 +55,7 @@ const onSelectOption = async (index: number) => {
     // 替换为正确图片
     result = true;
     issuingCouponApi().then((res) => {
-      const prizeAid = res.data.data.data;
+      const prizeAid = res;
       if (prizeAid === "0") {
         ShowMessageTip({
           title: tipText.notStock.title,

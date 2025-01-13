@@ -115,7 +115,7 @@ const clickCardIndex = ref(-1);
 
 subject.pipe((throttleTime(2000))).subscribe(async (index) => {
   // 3.库存判断
-  const isDailyStock = (await hasDailyStock()).data.data.data
+  const isDailyStock = await hasDailyStock()
   if (!isDailyStock) {
     ShowMessageTip({
       title: tipText.notStock.title,
@@ -128,7 +128,7 @@ subject.pipe((throttleTime(2000))).subscribe(async (index) => {
   }, 150)
   // 发券
   issuingCouponApi().then((res) => {
-    const prizeAid = res.data.data.data;
+    const prizeAid = res;
     if (prizeAid === "0") {
       couponPrize.value = 'not_prize_card.png';
       setTimeout(() => {

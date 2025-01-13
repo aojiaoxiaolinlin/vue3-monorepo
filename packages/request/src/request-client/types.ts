@@ -34,7 +34,7 @@ export type EncryptResponse<T = string> = {
 }
 
 // 换个名子罢了。更加具有通用性
-export type HttpResponse<T = string> = {
+export type HttpResponse<T = unknown> = {
   data: EncryptResponseBody<T>;
   code: number;
   msg: string;

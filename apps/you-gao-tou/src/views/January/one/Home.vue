@@ -116,7 +116,7 @@ const onStartGame = async () => {
       return;
     }
     // 3.库存判断
-    const isDailyStock = (await hasDailyStock()).data.data.data
+    const isDailyStock = await hasDailyStock()
     if (!isDailyStock) {
       ShowMessageTip({
         title: tipText.notStock.title,
