@@ -1,14 +1,15 @@
 <template>
   <div class="message-box" v-if="mode">
     <div class="content">
-      <img :src="props.bgImg || DefaultBgImg" alt="背景" />
+      <img :src="props.bgImg" alt="背景" />
       <div class="is-sub-box">
         <div class="title-box">{{ props.title }}</div>
         <div class="first-content" v-if="props.firstContent">
           <p v-html="props.firstContent"></p>
         </div>
         <div class="sub-text" :style="`text-align: ${props.textAlign};`">
-          <div ref="content" v-html="props.content"></div>
+          <div ref="content" :class="{ 'content-font-size': bigFontSize }" v-html="props.content">
+          </div>
           <div v-if="confirmBtn" class="confirm-box" @click="onConfirm">
             <img :src="confirmBtn" alt="确认" />
           </div>
@@ -24,7 +25,7 @@
 <script setup lang="ts">
 import DefaultBgImg from '#/assets/images/fan-fan/mini_message_bg.png';
 const mode = defineModel({ type: Boolean, default: true });
-
+// 为了满足各种奇葩需求，变量特别多...
 const props = withDefaults(defineProps<{
   title: string,
   content: string,
@@ -32,9 +33,12 @@ const props = withDefaults(defineProps<{
   confirmBtn?: string,
   bgImg?: string,
   firstContent?: string,
+  bigFontSize?: boolean,
 }>(), {
   title: '提示',
+  bgImg: DefaultBgImg,
   content: 'center',
+  bigFontSize: false,
 });
 
 const emit = defineEmits<{
@@ -128,6 +132,9 @@ const onConfirm = () => {
   text-align: center;
 }
 
+.is-sub-box .sub-text .content-font-size {
+  font-size: 16px;
+}
 
 .is-sub-box .confirm-box {
   width: 80%;

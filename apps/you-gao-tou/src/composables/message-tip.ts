@@ -7,6 +7,7 @@ type MessageTipProps = {
   firstContent?: string;
   content: string;
   bgImg?: string;
+  bigFontSize?: boolean;
   confirm?: {
     btnImg: string;
     callback: () => void;
@@ -47,7 +48,7 @@ export const ShowMessageTip = (messageTipProps: MessageTipProps) => {
  * @param messageTipProps 提示框的属性
  */
 export const ShowMessageTipTwo = (messageTipProps: MessageTipProps) => {
-  const { title, content, confirm, close, bgImg, firstContent } = messageTipProps;
+  const { title, content, confirm, close, bgImg, firstContent, bigFontSize } = messageTipProps;
   const div = document.createElement('div');
   document.body.appendChild(div);
   const vNode = createVNode(MessageTipTwo, {
@@ -56,6 +57,7 @@ export const ShowMessageTipTwo = (messageTipProps: MessageTipProps) => {
     content,
     bgImg,
     confirmBtn: confirm?.btnImg,
+    bigFontSize,
     onClose: () => {
       close?.();
       render(null, div);

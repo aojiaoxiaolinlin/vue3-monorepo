@@ -11,7 +11,7 @@ export const ruleContent = `
 8.本活动最终解释权归翼支付商城。`
 
 /**
- * 满级优惠券奖池奖品列表
+ * 优惠券奖池奖品列表
  */
 export const awardCoupons = [
   {
