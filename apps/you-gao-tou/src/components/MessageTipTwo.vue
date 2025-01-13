@@ -109,7 +109,7 @@ const onConfirm = () => {
 .first-content {
   width: 100%;
   height: auto;
-  margin: 20px auto 0;
+  margin: 40px auto 0;
   font-size: 20px;
   font-weight: 800;
   color: #f86268;

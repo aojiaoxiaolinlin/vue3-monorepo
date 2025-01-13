@@ -135,7 +135,7 @@ subject.pipe((throttleTime(2000))).subscribe(async (index) => {
         ShowMessageTip({
           title: '很遗憾',
           firstContent: '此卡未藏惊喜，<br />别灰心，好运在排队！',
-          content: gameStore.gameCount > 0 ? '在玩一次吧！' : '下一场活动将在<br />2025年1月21日准时开启，记得来参加哟。',
+          content: gameStore.gameCount > 0 ? '再玩一次吧！' : '下一场活动将在<br />2025年1月21日准时开启，记得来参加哟。',
         });
       }, 1100)
     } else {
@@ -145,7 +145,7 @@ subject.pipe((throttleTime(2000))).subscribe(async (index) => {
           setTimeout(() => {
             ShowMessageTip({
               title: '太棒啦！',
-              firstContent: `翻开即中-${item.name}！`,
+              firstContent: `翻开即中${item.name}！`,
               bgImg: PrizeMessageBg,
               content: '请在【活动首页-奖品列表】中查询。',
               confirm: {
@@ -170,7 +170,8 @@ const onStartGame = async (index: number) => {
     if (gameStore.gameCount <= 0) {
       ShowMessageTip({
         title: '糟糕，游戏次数已用完',
-        content: '请期待下一场四川方言大挑战活动吧！<br />活动时间：2025年1月21日'
+        content: '请期待下一场<br />四川方言大挑战活动吧！<br />活动时间：2025年1月21日',
+        bigFontSize: true,
       });
       return;
     }
