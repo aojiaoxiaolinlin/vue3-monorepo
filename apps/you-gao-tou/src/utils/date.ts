@@ -5,7 +5,7 @@ import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
 
 export const isActivityDate = () => {
   const date = new Date();
-  const day = date.getDate() + 2;
+  const day = date.getDate();
   if (day !== 14) {
     let title = '';
     let content = '';
