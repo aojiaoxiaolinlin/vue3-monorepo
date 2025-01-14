@@ -38,7 +38,8 @@
       </div>
     </div>
   </div>
-  <MessageTipTwo v-model="isShowRuleInfo" title="游戏规则" :content="ruleContent" text-align="left" :bg-img="MessageBg" />
+  <MessageTipTwo v-model="isShowRuleInfo" title="游戏规则" :content="ruleContent" text-align="left" :bg-img="MessageBg"
+    :small-font-size="true" />
 </template>
 
 <script setup lang="ts">

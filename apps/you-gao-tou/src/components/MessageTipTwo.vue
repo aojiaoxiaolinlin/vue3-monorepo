@@ -8,7 +8,8 @@
           <p v-html="props.firstContent"></p>
         </div>
         <div class="sub-text" :style="`text-align: ${props.textAlign};`">
-          <div ref="content" :class="{ 'content-font-size': bigFontSize }" v-html="props.content">
+          <div ref="content" :class="{ 'content-font-size': bigFontSize, 'content-font-size-small': smallFontSize }"
+            v-html="props.content">
           </div>
           <div v-if="confirmBtn" class="confirm-box" @click="onConfirm">
             <img :src="confirmBtn" alt="确认" />
@@ -34,11 +35,13 @@ const props = withDefaults(defineProps<{
   bgImg?: string,
   firstContent?: string,
   bigFontSize?: boolean,
+  smallFontSize?: boolean,
 }>(), {
   title: '提示',
   bgImg: DefaultBgImg,
   content: 'center',
   bigFontSize: false,
+  smallFontSize: false,
 });
 
 const emit = defineEmits<{
@@ -134,6 +137,10 @@ const onConfirm = () => {
 
 .is-sub-box .sub-text .content-font-size {
   font-size: 16px;
+}
+
+.is-sub-box .sub-text .content-font-size-small {
+  font-size: 11px;
 }
 
 .is-sub-box .confirm-box {
