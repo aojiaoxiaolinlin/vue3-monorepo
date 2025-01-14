@@ -1,9 +1,21 @@
 <template>
-  <div class="box" v-if="mode">
+  <div
+    v-if="mode"
+    class="box"
+  >
     <div class="content">
-      <img :src="getAssetsDateImage(tipImg)" alt="日期提示" />
-      <div class="close-btn" @click="onClose">
-        <img src="../assets/images/close.png" alt="" />
+      <img
+        :src="getAssetsDateImage(tipImg)"
+        alt="日期提示"
+      >
+      <div
+        class="close-btn"
+        @click="onClose"
+      >
+        <img
+          src="../assets/images/close.png"
+          alt=""
+        >
       </div>
     </div>
   </div>

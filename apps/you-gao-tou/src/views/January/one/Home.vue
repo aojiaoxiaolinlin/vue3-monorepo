@@ -2,36 +2,77 @@
   <div class="box">
     <div class="scroll-box">
       <div class="content">
-        <img src="../../../assets/images/chuan-pu/bg.png" alt="" srcset="">
-        <div class="rule-text" @click="isShowRuleInfo = true">活动规则</div>
-        <div class="my-coupons" @click="onGoSeeMyCoupons()">奖品列表</div>
-        <div class="start-btn-box" @click="onStartGame">
-          <img src="../../../assets/images/chuan-pu/start-btn.png" alt="开始游戏按钮">
+        <img
+          src="../../../assets/images/chuan-pu/bg.png"
+          alt=""
+          srcset=""
+        >
+        <div
+          class="rule-text"
+          @click="isShowRuleInfo = true"
+        >活动规则</div>
+        <div
+          class="my-coupons"
+          @click="onGoSeeMyCoupons()"
+        >奖品列表</div>
+        <div
+          class="start-btn-box"
+          @click="onStartGame"
+        >
+          <img
+            src="../../../assets/images/chuan-pu/start-btn.png"
+            alt="开始游戏按钮"
+          >
         </div>
       </div>
       <div class="goods-box">
-        <div class="list-box" v-for="category in goodsCategories" :key="category.baseName">
+        <div
+          v-for="category in goodsCategories"
+          :key="category.baseName"
+          class="list-box"
+        >
           <div class="top-box">
-            <img :src="getAssetChuanPuImage(`${category.baseName}top.png`)" alt="顶部框" />
+            <img
+              :src="getAssetChuanPuImage(`${category.baseName}top.png`)"
+              alt="顶部框"
+            >
           </div>
           <div class="item-box">
-            <div class="item" v-for="item in category.list" :key="item.aid"
-              @click="userGetGoodsCouponOrToUse(item.aid, item.url, item.status)">
-              <img :src="getAssetsGoodsImage(item.src)" alt="商品图片" />
+            <div
+              v-for="item in category.list"
+              :key="item.aid"
+              class="item"
+              @click="userGetGoodsCouponOrToUse(item.aid, item.url, item.status)"
+            >
+              <img
+                :src="getAssetsGoodsImage(item.src)"
+                alt="商品图片"
+              >
             </div>
           </div>
           <div class="bottom-box">
-            <img src="../../../assets/images/chuan-pu/haowu-bottom.png" alt="下边框" />
+            <img
+              src="../../../assets/images/chuan-pu/haowu-bottom.png"
+              alt="下边框"
+            >
           </div>
         </div>
         <div class="bottom-bg">
-          <img src="../../../assets/images/chuan-pu/bottom_bg.png" alt="" />
-          <span @click="onJump()"></span>
+          <img
+            src="../../../assets/images/chuan-pu/bottom_bg.png"
+            alt=""
+          >
+          <span @click="onJump()" />
         </div>
       </div>
     </div>
   </div>
-  <MessageTip v-model="isShowRuleInfo" title="游戏规则" :content="ruleContent" text-align="left" />
+  <MessageTip
+    v-model="isShowRuleInfo"
+    title="游戏规则"
+    :content="ruleContent"
+    text-align="left"
+  />
 </template>
 
 <script setup lang="ts">

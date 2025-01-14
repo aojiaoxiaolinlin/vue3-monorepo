@@ -1,24 +1,49 @@
 <template>
   <div class="box">
-    <div class="top-box" @click="router.go(-1)">
+    <div
+      class="top-box"
+      @click="router.go(-1)"
+    >
       <span>返回首页</span>
     </div>
     <div class="question-box">
-      <img src="../../../assets/images/chuan-pu/question_bg.png" alt="">
+      <img
+        src="../../../assets/images/chuan-pu/question_bg.png"
+        alt=""
+      >
       <div class="question-content">
         四川方言<span>{{ question.question }}</span>是什么意思？
       </div>
-      <img class="mini-title" src="../../../assets/images/chuan-pu/mini_title.png" alt="小标题">
+      <img
+        class="mini-title"
+        src="../../../assets/images/chuan-pu/mini_title.png"
+        alt="小标题"
+      >
     </div>
     <div class="option-box-list">
-      <div class="option-box" v-for="(option, index) in question.options" :key="option" @click="onSelectOption(index)">
-        <img :src="getAssetChuanPuImage(`${updateOptionImage(index)}${String.fromCharCode(65 + index)}.png`)"
-          alt="选项图片" />
+      <div
+        v-for="(option, index) in question.options"
+        :key="option"
+        class="option-box"
+        @click="onSelectOption(index)"
+      >
+        <img
+          :src="getAssetChuanPuImage(`${updateOptionImage(index)}${String.fromCharCode(65 + index)}.png`)"
+          alt="选项图片"
+        >
         <span>{{ option }}</span>
       </div>
     </div>
-    <div class="countdown-box" v-show="countdownShow">
-      <van-count-down ref="countdown" :time="time" format="ss 秒" @finish="onFinish">
+    <div
+      v-show="countdownShow"
+      class="countdown-box"
+    >
+      <van-count-down
+        ref="countdown"
+        :time="time"
+        format="ss 秒"
+        @finish="onFinish"
+      >
         <template #default="timeData">
           <span>{{ timeData.seconds }} 秒后进入下一题</span>
         </template>

@@ -1,6 +1,7 @@
 import { URL, fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import postCssPxToRem from 'postcss-pxtorem'
+import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 import vitePluginBundleObfuscator from 'vite-plugin-bundle-obfuscator';
@@ -20,17 +21,20 @@ export default defineConfig({
       '#': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  plugins: [vue(), vitePluginBundleObfuscator(minimizeObfuscatorConfig), AutoImport({
+  plugins: [
+    vue(),
+    UnoCSS(),
+    vitePluginBundleObfuscator(minimizeObfuscatorConfig), AutoImport({
 
-    imports: [
-      // 插件预设支持导入的api
-      'vue',
-      'vue-router',
-      'pinia'
-      // 自定义导入的api
-    ],
-    dts: 'src/auto-imports.d.ts',
-  })],
+      imports: [
+        // 插件预设支持导入的api
+        'vue',
+        'vue-router',
+        'pinia'
+        // 自定义导入的api
+      ],
+      dts: 'src/auto-imports.d.ts',
+    })],
   css: {
     postcss: {
       plugins: [

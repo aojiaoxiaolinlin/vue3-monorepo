@@ -1,19 +1,39 @@
 <template>
-  <div class="box" v-if="mode">
+  <div
+    v-if="mode"
+    class="box"
+  >
     <div class="content">
-      <img class="bg-box" :src="props.prizeInfo.isPrize ? PrizeTipImg : UnPrizeTipImg" alt="提示图片" />
+      <img
+        class="bg-box"
+        :src="props.prizeInfo.isPrize ? PrizeTipImg : UnPrizeTipImg"
+        alt="提示图片"
+      >
       <template v-if="props.prizeInfo.isPrize">
         <div class="prize-name">
           <span>{{ props.prizeInfo.prizeName }}</span>
         </div>
         <div class="goto-box">
-          <div class="use-btn" @click="goto()">
-            <img src="../assets/images/sure.png" alt="" srcset="" />
+          <div
+            class="use-btn"
+            @click="goto()"
+          >
+            <img
+              src="../assets/images/sure.png"
+              alt=""
+              srcset=""
+            >
           </div>
         </div>
       </template>
-      <div class="close-btn" @click="onClose">
-        <img src="../assets/images/close.png" alt="关闭" />
+      <div
+        class="close-btn"
+        @click="onClose"
+      >
+        <img
+          src="../assets/images/close.png"
+          alt="关闭"
+        >
       </div>
     </div>
   </div>

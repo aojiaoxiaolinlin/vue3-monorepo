@@ -37,13 +37,30 @@ console.log(getAssetsFile('/btn/btn2.png'));
 <template>
   <h1>{{ msg }}</h1>
   <div>
-    <img :src="count % 2 === 0 ? getAssetsFile('/btn/btn2.png') : getAssetsFile('z-pan-ding.png')" alt="" srcset="" />
+    <img
+
+
+
+      :src="count % 2 === 0 ? getAssetsFile('/btn/btn2.png') : getAssetsFile('z-pan-ding.png')"
+      alt=""
+      srcset=""
+    >
   </div>
-  <img :src="imageUrl" alt="" srcset="" />
+  <img
+    :src="imageUrl"
+    alt=""
+    srcset=""
+  >
   <span>我是文字</span>
   <div class="box">我是Box</div>
-  <button type="button" @click="count++">count is {{ count }}</button>
-  <button ref="button" type="button">RsJS</button>
+  <button
+    type="button"
+    @click="count++"
+  >count is {{ count }}</button>
+  <button
+    ref="button"
+    type="button"
+  >RsJS</button>
   {{ posts }}
 </template>
 

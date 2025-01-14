@@ -17,17 +17,28 @@ function showMessage() {
 }
 
 const userInfo = { token: null, phone: null };
-console.log(objectIsEmpty(userInfo))
-
+console.log(objectIsEmpty(userInfo));
 </script>
 
 <template>
-  <van-search v-model="value" placeholder="请输入搜索关键词" />
+  <div
+    h-100px
+    w-100px
+    bg-red
+  />
+  <van-search
+    v-model="value"
+    placeholder="请输入搜索关键词"
+  />
   <Button @click="isShow = true">打开Modal组件</Button>
   <Button @click="showMessage">打开Message组件</Button>
   <div class="text-box">{{ list }}--{{ key }}</div>
   <!-- <div><span>{{ objectIsEmpty(userInfo) }}</span></div> -->
-  <MyModal v-model:isShow="isShow" message="Hello, World!" @onClose="console.log('close')" />
+  <MyModal
+    v-model:isShow="isShow"
+    message="Hello, World!"
+    @onClose="console.log('close')"
+  />
   <HelloWorld msg="Vite + Vue" />
 </template>
 

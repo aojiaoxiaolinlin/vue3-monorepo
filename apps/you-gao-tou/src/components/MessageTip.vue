@@ -1,17 +1,36 @@
 <template>
-  <div class="message-box" v-if="mode">
+  <div
+    v-if="mode"
+    class="message-box"
+  >
     <div class="content">
       <div class="is-sub-box">
         <div class="title-box">{{ props.title }}</div>
-        <div class="sub-text" :style="`text-align: ${props.textAlign};`">
-          <span v-html="props.content"></span>
-          <div v-if="confirmBtn" class="confirm-box" @click="onConfirm">
-            <img :src="confirmBtn" alt="确认" />
+        <div
+          class="sub-text"
+          :style="`text-align: ${props.textAlign};`"
+        >
+          <span v-html="props.content" />
+          <div
+            v-if="confirmBtn"
+            class="confirm-box"
+            @click="onConfirm"
+          >
+            <img
+              :src="confirmBtn"
+              alt="确认"
+            >
           </div>
         </div>
       </div>
-      <div class="close-btn" @click="onClose">
-        <img src="../assets/images/close.png" alt="关闭" />
+      <div
+        class="close-btn"
+        @click="onClose"
+      >
+        <img
+          src="../assets/images/close.png"
+          alt="关闭"
+        >
       </div>
     </div>
   </div>

@@ -1,17 +1,36 @@
 <template>
-  <div class="list-box" :style="isMb ? 'margin-bottom: 0.66667rem;' : ''">
+  <div
+    class="list-box"
+    :style="isMb ? 'margin-bottom: 0.66667rem;' : ''"
+  >
     <div class="top-box">
-      <img :src="getAssetsCardListImage(`${category.baseName}top.png`)" alt="顶部框" />
+      <img
+        :src="getAssetsCardListImage(`${category.baseName}top.png`)"
+        alt="顶部框"
+      >
     </div>
-    <div class="item-box" :style="`background-image: url(${getAssetsCardListImage(`${category.baseName}center.png`)});`
-      ">
-      <div class="item" v-for="item in category.list" :key="item.aid"
-        @click="emit('userGetGoodsCouponOrToUse', item.aid);">
-        <img :src="getAssetsGoodsImage(item.src)" alt="商品图片" />
+    <div
+      class="item-box"
+      :style="`background-image: url(${getAssetsCardListImage(`${category.baseName}center.png`)});`
+      "
+    >
+      <div
+        v-for="item in category.list"
+        :key="item.aid"
+        class="item"
+        @click="emit('userGetGoodsCouponOrToUse', item.aid);"
+      >
+        <img
+          :src="getAssetsGoodsImage(item.src)"
+          alt="商品图片"
+        >
       </div>
     </div>
     <div class="bottom-box">
-      <img :src="getAssetsCardListImage(`${category.baseName}bottom.png`)" alt="下边框" />
+      <img
+        :src="getAssetsCardListImage(`${category.baseName}bottom.png`)"
+        alt="下边框"
+      >
     </div>
   </div>
 </template>

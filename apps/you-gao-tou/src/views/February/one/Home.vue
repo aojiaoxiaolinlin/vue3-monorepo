@@ -1,6 +1,9 @@
 <template>
-  <div ref="box" class="box">
-    <span class="ball"></span>
+  <div
+    ref="box"
+    class="box"
+  >
+    <span class="ball" />
   </div>
 </template>
 

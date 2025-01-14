@@ -1,19 +1,36 @@
 <template>
   <div>
     <div class="header">
-      <van-icon name="arrow-left" size="30" @click="router.go(-1)" /><span>奖品列表</span>
+      <van-icon
+        name="arrow-left"
+        size="30"
+        @click="router.go(-1)"
+      /><span>奖品列表</span>
     </div>
     <div class="search-box">
-      <van-search v-model="value" placeholder="请输入搜索关键词" @search="onSearch" />
+      <van-search
+        v-model="value"
+        placeholder="请输入搜索关键词"
+        @search="onSearch"
+      />
       <button @click="onSearch">搜索</button>
     </div>
   </div>
   <div class="coupon-list">
-    <van-loading class="loading" v-if="isLoading" />
+    <van-loading
+      v-if="isLoading"
+      class="loading"
+    />
     <div class="box">
-      <div v-for="(item, index) of couponData.list" :key="index"
-        @click="userGetGoodsCouponOrToUse(item.aid, item.arriveStatus, item.resultOld)">
-        <img :src="getAssetCouponImage(item.src)" :alt="item.name" />
+      <div
+        v-for="(item, index) of couponData.list"
+        :key="index"
+        @click="userGetGoodsCouponOrToUse(item.aid, item.arriveStatus, item.resultOld)"
+      >
+        <img
+          :src="getAssetCouponImage(item.src)"
+          :alt="item.name"
+        >
       </div>
     </div>
   </div>

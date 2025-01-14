@@ -1,12 +1,16 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.cursorBlinking": "expand",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
     "source.organizeImports.biome": "explicit",
+    "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit"
   },
+  "eslint.validate": [
+    "vue",
+  ],
   "stylelint.enable": true,
   "stylelint.packageManager": "pnpm",
   "stylelint.validate": [
@@ -23,6 +27,14 @@
     "scss",
     "vue"
   ],
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true
+  },
   // search
   "search.searchEditor.singleClickBehaviour": "peekDefinition",
   "search.followSymlinks": false,
@@ -89,6 +101,7 @@
   ],
   "cSpell.words": [
     "amfe",
+    "Attributify",
     "chuan",
     "defu",
     "haowu",
@@ -98,6 +111,7 @@
     "QYYB",
     "stylelintignore",
     "unhead",
+    "unocss",
     "unplugin",
     "vite",
     "vueuse",

@@ -1,5 +1,7 @@
 <template>
-  <div class="modal" v-if="isShow">
+  <div
+    class="modal"
+    v-if="isShow">
     <div class="modal-content">
       <h1>My Modal</h1>
       <p>My Modal is: {{ message }}</p>

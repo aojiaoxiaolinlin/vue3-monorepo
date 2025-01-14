@@ -3,13 +3,22 @@
   <div>
     <h1>四川方言</h1>
     <article>monorepo工程测试页面</article>
-    <MessageTip v-model="isShowRuleInfo" title="游戏规则" :content="ruleContent" textAlign="left" />
+    <MessageTip
+      v-model="isShowRuleInfo"
+      title="游戏规则"
+      :content="ruleContent"
+      textAlign="left"
+    />
     <!-- <DateTip v-model="isShow" :num="3" /> -->
     <!-- <ShowPrizeTip v-model="isShow" :prizeInfo="{ prizeName: '一等奖', isPrize: true }" /> -->
     <button @click="onShowMessage">弹窗Message</button>
     <button @click="isShowRuleInfo = !isShowRuleInfo">显示/隐藏规则</button>
     <button @click="onGoSeeMyCoupons">查看我的奖品</button>
-    <GoodsCardList v-for="category in goodsCategories" :key="category.baseName" :category="category" />
+    <GoodsCardList
+      v-for="category in goodsCategories"
+      :key="category.baseName"
+      :category="category"
+    />
   </div>
 </template>
 

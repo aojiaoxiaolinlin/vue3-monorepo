@@ -1,23 +1,50 @@
 <template>
-  <div class="message-box" v-if="mode">
+  <div
+    v-if="mode"
+    class="message-box"
+  >
     <div class="content">
-      <img :src="props.bgImg" alt="背景" />
+      <img
+        :src="props.bgImg"
+        alt="背景"
+      >
       <div class="is-sub-box">
         <div class="title-box">{{ props.title }}</div>
-        <div class="first-content" v-if="props.firstContent">
-          <p v-html="props.firstContent"></p>
+        <div
+          v-if="props.firstContent"
+          class="first-content"
+        >
+          <p v-html="props.firstContent" />
         </div>
-        <div class="sub-text" :style="`text-align: ${props.textAlign};`">
-          <div ref="content" :class="{ 'content-font-size': bigFontSize, 'content-font-size-small': smallFontSize }"
-            v-html="props.content">
-          </div>
-          <div v-if="confirmBtn" class="confirm-box" @click="onConfirm">
-            <img :src="confirmBtn" alt="确认" />
+        <div
+          class="sub-text"
+          :style="`text-align: ${props.textAlign};`"
+        >
+          <div
+            ref="content"
+            :class="{ 'content-font-size': bigFontSize, 'content-font-size-small': smallFontSize }"
+            v-html="props.content"
+          />
+          <div
+            v-if="confirmBtn"
+            class="confirm-box"
+            @click="onConfirm"
+          >
+            <img
+              :src="confirmBtn"
+              alt="确认"
+            >
           </div>
         </div>
       </div>
-      <div class="close-btn" @click="onClose">
-        <img src="../assets/images/close.png" alt="关闭" />
+      <div
+        class="close-btn"
+        @click="onClose"
+      >
+        <img
+          src="../assets/images/close.png"
+          alt="关闭"
+        >
       </div>
     </div>
   </div>
