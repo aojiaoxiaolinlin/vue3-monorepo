@@ -6,6 +6,12 @@
     "EditorConfig.EditorConfig",
     "usernamehw.errorlens",
     "streetsidesoftware.code-spell-checker",
-    "biomejs.biome"
+    "biomejs.biome",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "antfu.unocss",
+    "antfu.iconify",
+    "mikestead.dotenv",
   ]
 }

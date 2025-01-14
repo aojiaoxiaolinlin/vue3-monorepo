@@ -13,6 +13,8 @@ export default [
       parser: parserVue,
       parserOptions: {
         extraFileExtensions: [".vue"],
+        // parser: "@typescript-eslint/parser",
+        // 禁用了style标签的检查，使用biome检查ts语法。
         parser: false,
       },
     },
