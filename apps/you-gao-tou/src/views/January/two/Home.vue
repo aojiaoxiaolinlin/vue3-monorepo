@@ -2,16 +2,16 @@
   <div class="box">
     <div class="scroll-box">
       <div class="content">
-        <img src="../../../assets/images/fan-fan/bg.png" alt="" srcset="">
+        <img src="../../../assets/images/fan-fan/bg.png" alt="" srcset="" />
         <div class="rule-text" @click="isShowRuleInfo = true">活动规则</div>
         <div class="my-coupons" @click="onGoSeeMyCoupons()">奖品列表</div>
         <div class="game-box">
           <div class="card-box" v-for="index in 9" :key="index">
             <div class="img-box" @click="onStartGame(index)">
               <img class="backend" :class="{ 'backend-rotate-y': index === clickCardIndex }"
-                src="../../../assets/images/fan-fan/card_backend.png" alt="卡片">
+                src="../../../assets/images/fan-fan/card_backend.png" alt="卡片" />
               <img class="font" :class="{ 'font-rotate-y': index === clickCardIndex }"
-                :src="getAssetFanFanImage(couponPrize)" alt="卡片">
+                :src="getAssetFanFanImage(couponPrize)" alt="卡片" />
             </div>
           </div>
         </div>
@@ -38,47 +38,57 @@
       </div>
     </div>
   </div>
-  <MessageTipTwo v-model="isShowRuleInfo" title="游戏规则" :content="ruleContent" text-align="left" :bg-img="MessageBg"
+  <MessageTipTwo v-model="isShowRuleInfo" title="游戏规则" text-align="left" :content="ruleContent" :bg-img="MessageBg"
     :small-font-size="true" />
 </template>
 
 <script setup lang="ts">
-import { objectIsEmpty, wxLoginGetUserInfo } from '@lin/utils';
-import { useRouteQuery } from '@vueuse/router';
-import { Subject, throttleTime } from 'rxjs';
-import { hasDailyStock, issuingCouponApi, userGetCouponApi } from '#/api';
-import GotoLook from '#/assets/images/fan-fan/goto_look.png';
-import MessageBg from '#/assets/images/fan-fan/message_bg.png';
-import PrizeMessageBg from '#/assets/images/fan-fan/prize_message_bg.png';
-import MessageTipTwo from '#/components/MessageTipTwo.vue';
-import { getGoodsCouponStatus } from '#/composables/coupon-status';
-import { ShowMessageTipTwo as ShowMessageTip } from '#/composables/message-tip';
-import { useGameStore } from '#/stores';
-import { getAssetFanFanImage, getAssetsGoodsImage, getUserPhoneApiInfo } from '#/utils';
-import { isActivityDate } from '#/utils/date';
-import { CouponGetStatus, awardCoupons, goodsCategories, ruleContent } from '../../common-data';
-import { tipText } from './data';
+import { objectIsEmpty, wxLoginGetUserInfo } from "@lin/utils";
+import { useRouteQuery } from "@vueuse/router";
+import { Subject, throttleTime } from "rxjs";
+import { hasDailyStock, issuingCouponApi, userGetCouponApi } from "#/api";
+import GotoLook from "#/assets/images/fan-fan/goto_look.png";
+import MessageBg from "#/assets/images/fan-fan/message_bg.png";
+import PrizeMessageBg from "#/assets/images/fan-fan/prize_message_bg.png";
+
+import MessageTipTwo from "#/components/MessageTipTwo.vue";
+import { getGoodsCouponStatus } from "#/composables/coupon-status";
+import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
+import { useGameStore } from "#/stores";
+import {
+  getAssetFanFanImage,
+  getAssetsGoodsImage,
+  getUserPhoneApiInfo,
+} from "#/utils";
+import { isActivityDate } from "#/utils/date";
+import {
+  CouponGetStatus,
+  awardCoupons,
+  goodsCategories,
+  ruleContent,
+} from "../../common-data";
+import { tipText } from "./data";
 
 // 1. 定义页面配置
 useHead({
-  title: '幸运翻翻乐-翻出你的专属好礼'
-})
+  title: "幸运翻翻乐-翻出你的专属好礼",
+});
 
 // 2. 引入useXXX()
 const router = useRouter();
 const gameStore = useGameStore();
-const weiChatKey = useRouteQuery<string>('key');
-const token = useRouteQuery<string>('data');
+const weiChatKey = useRouteQuery<string>("key");
+const token = useRouteQuery<string>("data");
 
 // 3. 定义响应式变量，遵循就近使用原则
 const isShowRuleInfo = ref(false);
-const couponPrize = ref('not_prize_card.png');
+const couponPrize = ref("not_prize_card.png");
 
 // 4. 初始化
 init();
 // function 定义的函数具有提升性，因此可以在函数调用之后定义。
 async function init() {
-  let phone = '';
+  let phone = "";
   if (weiChatKey.value) {
     phone = wxLoginGetUserInfo(weiChatKey.value).productNo;
   }
@@ -91,32 +101,31 @@ async function init() {
     const userPhoneApiInfo = getUserPhoneApiInfo(userPhoneInfo);
     gameStore.initUserPhoneApiInfo(userPhoneApiInfo);
     await gameStore.initGameCount(userPhoneApiInfo);
-    getGoodsCouponStatus(goodsCategories)
+    getGoodsCouponStatus(goodsCategories);
   } else {
-    console.log('用户信息为空');
+    console.log("用户信息为空");
   }
-
 }
 
 // 5. 定义函数
 // 箭头函数定义的函数不具有提升性，因此必须在函数调用之前定义。否则会报错。必须严格遵守先定义后调用的原则。
 const onGoSeeMyCoupons = () => {
   if (gameStore.isLogin) {
-    router.push({ path: '/coupons' });
+    router.push({ path: "/coupons" });
   } else {
     ShowMessageTip({
-      title: '未登录',
-      content: '请先退出后登录',
-    })
+      title: "未登录",
+      content: "请先退出后登录",
+    });
   }
 };
 
 const subject = new Subject<number>();
 const clickCardIndex = ref(-1);
 
-subject.pipe((throttleTime(2000))).subscribe(async (index) => {
+subject.pipe(throttleTime(2000)).subscribe(async (index) => {
   // 3.库存判断
-  const isDailyStock = await hasDailyStock()
+  const isDailyStock = await hasDailyStock();
   if (!isDailyStock) {
     ShowMessageTip({
       title: tipText.notStock.title,
@@ -126,52 +135,58 @@ subject.pipe((throttleTime(2000))).subscribe(async (index) => {
   }
   setTimeout(() => {
     clickCardIndex.value = index;
-  }, 150)
+  }, 150);
   // 发券
   issuingCouponApi().then((res) => {
     const prizeAid = res;
     if (prizeAid === "0") {
-      couponPrize.value = 'not_prize_card.png';
+      couponPrize.value = "not_prize_card.png";
       setTimeout(() => {
         ShowMessageTip({
-          title: '很遗憾',
-          firstContent: '此卡未藏惊喜，<br />别灰心，好运在排队！',
-          content: gameStore.gameCount > 0 ? '再玩一次吧！' : '下一场活动将在<br />2025年1月21日准时开启，记得来参加哟。',
+          title: "很遗憾",
+          firstContent: "此卡未藏惊喜，<br />别灰心，好运在排队！",
+          content:
+            gameStore.gameCount > 0
+              ? "再玩一次吧！"
+              : "下一场活动将在<br />2025年1月21日准时开启，记得来参加哟。",
         });
-      }, 1100)
+      }, 1100);
     } else {
       for (const item of awardCoupons) {
         if (item.aid === prizeAid) {
-          couponPrize.value = item.name.includes("3元") ? '3yuan_card.png' : '5yuan_card.png';
+          couponPrize.value = item.name.includes("3元")
+            ? "3yuan_card.png"
+            : "5yuan_card.png";
           setTimeout(() => {
             ShowMessageTip({
-              title: '太棒啦！',
+              title: "太棒啦！",
               firstContent: `翻开即中${item.name}！`,
               bgImg: PrizeMessageBg,
-              content: '请在【活动首页-奖品列表】中查询。',
+              content: "请在【活动首页-奖品列表】中查询。",
               confirm: {
                 btnImg: GotoLook,
                 callback: () => {
-                  router.push('/coupons');
-                }
+                  router.push("/coupons");
+                },
               },
             });
-          }, 1000)
+          }, 1000);
           break;
         }
       }
     }
     gameStore.updateGameCount();
-  })
-})
+  });
+});
 
 const onStartGame = async (index: number) => {
   if (gameStore.isLogin) {
     // 1.判断游戏次数
     if (gameStore.gameCount <= 0) {
       ShowMessageTip({
-        title: '糟糕，游戏次数已用完',
-        content: '请期待下一场<br />四川方言大挑战活动吧！<br />活动时间：2025年1月21日',
+        title: "糟糕，游戏次数已用完",
+        content:
+          "请期待下一场<br />四川方言大挑战活动吧！<br />活动时间：2025年1月21日",
         bigFontSize: true,
       });
       return;
@@ -183,44 +198,50 @@ const onStartGame = async (index: number) => {
     subject.next(index);
   } else {
     ShowMessageTip({
-      title: '未登录',
-      content: '请先退出后登录',
-    })
+      title: "未登录",
+      content: "请先退出后登录",
+    });
   }
 };
 
-const userGetGoodsCouponOrToUse = (aid: string, url: string, status: CouponGetStatus) => {
+const userGetGoodsCouponOrToUse = (
+  aid: string,
+  url: string,
+  status: CouponGetStatus,
+) => {
   switch (status) {
     case CouponGetStatus.GET:
-      userGetCouponApi(aid).then(_res => {
-        ShowMessageTip({
-          title: '领取成功',
-          content: '请在【活动首页-奖品列表】中查询。',
-          confirm: {
-            btnImg: GotoLook,
-            callback: () => {
-              router.push({ path: '/coupons' });
-            }
-          },
-          close: () => {
-            // 刷新状态
-            getGoodsCouponStatus(goodsCategories);
-          }
+      userGetCouponApi(aid)
+        .then((_res) => {
+          ShowMessageTip({
+            title: "领取成功",
+            content: "请在【活动首页-奖品列表】中查询。",
+            confirm: {
+              btnImg: GotoLook,
+              callback: () => {
+                router.push({ path: "/coupons" });
+              },
+            },
+            close: () => {
+              // 刷新状态
+              getGoodsCouponStatus(goodsCategories);
+            },
+          });
+        })
+        .catch((err) => {
+          console.log("err", err);
         });
-      }).catch(err => {
-        console.log('err', err);
-      });
       break;
     case CouponGetStatus.USE:
       window.location.href = url;
       break;
   }
-}
+};
 
 const onJump = () => {
   window.location.href =
-    'https://h5.bestpay.com.cn/subapps/financial/index.html#/pmActivityHome?equityActiType=GJ1168396538&routeOfferinstType=1&special_variable3=001012LH202303232&hybridVersion=3.0';
-}
+    "https://h5.bestpay.com.cn/subapps/financial/index.html#/pmActivityHome?equityActiType=GJ1168396538&routeOfferinstType=1&special_variable3=001012LH202303232&hybridVersion=3.0";
+};
 </script>
 
 <style scoped>
@@ -307,7 +328,6 @@ const onJump = () => {
   height: auto;
   overflow: hidden;
 }
-
 
 .item-box {
   width: 100%;
