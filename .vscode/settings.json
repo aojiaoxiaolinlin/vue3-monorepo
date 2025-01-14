@@ -8,6 +8,11 @@
     "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit"
   },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.env": "$(capture).env.*",
+  },
   "eslint.validate": [
     "vue",
   ],

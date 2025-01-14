@@ -1,3 +1,3 @@
-export * from './game';
-export * from './types';
-export * from './coupon';
+export * from "./game";
+export * from "./types";
+export * from "./coupon";

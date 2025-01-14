@@ -1,8 +1,8 @@
 // 浏览器原生的加密 crypto 需要安全上下文（localhost / HTTPS)，是否使用有待评估，保险起见，还是第三方库吧
 // 参考：https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
-import CryptoJS from 'crypto-js';
-import Forge from 'node-forge';
-import type { EncryptInfo, EncryptResponseBody, RequestBody } from './types';
+import CryptoJS from "crypto-js";
+import Forge from "node-forge";
+import type { EncryptInfo, EncryptResponseBody, RequestBody } from "./types";
 
 /**
  *
@@ -19,16 +19,14 @@ export function generateRSAKeyPair(): {
 }
 
 // 固定后端公钥和前端私钥
-const backendPublicKey =
-  `-----BEGIN PUBLIC KEY-----
+const backendPublicKey = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRgxE2ofAo0ilt+8ViU0gQ2vz
 i08MvYBgDRXUHLQ1uPCd4i478czaNEXbNyiUrR0wql/aQBVddklA7B6vpriLrfp
 J7Sm2U6+HLMBA26yVE7sCcX5+52x9ZBvoaCaDqs4gZC9Te1UsebZa2iVMtEMTOZ
 ah41Pbn1DtDOXZgDVkMBwIDAQAB
 -----END PUBLIC KEY-----`;
 
-const frontendPrivateKey =
-  `-----BEGIN RSA PRIVATE KEY-----
+const frontendPrivateKey = `-----BEGIN RSA PRIVATE KEY-----
 MIICXQIBAAKBgQCBWwNewEy37qkmyTi/uMIsdin6lQRX7xj3s/dF+doO6Kzc0vXg
 3CSDcE9b21JV2ZBFSj9bFjafqgH6zBuiwUNrnqAKNijU6SrWSnH+8Of3VEMuWyfv
 Dgxx4G9K0fSPNyTnGGlr2KiyvFBWaUIB8j8J7inavfUzoHm3WG+L86INJQIDAQAB
@@ -51,7 +49,7 @@ BoHMGAtWrGLPeUroH+lyaJi+eSgEcm1fjtkA7tTaiimb
  */
 export function rsaEncrypt(data: string): string {
   const publicKey = Forge.pki.publicKeyFromPem(backendPublicKey);
-  const encrypted = publicKey.encrypt(data, 'RSA-OAEP');
+  const encrypted = publicKey.encrypt(data, "RSA-OAEP");
   return Forge.util.encode64(encrypted);
 }
 
@@ -62,7 +60,7 @@ export function rsaEncrypt(data: string): string {
  */
 export function rsaDecrypt(data: string): string {
   const privateKey = Forge.pki.privateKeyFromPem(frontendPrivateKey);
-  const decrypted = privateKey.decrypt(Forge.util.decode64(data), 'RSA-OAEP');
+  const decrypted = privateKey.decrypt(Forge.util.decode64(data), "RSA-OAEP");
   return decrypted;
 }
 
@@ -123,8 +121,8 @@ export function aesDecrypt(data: EncryptResponseBody): string {
   const decrypted = decryptedWordArray.toString(CryptoJS.enc.Utf8);
   // 验签,TODO: 验签失败，不明白为什么, 无法使用，当个花瓶吧
   if (!verify(decrypted, data.s, data.timestamp)) {
-    throw new Error('验签失败');
-  };
+    throw new Error("验签失败");
+  }
   return decrypted;
 }
 
@@ -139,7 +137,7 @@ function sign(data: string, timestamp: number): string {
   const timeOut = 30 * 60 * 1000;
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
-  md.update(`${data}{${timestamp + timeOut}}`, 'utf8');
+  md.update(`${data}{${timestamp + timeOut}}`, "utf8");
   // // 使用 RSA 私钥进行签名
   // const signature = privateKey.sign(md);
   // // 返回 base64 编码的签名
@@ -156,20 +154,19 @@ function verify(data: string, sign: string, timestamp: number): boolean {
   const timeOut = 30 * 60 * 1000;
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
-  md.update(`${data}{${timestamp + timeOut}}`, 'utf8');
+  md.update(`${data}{${timestamp + timeOut}}`, "utf8");
   // 使用 RSA 公钥进行验证
   // return publicKey.verify(md.digest().getBytes(), Forge.util.hexToBytes(sign));
   return md.digest().toHex() === sign;
 }
-
 
 /**
  * 对请求数据进行 ASCII 码排序，得到有序的数据对象，用于签名
  * @param {Record<string, string | number>} data 待排序的请求数据
  */
 export function sortRequestData(data: RequestBody): RequestBody {
-  if (typeof data !== 'object' || data === null) {
-    return data;  // 如果是基本类型，直接返回
+  if (typeof data !== "object" || data === null) {
+    return data; // 如果是基本类型，直接返回
   }
   // 对对象的键进行排序，并递归处理每个键对应的值
   const sortedData: Record<string, unknown> = {};

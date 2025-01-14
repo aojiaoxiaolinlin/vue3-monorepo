@@ -1,48 +1,49 @@
-import { URL, fileURLToPath } from 'node:url'
-import vue from '@vitejs/plugin-vue'
-import postCssPxToRem from 'postcss-pxtorem'
-import UnoCSS from 'unocss/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import { defineConfig } from 'vite'
-import vitePluginBundleObfuscator from 'vite-plugin-bundle-obfuscator';
+import { URL, fileURLToPath } from "node:url";
+import vue from "@vitejs/plugin-vue";
+import postCssPxToRem from "postcss-pxtorem";
+import UnoCSS from "unocss/vite";
+import AutoImport from "unplugin-auto-import/vite";
+import { defineConfig } from "vite";
+import vitePluginBundleObfuscator from "vite-plugin-bundle-obfuscator";
 
 // 简化配置
 const minimizeObfuscatorConfig = {
   options: {
     splitStrings: true,
-  }
+  },
 };
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/app-one/',
+  base: "/app-one/",
   resolve: {
     alias: {
-      '#': fileURLToPath(new URL('./src', import.meta.url)),
+      "#": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
   plugins: [
     vue(),
-    UnoCSS(),
-    vitePluginBundleObfuscator(minimizeObfuscatorConfig), AutoImport({
-
+    UnoCSS("../../uno.config.ts"),
+    vitePluginBundleObfuscator(minimizeObfuscatorConfig),
+    AutoImport({
       imports: [
         // 插件预设支持导入的api
-        'vue',
-        'vue-router',
-        'pinia'
+        "vue",
+        "vue-router",
+        "pinia",
         // 自定义导入的api
       ],
-      dts: 'src/auto-imports.d.ts',
-    })],
+      dts: "src/auto-imports.d.ts",
+    }),
+  ],
   css: {
     postcss: {
       plugins: [
         postCssPxToRem({
           rootValue: 37.5,
-          propList: ['*']
-        })
-      ]
-    }
-  }
-})
+          propList: ["*"],
+        }),
+      ],
+    },
+  },
+});

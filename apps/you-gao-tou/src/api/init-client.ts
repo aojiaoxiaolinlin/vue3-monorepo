@@ -15,8 +15,6 @@ const encryptRequest = createEncryptRequest({
   withCredentials: true,
 });
 
-
-
 // 可能需要更好的处理方式
 encryptRequest.addResponseInterceptor<HttpResponse<unknown>>({
   fulfilled: (response) => {
@@ -118,7 +116,6 @@ const handleExceptionMessage = (error: AxiosError<ExceptionResponse>) => {
       content: "未知异常",
     });
   }
-
-}
+};
 
 export { encryptRequest };

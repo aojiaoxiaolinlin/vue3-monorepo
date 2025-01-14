@@ -5,14 +5,13 @@ export type UserPhoneApiInfo = {
   data?: {
     phone?: string;
   };
-}
+};
 
 export enum CouponUseStatus {
-  NOT_USED = 'NOT_USED',
-  USED_UP = 'USED_UP',
-  EXPIRED = 'EXPIRED',
+  NOT_USED = "NOT_USED",
+  USED_UP = "USED_UP",
+  EXPIRED = "EXPIRED",
 }
-
 
 export type CouponInfo = {
   aid: string;
@@ -21,4 +20,4 @@ export type CouponInfo = {
   status: CouponUseStatus;
   createTime: string;
   resultCode: string;
-}
+};

@@ -13,7 +13,7 @@ type MessageTipProps = {
     callback: () => void;
   };
   close?: () => void;
-}
+};
 
 /**
  * 显示提示框
@@ -21,7 +21,7 @@ type MessageTipProps = {
  */
 export const ShowMessageTip = (messageTipProps: MessageTipProps) => {
   const { title, content, confirm, close } = messageTipProps;
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   document.body.appendChild(div);
   const vNode = createVNode(MessageTip, {
     title,
@@ -36,12 +36,11 @@ export const ShowMessageTip = (messageTipProps: MessageTipProps) => {
       confirm?.callback();
       render(null, div);
       div.remove();
-    }
+    },
   });
   render(vNode, div);
   document.body.appendChild(div);
-}
-
+};
 
 /**
  * 显示提示框
@@ -49,7 +48,7 @@ export const ShowMessageTip = (messageTipProps: MessageTipProps) => {
  */
 export const ShowMessageTipTwo = (messageTipProps: MessageTipProps) => {
   const { title, content, confirm, close, bgImg, firstContent, bigFontSize } = messageTipProps;
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   document.body.appendChild(div);
   const vNode = createVNode(MessageTipTwo, {
     title,
@@ -67,8 +66,8 @@ export const ShowMessageTipTwo = (messageTipProps: MessageTipProps) => {
       confirm?.callback();
       render(null, div);
       div.remove();
-    }
+    },
   });
   render(vNode, div);
   document.body.appendChild(div);
-}
+};
