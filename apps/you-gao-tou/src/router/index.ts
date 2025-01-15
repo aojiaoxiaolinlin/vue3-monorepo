@@ -2,11 +2,10 @@ import { type RouteRecordRaw, createRouter, createWebHashHistory } from "vue-rou
 import { useGameStore } from "#/stores";
 
 const routes: RouteRecordRaw[] = [
-  // { path: '/', name: 'home', component: () => import('../views/February/one/Home.vue') },
   {
     path: "/",
     name: "home",
-    component: () => import("../views/January/one/Home.vue"),
+    component: () => import("../views/January/two/Home.vue"),
   },
   {
     path: "/coupons",

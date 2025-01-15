@@ -31,8 +31,6 @@ import { useGameStore } from '#/stores';
 import { getUserPhoneApiInfo } from '#/utils';
 import { goodsCategories, ruleContent } from './common-data';
 
-console.log(import.meta.env);
-
 const router = useRouter();
 const gameStore = useGameStore();
 
