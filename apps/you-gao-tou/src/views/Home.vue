@@ -2,15 +2,14 @@
 
   <div>
     <h1>四川方言</h1>
-    <article>monorepo工程测试页面</article>
+    <h2>monorepo工程测试页面</h2>
     <MessageTip
       v-model="isShowRuleInfo"
       title="游戏规则"
       :content="ruleContent"
       textAlign="left"
     />
-    <!-- <DateTip v-model="isShow" :num="3" /> -->
-    <!-- <ShowPrizeTip v-model="isShow" :prizeInfo="{ prizeName: '一等奖', isPrize: true }" /> -->
+
     <button @click="onShowMessage">弹窗Message</button>
     <button @click="isShowRuleInfo = !isShowRuleInfo">显示/隐藏规则</button>
     <button @click="onGoSeeMyCoupons">查看我的奖品</button>
@@ -25,11 +24,8 @@
 <script setup lang="ts">
 import { objectIsEmpty, wxLoginGetUserInfo } from '@lin/utils';
 import { useRouteQuery } from '@vueuse/router';
-import DateTip from '#/components/DateTip.vue';
 import GoodsCardList from '#/components/GoodsCardList.vue';
 import MessageTip from '#/components/MessageTip.vue';
-import ShowPrizeTip from '#/components/ShowPrizeTip.vue';
-import { getGoodsCouponStatus } from '#/composables/coupon-status';
 import { ShowMessageTip } from '#/composables/message-tip';
 import { useGameStore } from '#/stores';
 import { getUserPhoneApiInfo } from '#/utils';
@@ -55,13 +51,9 @@ const userPhoneInfo = {
 if (!objectIsEmpty(userPhoneInfo)) {
   const userPhoneApiInfo = getUserPhoneApiInfo(userPhoneInfo);
   gameStore.initUserPhoneApiInfo(userPhoneApiInfo);
-  // gameStore.initOrUpdateGameCount(getUserPhoneApiInfo(userPhoneInfo));
-  // getGoodsCouponStatus(getUserPhoneApiInfo(userPhoneInfo), goodsCategories)
-
 } else {
   console.log('用户信息为空');
 }
-const isShow = ref(true);
 const isShowRuleInfo = ref(true);
 
 const onShowMessage = () => {
