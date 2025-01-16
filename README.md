@@ -2,10 +2,34 @@
 
 ## 推荐包管理工具
 
-[fnm](https://github.com/Schniz/fnm)
+[`fnm`](https://github.com/Schniz/fnm)，因为他会根据项目的`.node-version`文件定义的`node`版本自动切换`node`版本。
 
-> 安装
+- `Windows` 安装
+  1. 推荐使用`powershell7`终端
+  
+    ```bash
+    #PowerShell 终端输入
+    winget search Microsoft.PowerShell
+    ```
 
+  2. 安装`fnm`
+  
+  ```bash
+  winget install Schniz.fnm
+  # 或者
+  scoop install fnm
+  ```
+
+  3. 配置`shell`环境(自动切换版本功能)
+
+    ```bash
+    #创建配置文件
+    if (-not (Test-Path $profile)) { New-Item $profile -Force }
+    #编辑配置文件
+    Invoke-Item $profile
+    #复制下面配置到配置文件中
+    fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+    ```
 
 ## 目录结构
 
