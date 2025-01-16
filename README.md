@@ -1,5 +1,12 @@
 # Monorepo 工程
 
+## 推荐包管理工具
+
+[fnm](https://github.com/Schniz/fnm)
+
+> 安装
+
+
 ## 目录结构
 
 - "apps/\*" 所有应用包
