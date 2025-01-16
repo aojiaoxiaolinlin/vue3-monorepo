@@ -25,7 +25,7 @@
       <div
         v-for="(item, index) of couponData.list"
         :key="index"
-        @click="userGetGoodsCouponOrToUse(item.aid, item.arriveStatus, item.resultOld)"
+        @click="userGetGoodsCouponOrToUse(item.aid, item.arriveStatus, item.resultOld,item.resultMsg)"
       >
         <img
           :src="getAssetCouponImage(item.src)"
@@ -38,11 +38,14 @@
 
 <script setup lang="ts">
 import { userGetCouponAgainApi } from "#/api";
+import GetCouponAgainBtnImg from "#/assets/images/coupon-list/get_coupon_again.png";
+import MessageBgImg from "#/assets/images/fan-fan/prize_message_bg.png";
 import {
   CouponArriveStatus,
   type ShowCouponInfo,
   getCouponsStatus,
 } from "#/composables/coupon-status";
+import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
 import { getAssetCouponImage } from "#/utils";
 import { goodsCategories } from "./common-data";
 
@@ -77,19 +80,31 @@ const userGetGoodsCouponOrToUse = (
   aid: string,
   arriveStatus: CouponArriveStatus,
   resultOld: string,
+  resultMsg: string
 ) => {
   switch (arriveStatus) {
     case CouponArriveStatus.NOT_ARRIVE:
       // 未到账
-      userGetCouponAgainApi(resultOld)
-        .then((res) => {
-          console.log("res", res);
-          // 更新奖品列表
-          initCouponsStatus();
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
+      ShowMessageTip({
+        title: "未到账",
+        firstContent: "您的奖品到账异常！",
+        content: resultMsg,
+        bgImg:MessageBgImg,
+        confirm: {
+          btnImg: GetCouponAgainBtnImg,
+          callback: () => {
+            userGetCouponAgainApi(resultOld)
+              .then((res) => {
+                console.log("res", res);
+                // 更新奖品列表
+                initCouponsStatus();
+              })
+              .catch((err) => {
+                console.log("err", err);
+              });
+          }
+        }
+      })
       break;
     case CouponArriveStatus.ARRIVE:
       // 已到账

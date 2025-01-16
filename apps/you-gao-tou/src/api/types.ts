@@ -20,4 +20,5 @@ export type CouponInfo = {
   status: CouponUseStatus;
   createTime: string;
   resultCode: string;
+  resultMsg: string;
 };

@@ -73,6 +73,7 @@ export type ShowCouponInfo = {
   createTime: string;
   arriveStatus: CouponArriveStatus;
   resultOld: string;
+  resultMsg: string;
 };
 
 export enum CouponArriveStatus {
@@ -100,6 +101,7 @@ export const getCouponsStatus = async (goodsCategories: Ref<GoodsCategories>) =>
           url: coupon.url,
           name: coupon.name,
           arriveStatus: CouponArriveStatus.ARRIVE,
+          resultMsg: "",
           resultOld: "",
         };
       });
@@ -117,6 +119,7 @@ export const getCouponsStatus = async (goodsCategories: Ref<GoodsCategories>) =>
         name: `${item.name}有搞头活动券`,
         arriveStatus: CouponArriveStatus.ARRIVE,
         resultOld: "",
+        resultMsg: "",
       };
     });
   coupons.push(...awardCouponAids);
@@ -151,6 +154,7 @@ export const getCouponsStatus = async (goodsCategories: Ref<GoodsCategories>) =>
       if (target) {
         target.createTime = item.createTime;
         target.resultOld = item.resultOld;
+        target.resultMsg = item.resultMsg;
         // 如果未到账，则显示未到账的图片
         if (item.resultCode !== "000000") {
           target.src = getGoodsCouponSrc(target.src, "not_arrive.png");
