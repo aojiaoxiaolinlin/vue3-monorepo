@@ -25,7 +25,7 @@
       <div
         v-for="(item, index) of couponData.list"
         :key="index"
-        @click="userGetGoodsCouponOrToUse(item.aid, item.arriveStatus, item.resultOld,item.resultMsg)"
+        @click="userGetGoodsCouponOrToUse(item.aid, item.arriveStatus, item.resultOld, item.resultMsg)"
       >
         <img
           :src="getAssetCouponImage(item.src)"
@@ -83,13 +83,25 @@ const userGetGoodsCouponOrToUse = (
   resultMsg: string
 ) => {
   switch (arriveStatus) {
-    case CouponArriveStatus.NOT_ARRIVE:
+    case CouponArriveStatus.NOT_ARRIVE: {
       // 未到账
+      let tipMsg = '';
+      switch (resultMsg) {
+        case "亲，用户不存在，请重新输入或注册新账号":
+        case "失败：手机号信息不存在":
+          tipMsg = "由于账号状态、活动规则限制或券量不足等原因<br /> 导致优惠券未到账，请下次再来试试吧！";
+          break;
+        case "优惠券领取已结束":
+          tipMsg = "您来晚一步，优惠券已领完<br />别灰心，后续还有更多惊喜福利等您来享！";
+          break;
+        default:
+        tipMsg = "您的登录异常<br />请尝试重新登录或注册新账号试试～<br />";
+      }
       ShowMessageTip({
         title: "未到账",
-        firstContent: "您的奖品到账异常！",
-        content: resultMsg,
-        bgImg:MessageBgImg,
+        firstContent: "亲爱的小伙伴",
+        content: tipMsg,
+        bgImg: MessageBgImg,
         confirm: {
           btnImg: GetCouponAgainBtnImg,
           callback: () => {
@@ -106,6 +118,7 @@ const userGetGoodsCouponOrToUse = (
         }
       })
       break;
+    }
     case CouponArriveStatus.ARRIVE:
       // 已到账
       window.location.href = coupons.find((item) => item.aid === aid)?.url ?? "";
