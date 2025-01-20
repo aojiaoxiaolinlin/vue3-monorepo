@@ -148,7 +148,7 @@ const onStartGame = async () => {
     if (gameStore.gameCount <= 0) {
       ShowMessageTip({
         title: '糟糕，游戏次数已用完',
-        content: '请期待下一场幸运翻翻乐活动吧！<br />活动时间：2025年1月14日'
+        content: '请期待下一场幸运翻翻乐活动吧！<br />活动时间：2025年1月28日'
       });
       return;
     }

@@ -6,10 +6,10 @@ import { ShowMessageTip } from "#/composables/message-tip";
 export const isActivityDate = () => {
   const date = new Date();
   const day = date.getDate();
-  if (day !== 14) {
+  if (day !== 21) {
     let title = "";
     let content = "";
-    if (day < 14) {
+    if (day < 21) {
       title = "嘿！小伙伴们";
       content = "活动时间为<br/>2025年1月每周二00:00:00开启<br />趣味玩法、丰厚奖品等您来拿！";
     } else {

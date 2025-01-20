@@ -42,7 +42,7 @@
 
 ```bash
 # 在 workspace 上添加依赖
-pnpm add <package-name> -W
+pnpm add <package-name> -w
 
 # 为某个包安装依赖包(本地包或者npm.js包)
 # 1.控制终端根目录进入该包目录
