@@ -1,12 +1,8 @@
 import { objectIsEmpty } from "@lin/utils";
 import { defineStore } from "pinia";
-import {
-  type UserPhoneApiInfo,
-  decrementGameCountApi,
-  getGameCountApi,
-} from "#/api";
-// import { ShowMessageTip } from "#/composables/message-tip";
-import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
+import { type UserPhoneApiInfo, decrementGameCountApi, getGameCountApi } from "#/api";
+import { ShowMessageTip } from "#/composables/message-tip";
+// import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
 
 export const useGameStore = defineStore("game", {
   state: () => ({
@@ -38,10 +34,7 @@ export const useGameStore = defineStore("game", {
     initUserPhoneApiInfo(userPhoneApiInfo: UserPhoneApiInfo) {
       this.userPhoneApiInfo = userPhoneApiInfo;
       // 并且存入sessionStorage中
-      sessionStorage.setItem(
-        "userPhoneApiInfo",
-        JSON.stringify(userPhoneApiInfo),
-      );
+      sessionStorage.setItem("userPhoneApiInfo", JSON.stringify(userPhoneApiInfo));
     },
   },
   getters: {

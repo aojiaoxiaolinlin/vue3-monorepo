@@ -1,12 +1,7 @@
-import {
-  type ExceptionResponse,
-  type HttpResponse,
-  aesDecrypt,
-  createEncryptRequest,
-} from "@lin/request";
+import { type ExceptionResponse, type HttpResponse, aesDecrypt, createEncryptRequest } from "@lin/request";
 import { AxiosError } from "axios";
-// import { ShowMessageTip } from "#/composables/message-tip";
-import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
+import { ShowMessageTip } from "#/composables/message-tip";
+// import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
 import { tipText } from "#/views/January/one/data";
 import { API_BASE_URL } from "../../configs";
 
