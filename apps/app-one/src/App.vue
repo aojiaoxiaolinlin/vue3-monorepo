@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { Button, MyModal, ShowMessage } from '@lin/component_one';
 import { objectIsEmpty } from '@lin/utils';
+import { useHead } from '@unhead/vue';
 import HelloWorld from '#/components/HelloWorld.vue';
+
+useHead({
+  title:'移动端H5例子',
+})
 
 console.log('env', import.meta.env);
 const value = ref('');
@@ -36,11 +41,3 @@ console.log(objectIsEmpty(userInfo));
   />
   <HelloWorld msg="Vite + Vue" />
 </template>
-
-<style scoped>
-.text-box {
-  color: red;
-  word-wrap: break-word;
-  background-color: aliceblue;
-}
-</style>

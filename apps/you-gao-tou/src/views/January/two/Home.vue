@@ -181,6 +181,7 @@ subject.pipe(throttleTime(2000)).subscribe(async (index) => {
     ShowMessageTip({
       title: tipText.notStock.title,
       content: tipText.notStock.content,
+      bigFontSize: true,
     });
     return;
   }

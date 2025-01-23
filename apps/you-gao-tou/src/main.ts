@@ -1,12 +1,12 @@
-// 导入Vant组件库
+import { createHead } from "@unhead/vue";
+import { createPinia } from "pinia";
 import { CountDown, Icon, Loading, Search } from "vant";
 import { createApp } from "vue";
 import App from "./App.vue";
-import "vant/lib/index.css";
-import { createHead } from "@unhead/vue";
-import "./style.css";
-import { createPinia } from "pinia";
 import { router } from "./router";
+import "vant/lib/index.css";
+import "./style.css";
+
 // 适配移动端的配置
 import "amfe-flexible";
 // 禁用开发者工具

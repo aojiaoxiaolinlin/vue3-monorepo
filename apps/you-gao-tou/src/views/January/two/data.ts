@@ -19,7 +19,7 @@ export const questionData = [
 export const tipText = {
   notStock: {
     title: "嗨！活动太火爆了！",
-    content: "很抱歉，本场活动奖品已抢光，<br />下一场快乐扭蛋机活动时间：<br />2025年2月11日我们不见不散",
+    content: "很抱歉，本场活动奖品已抢光，<br />下一场快乐扭蛋机活动时间：<br />2025年2月11日<br />我们不见不散",
   },
 };
 
