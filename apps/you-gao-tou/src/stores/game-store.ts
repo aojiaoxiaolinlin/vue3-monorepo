@@ -1,8 +1,8 @@
 import { objectIsEmpty } from "@lin/utils";
 import { defineStore } from "pinia";
 import { type UserPhoneApiInfo, decrementGameCountApi, getGameCountApi } from "#/api";
-import { ShowMessageTip } from "#/composables/message-tip";
-// import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
+// import { ShowMessageTip } from "#/composables/message-tip";
+import { ShowMessageTipTwo as ShowMessageTip } from "#/composables/message-tip";
 
 export const useGameStore = defineStore("game", {
   state: () => ({

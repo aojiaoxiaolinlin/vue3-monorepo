@@ -2,7 +2,7 @@
 // 参考：https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
 import CryptoJS from "crypto-js";
 import Forge from "node-forge";
-import type { EncryptInfo, EncryptResponseBody, RequestBody } from "./types";
+import type { EncryptRequestConfig, EncryptResponseBody, RequestBody } from "./types";
 
 /**
  *
@@ -69,7 +69,7 @@ export function rsaDecrypt(data: string): string {
  * @param {string} data 待加密的请求数据
  * @returns {string} 加密后的数据
  */
-export function aesEncrypt(data: RequestBody): EncryptInfo {
+export function aesEncrypt(data: RequestBody): EncryptRequestConfig {
   // AES 高级加密标准
   // AES KEY 16 bytes
   const aesKey = CryptoJS.lib.WordArray.random(16);

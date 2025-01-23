@@ -38,9 +38,6 @@ console.log(getAssetsFile('/btn/btn2.png'));
   <h1>{{ msg }}</h1>
   <div>
     <img
-
-
-
       :src="count % 2 === 0 ? getAssetsFile('/btn/btn2.png') : getAssetsFile('z-pan-ding.png')"
       alt=""
       srcset=""

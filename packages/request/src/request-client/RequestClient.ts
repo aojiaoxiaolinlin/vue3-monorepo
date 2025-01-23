@@ -96,8 +96,8 @@ export const createEncryptRequest = (options: CreateAxiosDefaults) => {
   request.addRequestInterceptor({
     fulfilled: (config) => {
       if (config.data) {
-        const encryptData = aesEncrypt(config.data);
-        const { data, timestamp, k, e, s } = encryptData;
+        const encryptRequestConfig = aesEncrypt(config.data);
+        const { data, timestamp, k, e, s } = encryptRequestConfig;
         config.data = {
           data,
           timestamp,
@@ -107,6 +107,5 @@ export const createEncryptRequest = (options: CreateAxiosDefaults) => {
       return config;
     },
   });
-
   return request;
 };

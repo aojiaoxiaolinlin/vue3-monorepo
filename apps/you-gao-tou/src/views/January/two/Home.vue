@@ -199,7 +199,7 @@ subject.pipe(throttleTime(2000)).subscribe(async (index) => {
           content:
             gameStore.gameCount > 0
               ? "再玩一次吧！"
-              : "下一场活动将在<br />2025年1月21日准时开启，记得来参加哟。",
+              : "下一场活动将在<br />2025年2月11日准时开启，记得来参加哟。",
         });
       }, 1100);
     } else {
@@ -237,7 +237,7 @@ const onStartGame = async (index: number) => {
       ShowMessageTip({
         title: "糟糕，游戏次数已用完",
         content:
-          "请期待下一场<br />四川方言大挑战活动吧！<br />活动时间：2025年1月21日",
+          "请期待下一场<br />快乐扭蛋机活动吧！<br />活动时间：2025年2月11日",
         bigFontSize: true,
       });
       return;
