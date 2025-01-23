@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Button, MyModal, ShowMessage } from '@lin/component_one';
 import { objectIsEmpty } from '@lin/utils';
-import { useHead } from '@unhead/vue';
 import HelloWorld from '#/components/HelloWorld.vue';
 
 useHead({
