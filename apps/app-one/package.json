@@ -1,15 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "app-one",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "typecheck": "vue-tsc --noEmit",
     "build": "vite build",
     "preview": "vite preview",
-    "lint:fix": "eslint --fix **/*.vue"
+    "lint:fix": "eslint --fix ."
   },
   "dependencies": {
     "@lin/component_one": "workspace:^",

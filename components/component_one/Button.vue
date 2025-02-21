@@ -1,12 +1,12 @@
+<script setup lang="ts">
+defineSlots<{ default: () => null }>();
+</script>
+
 <template>
   <button>
     <slot />
   </button>
 </template>
-
-<script setup lang="ts">
-
-</script>
 
 <style scoped>
 button {

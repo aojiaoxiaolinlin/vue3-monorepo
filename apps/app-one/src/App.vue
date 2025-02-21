@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import HelloWorld from "#/components/HelloWorld.vue";
 import { Button, MyModal, ShowMessage } from "@lin/component_one";
 import { objectIsEmpty } from "@lin/utils";
-import HelloWorld from "#/components/HelloWorld.vue";
 import { useUserQuery } from "./graphql";
 
 useHead({
@@ -20,7 +20,7 @@ function showMessage() {
 }
 
 const userInfo = { token: null, phone: null };
-console.log(objectIsEmpty(userInfo));
+console.warn(objectIsEmpty(userInfo));
 </script>
 
 <template>
@@ -31,18 +31,23 @@ console.log(objectIsEmpty(userInfo));
   />
   <span text-emerald>{{ result }}--{{ loading }}</span>
   <p>可以观察到，当参数发生变化，graphQL会自动发出请求，并且有防抖机制</p>
-  <button @click="variable.id+='2'">graphQL</button>
+  <button @click="variable.id += '2'">
+    graphQL
+  </button>
   <van-search
     v-model="value"
     placeholder="请输入搜索关键词"
   />
-  <Button @click="isShow = true">打开Modal组件</Button>
-  <Button @click="showMessage">打开Message组件</Button>
-  <!-- <div><span>{{ objectIsEmpty(userInfo) }}</span></div> -->
+  <Button @click="isShow = true">
+    打开Modal组件
+  </Button>
+  <Button @click="showMessage">
+    打开Message组件
+  </Button>
   <MyModal
-    v-model:isShow="isShow"
+    v-model:is-show="isShow"
     message="Hello, World!"
-    @onClose="console.log('close')"
+    @on-close="console.log('close')"
   />
   <HelloWorld msg="Vite + Vue" />
 </template>

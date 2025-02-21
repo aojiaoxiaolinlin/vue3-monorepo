@@ -4,17 +4,17 @@ import { createHead } from "@unhead/vue";
 import { Search } from "vant";
 import { createApp, h, provide } from "vue";
 import App from "./App.vue";
-
-import "./style.css";
-import "vant/lib/index.css";
+// 禁用开发者工具
+import { disableDevtool, GRAPHQL_URI } from "./configs";
 // 引入uno.css
+import "@unocss/reset/tailwind.css";
 import "virtual:uno.css";
+
+import "vant/lib/index.css";
 // 适配移动端的配置
 import "amfe-flexible";
 import { DefaultApolloClient } from "@vue/apollo-composable";
 // 禁用开发者工具
-import { disableDevtool } from "../configs";
-import { GRAPHQL_URI } from "../configs";
 disableDevtool();
 
 const head = createHead();

@@ -14,7 +14,7 @@
     "typecheck": {
       "outputs": []
     },
-    "lint:fix":{
+    "lint:fix": {
       "outputs": []
     }
   }

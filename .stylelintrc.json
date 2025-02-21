@@ -10,6 +10,13 @@
       {
         "camelCaseSvgKeywords": true
       }
+    ],
+    "import-notation": "string",
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["/^tailwind/"]
+      }
     ]
   }
 }

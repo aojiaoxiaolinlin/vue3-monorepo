@@ -138,9 +138,9 @@ function sign(data: string, timestamp: number): string {
   // 创建消息摘要（使用 SHA-256）
   const md = Forge.md.sha256.create();
   md.update(`${data}{${timestamp + timeOut}}`, "utf8");
-  // // 使用 RSA 私钥进行签名
+  // 使用 RSA 私钥进行签名
   // const signature = privateKey.sign(md);
-  // // 返回 base64 编码的签名
+  // 返回 base64 编码的签名
   // return Forge.util.encode64(signature);
   return md.digest().toHex();
 }

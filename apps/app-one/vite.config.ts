@@ -1,4 +1,4 @@
-import { URL, fileURLToPath } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 import { unheadVueComposablesImports } from "@unhead/vue";
 import vue from "@vitejs/plugin-vue";
 import postCssPxToRem from "postcss-pxtorem";

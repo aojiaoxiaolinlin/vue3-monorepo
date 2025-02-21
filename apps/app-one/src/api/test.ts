@@ -1,5 +1,6 @@
-import { type HttpResponse, aesDecrypt, createEncryptRequest } from "@lin/request";
-import { API_BASE_URL } from "../../configs";
+import type { HttpResponse } from "@lin/request";
+import { aesDecrypt, createEncryptRequest } from "@lin/request";
+import { API_BASE_URL } from "../configs";
 
 const encryptRequest = createEncryptRequest({
   baseURL: `${API_BASE_URL}/yipay_activity/api`,
@@ -11,7 +12,8 @@ encryptRequest.addResponseInterceptor<HttpResponse<string>>({
       try {
         // 尝试解析为 JSON，如果解析失败，直接返回字符串，让调用方自行处理
         return JSON.parse(decryptData);
-      } catch (error) {
+      }
+      catch {
         return decryptData;
       }
     }
