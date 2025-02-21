@@ -1,5 +1,5 @@
+import { API_BASE_URL } from "#/configs";
 import { RequestClient } from "@lin/request";
-import { API_BASE_URL } from "configs";
 
 enum ApiURL {
   PUBLIC_KEY = "/publicKey",

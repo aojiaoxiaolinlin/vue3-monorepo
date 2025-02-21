@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+defineProps<{ message: string }>();
+const emit = defineEmits<{ onClose: [] }>();
+const mode = defineModel("isShow", { type: Boolean, default: false });
+function onClose() {
+  mode.value = false;
+  emit("onClose");
+}
+</script>
+
 <template>
   <div
     v-if="isShow"
@@ -6,20 +16,12 @@
     <div class="modal-content">
       <h1>My Modal</h1>
       <p>My Modal is: {{ message }}</p>
-      <button @click="onClose">关闭</button>
+      <button @click="onClose">
+        关闭
+      </button>
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-defineProps<{ message: string }>()
-const mode = defineModel('isShow', { type: Boolean, default: false })
-const emit = defineEmits<{ onClose: [], }>()
-const onClose = () => {
-  mode.value = false
-  emit('onClose')
-}
-</script>
 
 <style scoped>
 /* 这是一个弹出框 */

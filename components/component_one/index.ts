@@ -1,9 +1,7 @@
-import Button from './Button.vue';
+import Button from "./Button.vue";
 
-
-
-export * from './MyModal';
-export * from './MyMessage';
+export * from "./MyMessage";
+export * from "./MyModal";
 // 导出 Button 组件
 export { Button };
 export function add(a: number, b: number): number {

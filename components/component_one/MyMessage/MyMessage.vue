@@ -1,28 +1,33 @@
+<script setup lang="ts">
+import Button from "../Button.vue";
+
+defineProps<{ message: string }>();
+const emit = defineEmits<{
+  click: []
+  clickMe: [message: string]
+}>();
+
+function onDelayClose() {
+  setTimeout(() => {
+    emit("clickMe", "延迟2s关闭");
+  }, 2000);
+}
+</script>
+
 <template>
   <div class="modal">
     <div class="modal-content">
       <h1>My Message</h1>
       <p>My message is: {{ message }}</p>
-      <button @click="onDelayClose">clickMe</button>
-      <Button @click="emit('click')">关闭</Button>
+      <button @click="onDelayClose">
+        clickMe
+      </button>
+      <Button @click="emit('click')">
+        关闭
+      </Button>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import Button from '../Button.vue';
-defineProps<{ message: string }>();
-const emit = defineEmits<{
-  click: [];
-  clickMe: [message: string];
-}>();
-
-const onDelayClose = () => {
-  setTimeout(() => {
-    emit('clickMe', '延迟2s关闭');
-  }, 2000);
-};
-</script>
 
 <style scoped>
 h1 {

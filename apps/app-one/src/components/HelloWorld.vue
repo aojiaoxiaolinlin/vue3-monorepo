@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { fromEvent, useObservable } from '@vueuse/rxjs';
-import { type ObservableInput, concatAll, forkJoin, map, mergeMap, of, scan, take } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
-import imageUrl from '#/assets/images/btn/btn2.png';
-import { getAssetsFile } from '#/utils/load-images';
+import type { ObservableInput } from "rxjs";
+import imageUrl from "#/assets/images/btn/btn2.png";
+import { getAssetsFile } from "#/utils/load-images";
+import { fromEvent, useObservable } from "@vueuse/rxjs";
+import { concatAll, forkJoin, map, mergeMap, of, scan, take } from "rxjs";
+import { ajax } from "rxjs/ajax";
 
 defineProps<{ msg: string }>();
 const count = ref(0);
 
-const BASE_URL = 'https://jsonplaceholder.typicode.com'
-const button = ref<HTMLButtonElement | null>(null)
+const BASE_URL = "https://jsonplaceholder.typicode.com";
+const button = useTemplateRef<HTMLButtonElement | null>("button");
 
 const posts = useObservable(
-  fromEvent(button as Ref<HTMLButtonElement>, 'click').pipe(
+  fromEvent(button as Ref<HTMLButtonElement>, "click").pipe(
     mergeMap(() => ajax.getJSON<ObservableInput<{ id: string, userId: string, title: string }>>(`${BASE_URL}/posts`).pipe(
       concatAll(),
       take(2),
@@ -23,15 +24,13 @@ const posts = useObservable(
           map(comments => comments.length),
         ),
         username: ajax.getJSON<{ username: string }>(`${BASE_URL}/users/${userId}`).pipe(
-          map(i => i.username)
+          map(i => i.username),
         ),
       }), 2),
       scan((acc, cur) => [...acc, cur], [] as { id: string, comments: number, username: string }[]),
     )),
   ),
-)
-
-console.log(getAssetsFile('/btn/btn2.png'));
+);
 </script>
 
 <template>
@@ -49,15 +48,21 @@ console.log(getAssetsFile('/btn/btn2.png'));
     srcset=""
   >
   <span>我是文字</span>
-  <div class="box">我是Box</div>
+  <div class="box">
+    我是Box
+  </div>
   <button
     type="button"
     @click="count++"
-  >count is {{ count }}</button>
+  >
+    count is {{ count }}
+  </button>
   <button
     ref="button"
     type="button"
-  >RsJS</button>
+  >
+    RsJS
+  </button>
   {{ posts }}
 </template>
 

@@ -1,9 +1,8 @@
 import { createVNode, render } from "vue";
 import MyMessage from "./MyMessage.vue";
 
-
-export const ShowMessage = (message: string, f: () => void) => {
-  const div = document.createElement('div');
+export function ShowMessage(message: string, f: () => void) {
+  const div = document.createElement("div");
   document.body.appendChild(div);
   /**
    * createVNode —— 创建虚拟 DOM
@@ -21,10 +20,10 @@ export const ShowMessage = (message: string, f: () => void) => {
       div.remove();
     },
     onClickMe: (message: string) => {
-      console.log('onClickMe', message);
+      console.warn("onClickMe", message);
       render(null, div);
       div.remove();
-    }
+    },
   });
   /**
    * render —— 渲染虚拟 DOM
@@ -32,6 +31,6 @@ export const ShowMessage = (message: string, f: () => void) => {
    * @param 参数2 要渲染的位置，必选
    * @description 虚拟 DOM 创建完成后，需要使用 render 函数，才能在页面中渲染
    */
-  render(vNode, div)
+  render(vNode, div);
   document.body.appendChild(div);
 }

@@ -84,6 +84,10 @@ export class RequestClient {
     }
     return this.request<T>(urlWithPaths, { method: "GET", ...config });
   }
+
+  public delete<O>(url: string): Promise<O> {
+    return this.request<O>(url, { method: "DELETE" });
+  }
 }
 
 /**
