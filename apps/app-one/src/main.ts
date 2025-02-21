@@ -1,6 +1,7 @@
 // 导入apollo创建函数
 import { createApolloClient } from "@lin/request";
 import { createHead } from "@unhead/vue";
+import { DefaultApolloClient } from "@vue/apollo-composable";
 import { Search } from "vant";
 import { createApp, h, provide } from "vue";
 import App from "./App.vue";
@@ -8,12 +9,11 @@ import App from "./App.vue";
 import { disableDevtool, GRAPHQL_URI } from "./configs";
 // 引入uno.css
 import "@unocss/reset/tailwind.css";
-import "virtual:uno.css";
 
+import "virtual:uno.css";
 import "vant/lib/index.css";
 // 适配移动端的配置
 import "amfe-flexible";
-import { DefaultApolloClient } from "@vue/apollo-composable";
 // 禁用开发者工具
 disableDevtool();
 

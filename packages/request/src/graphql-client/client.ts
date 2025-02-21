@@ -1,6 +1,6 @@
-import { ApolloClient, ApolloLink, InMemoryCache, createHttpLink, from } from "@apollo/client/core";
+import { ApolloClient, ApolloLink, createHttpLink, from, InMemoryCache } from "@apollo/client/core";
 
-export const createApolloClient = (uri: string) => {
+export function createApolloClient(uri: string) {
   const httpLink = createHttpLink({
     uri,
     headers: {
@@ -19,13 +19,13 @@ export const createApolloClient = (uri: string) => {
 
   const requestLink = new ApolloLink((operation, forward) => {
     // 请求参数
-    console.log(operation.variables);
+    console.warn(operation.variables);
     return forward(operation);
   });
 
   const responseLink = new ApolloLink((operation, forward) => {
     return forward(operation).map((response) => {
-      console.log("response", response.data);
+      console.warn("response", response.data);
       if (response.data) {
         response.data.user.name = "name";
       }
@@ -42,4 +42,4 @@ export const createApolloClient = (uri: string) => {
     cache,
   });
   return client;
-};
+}
