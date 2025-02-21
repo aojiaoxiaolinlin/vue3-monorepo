@@ -31,7 +31,6 @@ const posts = useObservable(
   ),
 )
 
-console.log(getAssetsFile('/btn/btn2.png'));
 </script>
 
 <template>
