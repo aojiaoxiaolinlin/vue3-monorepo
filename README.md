@@ -68,7 +68,8 @@ pnpm turbo build check-types
 其他功能使用与普通包一致
 在`workspace`目录使用`pnpm i`为所有包安装依赖。
 
-> **注意**:`app-one` 和 `component-one` 是用于验证测试方案的包。
+> [!NOTE]
+> `app-one` 和 `component-one` 是用于验证测试方案的包。
 `shadcn-vue` 还不成熟 (目前2025/2/17)
 
 ## Git Commit 规范
