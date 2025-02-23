@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.12.7",
+    "@tanstack/vue-query": "^5.66.9",
     "@unhead/vue": "^1.11.14",
     "@unocss/reset": "^65.5.0",
     "@vue/apollo-composable": "^4.2.1",

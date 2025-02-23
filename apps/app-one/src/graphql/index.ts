@@ -15,10 +15,12 @@ export function useUserQuery(variables: { id: string }) {
       }
     }`;
 
-  const { result, loading } = useQuery<{ id: string, name: string }, { id: string }>(query, variables);
+  const { result, loading, error, refetch } = useQuery<{ id: string, name: string }, { id: string }>(query, variables);
 
   return {
     result,
     loading,
+    error,
+    refetch,
   };
 }

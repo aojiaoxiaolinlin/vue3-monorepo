@@ -18,9 +18,7 @@ export function getEncryptData() {
 }
 
 export function getData(params: Record<string, string | number>) {
-  request.getAndParams<string>("/api/test", params).then((res) => {
-    console.log(res);
-  });
+  return request.getAndParams<string>("/api/test", params);
 }
 
 export function getDataWithPaths(paths: Record<string, string | number>) {
