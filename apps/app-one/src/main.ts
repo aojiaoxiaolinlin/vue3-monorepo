@@ -11,8 +11,9 @@ import { disableDevtool, GRAPHQL_URI } from "./configs";
 import { router } from "./routes";
 // 引入uno.css
 import "@unocss/reset/tailwind.css";
-
 import "virtual:uno.css";
+// Markdown 配置
+import "./md-editor-config";
 import "vant/lib/index.css";
 import "./assets/css/index.css";
 // 适配移动端的配置

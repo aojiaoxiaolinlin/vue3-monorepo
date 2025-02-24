@@ -22,6 +22,7 @@ declare module 'vue-router/auto-routes' {
     '/dynamic-load-assets-image/': RouteRecordInfo<'/dynamic-load-assets-image/', '/dynamic-load-assets-image', Record<never, never>, Record<never, never>>,
     '/function-component/': RouteRecordInfo<'/function-component/', '/function-component', Record<never, never>, Record<never, never>>,
     '/graphQL/': RouteRecordInfo<'/graphQL/', '/graphQL', Record<never, never>, Record<never, never>>,
+    '/markdown/': RouteRecordInfo<'/markdown/', '/markdown', Record<never, never>, Record<never, never>>,
     '/rxjs/': RouteRecordInfo<'/rxjs/', '/rxjs', Record<never, never>, Record<never, never>>,
     '/tan-stack-query/': RouteRecordInfo<'/tan-stack-query/', '/tan-stack-query', Record<never, never>, Record<never, never>>,
   }

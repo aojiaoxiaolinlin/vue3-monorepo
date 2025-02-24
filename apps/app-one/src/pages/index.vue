@@ -23,6 +23,9 @@
       <RouterLink to="/tan-stack-query">
         TanStack Query
       </RouterLink>
+      <RouterLink to="/markdown">
+        Markdown Preview
+      </RouterLink>
     </div>
   </div>
 </template>
