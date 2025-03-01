@@ -22,7 +22,7 @@ messageStore.promptContent = "你是很有帮助的助手";
 
 const content = ref("");
 
-const chatListBox = useTemplateRef("chatListBox");
+const chatListBox = useTemplateRef<HTMLDivElement>("chatListBox");
 const theme: Array<Themes> = ["light", "dark"];
 const previewTheme = ["default", "github", "vuepress", "mk-cute", "smart-blue", "cyanosis"];
 const codeTheme = [
@@ -41,9 +41,7 @@ function onSend() {
     return;
   }
   chat(content.value);
-  nextTick(() => {
-    chatListBox.value?.scrollTo(0, chatListBox.value.scrollHeight);
-  });
+  scrollToBottom();
 }
 
 onMounted(() => {
@@ -60,16 +58,35 @@ onBeforeUnmount(() => {
   eventSource.close();
 });
 
-// TODO: 一堆问题
+// 在 script 部分添加
+function scrollToBottom() {
+  nextTick(() => {
+    if (!chatListBox.value)
+      return;
+
+    const chatListContainer = chatListBox.value;
+    const isScrolledToBottom
+      = chatListContainer.scrollHeight - chatListContainer.scrollTop <= chatListContainer.clientHeight + 100;
+
+    if (isScrolledToBottom) {
+      chatListContainer.scrollTo({
+        top: chatListContainer.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  });
+}
+
+// 监听消息变化和路由变化
 watch(
-  [() =>
-    messageStore.messages.length === 0
-      ? ""
-      : messageStore.messages[messageStore.messages.length - 1].content, () => route.params.id],
-  ([newMessage, newId], _old) => {
+  [() => messageStore.messages, () => route.params.id],
+  ([_messages, newId], [_oldMessages, _]) => {
+    // 处理路由变化
     newId && messageStore.loadMessage(newId);
-    newMessage && chatListBox.value?.scrollTo(0, chatListBox.value.scrollHeight);
+    // 处理消息变化导致的滚动
+    scrollToBottom();
   },
+  { deep: true }, // 深度监听消息变化
 );
 </script>
 
