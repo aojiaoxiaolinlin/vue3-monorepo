@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import type { ObservableInput } from "rxjs";
-import imageUrl from "#/assets/images/btn/btn2.png";
-import { getAssetsFile } from "#/utils/load-images";
+
+import DemoPage from "#/layouts/demo-page.vue";
 import { fromEvent, useObservable } from "@vueuse/rxjs";
 import { concatAll, forkJoin, map, mergeMap, of, scan, take } from "rxjs";
 import { ajax } from "rxjs/ajax";
-
-defineProps<{ msg: string }>();
-const count = ref(0);
 
 const BASE_URL = "https://jsonplaceholder.typicode.com";
 const button = useTemplateRef<HTMLButtonElement>("button");
@@ -34,46 +31,10 @@ const posts = useObservable(
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-  <div>
-    <img
-      :src="count % 2 === 0 ? getAssetsFile('/btn/btn2.png') : getAssetsFile('z-pan-ding.png')"
-      alt=""
-      srcset=""
-    >
-  </div>
-  <img
-    :src="imageUrl"
-    alt=""
-    srcset=""
-  >
-  <span>我是文字</span>
-  <div class="box">
-    我是Box
-  </div>
-  <button
-    type="button"
-    @click="count++"
-  >
-    count is {{ count }}
-  </button>
-  <button
-    ref="button"
-    type="button"
-  >
-    RsJS
-  </button>
-  {{ posts }}
+  <DemoPage>
+    <button ref="button">
+      RsJS
+    </button>
+    <div>{{ posts }}</div>
+  </DemoPage>
 </template>
-
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-
-.box {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-}
-</style>

@@ -4,6 +4,8 @@ import vue from "@vitejs/plugin-vue";
 import postCssPxToRem from "postcss-pxtorem";
 import UnoCSS from "unocss/vite";
 import AutoImport from "unplugin-auto-import/vite";
+import { VueRouterAutoImports } from "unplugin-vue-router";
+import VueRouter from "unplugin-vue-router/vite";
 import { defineConfig } from "vite";
 import vitePluginBundleObfuscator from "vite-plugin-bundle-obfuscator";
 
@@ -23,8 +25,17 @@ export default defineConfig({
     },
   },
   plugins: [
+    VueRouter({
+      routesFolder: [
+        {
+          src: "src/pages",
+        },
+      ],
+      extensions: [".vue"],
+      dts: "./src/type-router.d.ts",
+    }),
     vue(),
-    UnoCSS("../../uno.config.ts"),
+    UnoCSS(),
     vitePluginBundleObfuscator(minimizeObfuscatorConfig),
     AutoImport({
       imports: [
@@ -33,6 +44,7 @@ export default defineConfig({
         "vue-router",
         "pinia",
         unheadVueComposablesImports,
+        VueRouterAutoImports,
         // 自定义导入的api
       ],
       dts: "src/auto-imports.d.ts",
@@ -46,6 +58,7 @@ export default defineConfig({
     // 解决使用vite-plugin-bundle-obfuscator插件并开启splitStrings后，样式丢失问题
     cssCodeSplit: false,
   },
+  // 移动端
   css: {
     postcss: {
       plugins: [

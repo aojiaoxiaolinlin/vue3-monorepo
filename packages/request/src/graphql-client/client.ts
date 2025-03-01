@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ApolloClient, ApolloLink, createHttpLink, from, InMemoryCache } from "@apollo/client/core";
 
 export function createApolloClient(uri: string) {
@@ -19,13 +20,13 @@ export function createApolloClient(uri: string) {
 
   const requestLink = new ApolloLink((operation, forward) => {
     // 请求参数
-    console.warn(operation.variables);
+    console.log("🚀 ~ client.ts:26 ~ requestLink ~ operation.variables:", operation.variables);
     return forward(operation);
   });
 
   const responseLink = new ApolloLink((operation, forward) => {
     return forward(operation).map((response) => {
-      console.warn("response", response.data);
+      console.log("🚀 ~ client.ts:35 ~ returnforward ~ response.data:", response.data);
       if (response.data) {
         response.data.user.name = "name";
       }

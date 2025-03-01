@@ -3,6 +3,7 @@
   "editor.cursorBlinking": "expand",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.codeActionsOnSave": {
+    "source.removeUnusedImports": "explicit",
     "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit"
   },
@@ -86,6 +87,9 @@
     "**/pnpm-lock.yaml": true,
     "**/yarn.lock": true
   },
+  "css.customData": [
+    ".vscode/tailwind.json"
+  ],
   "cSpell.ignorePaths": [
     "**/settings.json",
     "package-lock.json",
@@ -113,6 +117,7 @@
     "shadcn",
     "stackoverflow",
     "stylelintignore",
+    "tanstack",
     "unhead",
     "unocss",
     "unplugin",

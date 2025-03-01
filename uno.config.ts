@@ -5,6 +5,7 @@ import {
   presetMini,
   presetTypography,
   presetUno,
+  transformerDirectives,
 } from "unocss";
 
 export default defineConfig({
@@ -36,4 +37,7 @@ export default defineConfig({
       accent: "hsl(var(--accent))",
     },
   },
+  transformers: [
+    transformerDirectives(),
+  ],
 });
