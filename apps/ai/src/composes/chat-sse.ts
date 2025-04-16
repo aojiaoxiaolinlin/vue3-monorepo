@@ -12,7 +12,8 @@ export function useChatStream() {
   const chatStream = () => {
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.warn("收到消息内容是:", data.metadata.id);
+      console.log("🚀 ~ chat-sse.ts:15 ~ chatStream ~ data:", data);
+      // console.warn("收到消息内容是:", data.metadata.id);
       if (objectIsEmpty(data.result)) {
         addChatRecordMessageById(
           messageStore.currentChatId,

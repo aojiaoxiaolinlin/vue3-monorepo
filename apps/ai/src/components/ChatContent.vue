@@ -41,6 +41,7 @@ function onSend() {
     return;
   }
   chat(content.value);
+  content.value = "";
   scrollToBottom();
 }
 
@@ -67,7 +68,6 @@ function scrollToBottom() {
     const chatListContainer = chatListBox.value;
     const isScrolledToBottom
       = chatListContainer.scrollHeight - chatListContainer.scrollTop <= chatListContainer.clientHeight + 100;
-
     if (isScrolledToBottom) {
       chatListContainer.scrollTo({
         top: chatListContainer.scrollHeight,
