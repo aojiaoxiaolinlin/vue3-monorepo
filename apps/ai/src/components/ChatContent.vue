@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Themes } from "md-editor-v3";
 import { chat, closeSse } from "#/api/chat";
 import Button from "#/components/Button.vue";
 import { useChatStream } from "#/composes/chat-sse";
@@ -23,7 +22,7 @@ messageStore.promptContent = "你是很有帮助的助手";
 const content = ref("");
 
 const chatListBox = useTemplateRef<HTMLDivElement>("chatListBox");
-const theme: Array<Themes> = ["light", "dark"];
+const theme: Array<String> = ["light", "dark"];
 const previewTheme = ["default", "github", "vuepress", "mk-cute", "smart-blue", "cyanosis"];
 const codeTheme = [
   "atom",
