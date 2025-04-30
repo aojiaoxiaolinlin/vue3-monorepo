@@ -9,9 +9,9 @@ lerna-debug.log*
 
 node_modules
 **/dist
-!apps/you-gao-tou/dist
 dist-ssr
 *.local
+**/.nuxt
 
 .DS_Store
 *.suo

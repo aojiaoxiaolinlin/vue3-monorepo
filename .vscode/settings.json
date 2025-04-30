@@ -7,8 +7,6 @@
     "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit"
   },
-  "editor.formatOnType": true,
-  "editor.formatOnPaste": true,
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
@@ -106,9 +104,12 @@
     "chuan",
     "defu",
     "haowu",
+    "iconify",
     "jsrsasign",
     "kimbie",
     "logprobs",
+    "mdit",
+    "menpai",
     "paraiso",
     "pinia",
     "pxtorem",

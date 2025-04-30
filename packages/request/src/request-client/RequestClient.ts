@@ -1,10 +1,9 @@
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from "axios";
 import { bindMethods } from "@lin/utils";
 import axios from "axios";
-import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from "axios";
 import defu from "defu";
-("./modules/interceptor");
-import { aesEncrypt } from "./RsaUtil";
 import { InterceptorManager } from "./modules/interceptor";
+import { aesEncrypt } from "./RsaUtil";
 
 export class RequestClient {
   private readonly instance: AxiosInstance;
@@ -39,7 +38,8 @@ export class RequestClient {
         ...config,
       });
       return response as T;
-    } catch (error: unknown) {
+    }
+    catch (error: unknown) {
       const err = error as AxiosError;
       throw err.response ? err.response.data : err;
     }
@@ -68,7 +68,7 @@ export class RequestClient {
     config?: AxiosRequestConfig,
   ): Promise<T> {
     const urlWithParams = `${url}?${Object.keys(params)
-      .map((key) => `${key}=${params[key]}`)
+      .map(key => `${key}=${params[key]}`)
       .join("&")}`;
     return this.request<T>(urlWithParams, { method: "GET", ...config });
   }
@@ -94,7 +94,7 @@ export class RequestClient {
  * 创建加密请求, 默认配置加密请求拦截器,
  * 规定所有API请求数据加密一律使用{ data: json string, timestamp: number }的格式
  */
-export const createEncryptRequest = (options: CreateAxiosDefaults) => {
+export function createEncryptRequest(options: CreateAxiosDefaults) {
   const request = new RequestClient(options);
 
   request.addRequestInterceptor({
@@ -112,4 +112,4 @@ export const createEncryptRequest = (options: CreateAxiosDefaults) => {
     },
   });
   return request;
-};
+}
