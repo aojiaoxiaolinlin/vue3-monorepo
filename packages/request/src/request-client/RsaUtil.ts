@@ -1,16 +1,16 @@
+import type { EncryptRequestConfig, EncryptResponseBody, RequestBody } from "./types";
 // 浏览器原生的加密 crypto 需要安全上下文（localhost / HTTPS)，是否使用有待评估，保险起见，还是第三方库吧
 // 参考：https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
 import CryptoJS from "crypto-js";
 import Forge from "node-forge";
-import type { EncryptRequestConfig, EncryptResponseBody, RequestBody } from "./types";
 
 /**
  *
  * @returns { {publicKey: string; privateKey: string} } 公钥和私钥
  */
 export function generateRSAKeyPair(): {
-  publicKey: string;
-  privateKey: string;
+  publicKey: string
+  privateKey: string
 } {
   const rsa = Forge.pki.rsa.generateKeyPair({ bits: 1024, e: 0x10001 });
   const publicKey = Forge.pki.publicKeyToPem(rsa.publicKey);
@@ -84,7 +84,7 @@ export function aesEncrypt(data: RequestBody): EncryptRequestConfig {
   const signStr = sign(stringData, timestamp);
   // 使用 AES 加密数据
   const encrypted = CryptoJS.AES.encrypt(stringData, aesKey, {
-    iv: iv,
+    iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,
   });
@@ -101,7 +101,7 @@ export function aesEncrypt(data: RequestBody): EncryptRequestConfig {
     e: encrypted_aesKey,
     k: encrypted_iv,
     s: signStr,
-    timestamp: timestamp,
+    timestamp,
   };
 }
 
@@ -147,7 +147,9 @@ function sign(data: string, timestamp: number): string {
 
 /**
  * 验证签名, 无法使用，前后端验签失败，不明白为什么
- * @param {string} sign 待验证的数据
+ * @param data
+ * @param sign
+ * @param timestamp
  */
 function verify(data: string, sign: string, timestamp: number): boolean {
   // const publicKey = Forge.pki.publicKeyFromPem(backendPublicKey);

@@ -44,14 +44,14 @@ useSwiper(swiperVerticalRef as Ref, {
           <div style="width: 100%;">
             <swiper-container ref="swiperHorizontalRef" :loop="true">
               <swiper-slide class="menpai-1">
-                <div w-full h-full class="menpai-1-role" />
+                <div h-full w-full class="menpai-1-role" />
               </swiper-slide>
               <swiper-slide class="menpai-2">
-                <div w-full h-full class="menpai-2-role" />
+                <div h-full w-full class="menpai-2-role" />
               </swiper-slide>
             </swiper-container>
             <div
-              absolute z-2 w-2xl h-10 bottom-4 flex justify-between
+              absolute bottom-4 z-2 h-10 w-2xl flex justify-between
               class="menpai-nav left-50% -ml-84"
             >
               <a @click="horizontalSwiper.to(0)">

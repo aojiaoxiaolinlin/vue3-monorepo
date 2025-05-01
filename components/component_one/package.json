@@ -2,8 +2,8 @@
   "name": "@lin/component_one",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
-  "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.ts"
 }

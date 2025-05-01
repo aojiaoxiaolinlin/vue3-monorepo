@@ -17,7 +17,7 @@ const { isLoading, isFetching, isError, data, error } = useQuery({
 
 <template>
   <DemoPage>
-  <h2>tanStack，参数变化同样会触发请求</h2>
+    <h2>tanStack，参数变化同样会触发请求</h2>
     <button @click="age++">
       age:{{ age }}++
     </button>

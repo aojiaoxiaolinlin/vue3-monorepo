@@ -38,6 +38,8 @@ export default antfu(
       },
     },
 
+    unocss: true,
+
     stylistic: {
       overrides: {
         "style/quotes": ["error", "double"],

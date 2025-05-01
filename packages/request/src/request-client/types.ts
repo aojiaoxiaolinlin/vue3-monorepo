@@ -2,26 +2,26 @@
 // 原始请求数据类型
 export type RequestBody = Record<string, unknown> | string | number;
 
-export type EncryptResponseBody<T = string> = {
+export interface EncryptResponseBody<T = string> {
   // 加密后的数据
-  data: T;
+  data: T
   // AES KEY 用 RSA 公钥加密
-  e: string;
+  e: string
   // AES IV 用 RSA 公钥加密
-  k: string;
+  k: string
   // 签名
-  s: string;
+  s: string
   // 时间戳
-  timestamp: number;
-};
+  timestamp: number
+}
 
 export type EncryptRequestConfig = EncryptResponseBody;
 
-export type HttpResponse<T = unknown> = {
-  data: EncryptResponseBody<T>;
-  code: number;
-  msg: string;
-};
+export interface HttpResponse<T = unknown> {
+  data: EncryptResponseBody<T>
+  code: number
+  msg: string
+}
 
 export type ExceptionResponse = Omit<HttpResponse, "data">;
 

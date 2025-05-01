@@ -64,6 +64,7 @@
     "@types/postcss-pxtorem": "^6.1.0",
     "@typescript-eslint/parser": "^8.31.0",
     "@unocss/eslint-config": "^65.5.0",
+    "@unocss/eslint-plugin": "66.1.0-beta.13",
     "@unocss/nuxt": "65.5.0",
     "@vitejs/plugin-legacy": "^6.1.0",
     "@vitejs/plugin-vue": "^5.2.3",
