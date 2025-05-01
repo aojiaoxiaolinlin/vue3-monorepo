@@ -67,8 +67,8 @@ export class RequestClient {
     params: Record<string, string | number>,
     config?: AxiosRequestConfig,
   ): Promise<T> {
-    const urlWithParams = `${url}?${Object.keys(params)
-      .map(key => `${key}=${params[key]}`)
+    const urlWithParams = `${url}?${Object.entries(params)
+      .map(([key, value]) => `${key}=${value}`)
       .join("&")}`;
     return this.request<T>(urlWithParams, { method: "GET", ...config });
   }
@@ -79,9 +79,9 @@ export class RequestClient {
     config?: AxiosRequestConfig,
   ): Promise<T> {
     let urlWithPaths = url;
-    for (const key of Object.keys(paths)) {
-      urlWithPaths = urlWithPaths.replace(`{${key}}`, paths[key] as string);
-    }
+    Object.entries(paths).forEach(([key, value]) => {
+      urlWithPaths = urlWithPaths.replace(`{${key}}`, value as string);
+    });
     return this.request<T>(urlWithPaths, { method: "GET", ...config });
   }
 
